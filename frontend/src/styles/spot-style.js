@@ -12,17 +12,32 @@ const stylesSpot = StyleSheet.create({
   },
   main: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     margin: 10,
+  },
+  mainRate: {
+    flexDirection: "row",
   },
   photo: {
     height: Dimensions.get("window").height * 0.4,
     width: Dimensions.get("window").width,
   },
-  logo: {
+  rateLogo: {
     width: Dimensions.get("window").width * 0.1,
     height: Dimensions.get("window").height * 0.04,
-    marginLeft: Dimensions.get("window").width * 0.45,
+    marginLeft: Dimensions.get("window").width * 0.02,
+  },
+  favouriteLogo: {
+    width: Dimensions.get("window").width * 0.1,
+    height: Dimensions.get("window").height * 0.04,
+    marginLeft: Dimensions.get("window").width * 0.3,
+  },
+  description: {
+    margin: Dimensions.get("window").height * 0.04,
+    textAlign: "center",
+  },
+  descriptionText: {
+    textAlign: "center",
   },
 });
 
