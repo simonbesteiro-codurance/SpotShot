@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint",
-    "jest": "jest --watch --coverage"
+    "jest": "jest --watchAll --coverage"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",

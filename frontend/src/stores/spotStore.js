@@ -19,7 +19,7 @@ class SpotStore extends EventEmitter {
     this.emit(CHANGE_EVENT);
   }
 
-  getUser() {
+  getSpot() {
     return _spot;
   }
 

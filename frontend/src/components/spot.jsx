@@ -5,12 +5,20 @@ import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
 
 export default function Spot() {
-  const [imageURL, setImageURL] = useState("");
-  const [descriptionText, setDescriptionText] = useState("");
+  const id = 1;
+  const [imageURL, setImageURL] = useState(spotStore.getSpotById(id).image);
+  const [descriptionText, setDescriptionText] = useState(
+    spotStore.getSpotById(id).description
+  );
+
+  function onChange() {
+    setImageURL(spotStore.getSpotById(id).image);
+    setDescriptionText(spotStore.getSpotById(id).description);
+  }
 
   useEffect(() => {
-    setImageURL(spotStore.getSpotById(1).image);
-    setDescriptionText(spotStore.getSpotById(1).description);
+    spotStore.addChangeListener(onChange);
+    return () => spotStore.removeChangeListener(onChange);
   }, []);
 
   const favouriteLogoURL = logos[0];
