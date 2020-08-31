@@ -1,5 +1,3 @@
-import { DevSettings } from "react-native";
-
 const spots = [
   {
     id: 1,
