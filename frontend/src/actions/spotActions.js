@@ -1,14 +1,14 @@
+import axios from "axios";
 import spots from "../spot.mock";
 import dispatcher from "../appDispatcher";
 import actionTypes from "./actionTypes";
 
 export function loadSpots() {
-  return new Promise((resolve) => {
-    resolve(spots);
-  }).then((spotList) => {
+  return axios.get("http://localhost:4200/api/spots").then((spotList) => {
+    console.log(spotList.data);
     dispatcher.dispatch({
       type: actionTypes.LOAD_SPOT,
-      data: spotList,
+      data: spotList.data,
     });
   });
 }

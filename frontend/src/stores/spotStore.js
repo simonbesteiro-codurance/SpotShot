@@ -1,9 +1,9 @@
 import { EventEmitter } from "events";
 import dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
-import spots from "../spot.mock";
 
 const CHANGE_EVENT = "change";
+
 let _spot = [];
 
 class SpotStore extends EventEmitter {
@@ -19,13 +19,16 @@ class SpotStore extends EventEmitter {
     this.emit(CHANGE_EVENT);
   }
 
-  getSpot() {
+  getSpots() {
     return _spot;
   }
 
   getSpotById(id) {
-    _spot = spots.find((spot) => spot.id === id);
-    return _spot;
+    //const selectedSpot = _spot.find((spot) => {spot._id === id});
+    const selectedSpot = _spot[0];
+    console.log(_spot[0]._id);
+    console.log(_spot.find((spot) => spot._id === id));
+    return selectedSpot;
   }
 }
 
