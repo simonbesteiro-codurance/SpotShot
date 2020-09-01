@@ -10,15 +10,16 @@ const stylesSpot = StyleSheet.create({
   View: {
     margin: 0,
   },
-  main: {
-    flexDirection: "row",
-    justifyContent: "center",
-    margin: 10,
-  },
-  mainRate: {
+  mainHead: {
     flexDirection: "row",
   },
-  photo: {
+  mainContainer: {
+    margin: 30,
+  },
+  mainHeadRate: {
+    flexDirection: "row",
+  },
+  mainPhoto: {
     height: Dimensions.get("window").height * 0.4,
     width: Dimensions.get("window").width,
   },
@@ -27,17 +28,20 @@ const stylesSpot = StyleSheet.create({
     height: Dimensions.get("window").height * 0.04,
     marginLeft: Dimensions.get("window").width * 0.02,
   },
-  favouriteLogo: {
+  mainHeadLogo: {
     width: Dimensions.get("window").width * 0.1,
     height: Dimensions.get("window").height * 0.04,
-    marginLeft: Dimensions.get("window").width * 0.3,
+    marginLeft: Dimensions.get("window").width * 0.2,
   },
   description: {
-    margin: Dimensions.get("window").height * 0.04,
-    textAlign: "center",
+    margin: Dimensions.get("window").height * 0.02,
   },
   descriptionText: {
-    textAlign: "center",
+    textAlign: "justify",
+  },
+  mainMap: {
+    width: Dimensions.get("window").width * 0.9,
+    height: Dimensions.get("window").height * 0.4,
   },
 });
 
