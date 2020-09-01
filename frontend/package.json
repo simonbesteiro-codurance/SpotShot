@@ -44,6 +44,5 @@
     "prettier": "^2.1.1"
   },
   "author": "@simonbesteiro",
-  "private": true,
-  "proxy": "http://localhost:4200"
+  "private": true
 }

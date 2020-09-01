@@ -6,24 +6,21 @@ import spotStore from "../stores/spotStore";
 import SpotCarousel from "./spotCarousel";
 import { loadSpots } from "../actions/spotActions";
 
+loadSpots();
+
 export default function Spot() {
-  const id = 1;
-  const [spot, setSpot] = useState([]);
-  const [imageURL, setImageURL] = useState([]);
-  const [descriptionText, setDescriptionText] = useState([]);
+  const id = "5f4e46e6174ddd4c09fabc9b";
+  let [spot, setSpot] = useState();
 
   function onChange() {
     setSpot(spotStore.getSpotById(id));
-    setImageURL(spot.image);
-    setDescriptionText(spot.description);
   }
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
-    loadSpots();
-    setSpot(spotStore.getSpotById(id));
+
     return () => spotStore.removeChangeListener(onChange);
-  }, [spot]);
+  }, []);
 
   const favouriteLogoURL = logos[0];
   const rateLogoURL = logos[1];
@@ -34,10 +31,10 @@ export default function Spot() {
 
   return (
     <>
-      {imageURL ? (
+      {spot ? (
         <ScrollView>
           <View style={stylesSpot.container}>
-            <Image style={stylesSpot.mainPhoto} source={imageURL} />
+            <Image style={stylesSpot.mainPhoto} source={spot.image[0].uri2} />
             <View style={stylesSpot.mainContainer}>
               <View style={stylesSpot.mainHead}>
                 <View style={stylesSpot.mainHeadRate}>
@@ -54,7 +51,7 @@ export default function Spot() {
               </View>
               <View style={stylesSpot.description}>
                 <Text style={stylesSpot.descriptionText}>
-                  {descriptionText}
+                  {spot.description}
                 </Text>
               </View>
               <Image style={stylesSpot.mainMap} source={mapPlaceholder} />

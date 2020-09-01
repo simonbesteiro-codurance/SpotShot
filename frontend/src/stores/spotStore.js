@@ -24,8 +24,10 @@ class SpotStore extends EventEmitter {
   }
 
   getSpotById(id) {
-    const selectedSpot = _spot.find((spot) => spot.id === id);
-
+    //const selectedSpot = _spot.find((spot) => {spot._id === id});
+    const selectedSpot = _spot[0];
+    console.log(_spot[0]._id);
+    console.log(_spot.find((spot) => spot._id === id));
     return selectedSpot;
   }
 }
@@ -35,7 +37,7 @@ dispatcher.register((action) => {
   switch (action.type) {
     case actionTypes.LOAD_SPOT:
       _spot = action.data;
-      spotStore.emitChange();
+      spotStore.emitChange(_spot);
       break;
 
     default:
