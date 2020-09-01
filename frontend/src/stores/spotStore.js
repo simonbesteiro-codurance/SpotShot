@@ -36,10 +36,7 @@ dispatcher.register((action) => {
       _spot = action.data;
       spotStore.emitChange(_spot);
       break;
-    case actionTypes.CREATE_SPOT:
-      _spot = [..._spot, action.data];
-      spotStore.emitChange();
-      break;
+
     default:
       break;
   }

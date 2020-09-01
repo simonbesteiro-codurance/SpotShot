@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, ActivityIndicator } from "react-native";
+import { Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
+import SpotCarousel from "./spotCarousel";
 
 export default function Spot() {
   const id = 1;
@@ -23,25 +24,41 @@ export default function Spot() {
 
   const favouriteLogoURL = logos[0];
   const rateLogoURL = logos[1];
+  const mapPlaceholder = {
+    uri:
+      "https://storage.googleapis.com/support-forums-api/attachment/thread-9014924-11470506657998028469.JPG",
+  };
+
   return (
     <>
       {imageURL ? (
-        <View style={stylesSpot.container}>
-          <Image style={stylesSpot.photo} source={imageURL} />
-          <View style={stylesSpot.main}>
-            <View style={stylesSpot.mainRate}>
-              <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-              <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-              <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-              <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-              <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
+        <ScrollView>
+          <View style={stylesSpot.container}>
+            <Image style={stylesSpot.mainPhoto} source={imageURL} />
+            <View style={stylesSpot.mainContainer}>
+              <View style={stylesSpot.mainHead}>
+                <View style={stylesSpot.mainHeadRate}>
+                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
+                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
+                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
+                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
+                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
+                </View>
+                <Image
+                  style={stylesSpot.mainHeadLogo}
+                  source={favouriteLogoURL}
+                />
+              </View>
+              <View style={stylesSpot.description}>
+                <Text style={stylesSpot.descriptionText}>
+                  {descriptionText}
+                </Text>
+              </View>
+              <Image style={stylesSpot.mainMap} source={mapPlaceholder} />
             </View>
-            <Image style={stylesSpot.favouriteLogo} source={favouriteLogoURL} />
+            <SpotCarousel />
           </View>
-          <View style={stylesSpot.description}>
-            <Text style={stylesSpot.descriptionText}>{descriptionText}</Text>
-          </View>
-        </View>
+        </ScrollView>
       ) : (
         <ActivityIndicator />
       )}
