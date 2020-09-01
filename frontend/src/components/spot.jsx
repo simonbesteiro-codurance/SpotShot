@@ -4,23 +4,26 @@ import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
 import SpotCarousel from "./spotCarousel";
+import { loadSpots } from "../actions/spotActions";
 
 export default function Spot() {
   const id = 1;
-  const [imageURL, setImageURL] = useState(spotStore.getSpotById(id).image);
-  const [descriptionText, setDescriptionText] = useState(
-    spotStore.getSpotById(id).description
-  );
+  const [spot, setSpot] = useState([]);
+  const [imageURL, setImageURL] = useState([]);
+  const [descriptionText, setDescriptionText] = useState([]);
 
   function onChange() {
-    setImageURL(spotStore.getSpotById(id).image);
-    setDescriptionText(spotStore.getSpotById(id).description);
+    setSpot(spotStore.getSpotById(id));
+    setImageURL(spot.image);
+    setDescriptionText(spot.description);
   }
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
+    loadSpots();
+    setSpot(spotStore.getSpotById(id));
     return () => spotStore.removeChangeListener(onChange);
-  }, []);
+  }, [spot]);
 
   const favouriteLogoURL = logos[0];
   const rateLogoURL = logos[1];
