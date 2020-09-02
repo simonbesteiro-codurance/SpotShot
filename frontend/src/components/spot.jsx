@@ -33,7 +33,7 @@ export default function Spot() {
       {spot ? (
         <ScrollView>
           <View style={stylesSpot.container}>
-            <Image style={stylesSpot.mainPhoto} source={spot.image[0].uri2} />
+            <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
               <View style={stylesSpot.mainHead}>
                 <View style={stylesSpot.mainHeadRate}>
