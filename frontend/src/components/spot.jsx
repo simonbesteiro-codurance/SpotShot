@@ -3,7 +3,7 @@ import { Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
-import SpotCarousel from "./spotCarousel";
+import SpotCarousel from "./SpotCarousel";
 import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
