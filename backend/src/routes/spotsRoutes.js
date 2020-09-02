@@ -1,24 +1,11 @@
 const express = require("express");
-
-const {
-  getAllProducts,
-  getProductById,
-} = require("../database-utils/databaseCalls");
+const spotRouteController = require("../controller/spotRouteController");
 
 const spotRouter = express.Router();
 
 function routes() {
-  spotRouter.route("/").get((req, res) => {
-    getAllProducts().then((response) => {
-      res.json(response);
-    });
-  });
-  spotRouter.route("/:spotId").get((req, res) => {
-    const { spotId } = req.params.spotId;
-    getProductById(spotId).then((response) => {
-      res.json(response);
-    });
-  });
+  spotRouter.route("/").get(spotRouteController.get);
+  spotRouter.route("/:spotId").get(spotRouteController.get);
   return spotRouter;
 }
 module.exports = routes();
