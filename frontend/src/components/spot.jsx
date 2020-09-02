@@ -9,8 +9,8 @@ import { loadSpots } from "../actions/spotActions";
 loadSpots();
 
 export default function Spot() {
-  const id = "5f4e46e6174ddd4c09fabc9b";
-  let [spot, setSpot] = useState();
+  const id = "5f4e4766174ddd4c09fabc9f";
+  const [spot, setSpot] = useState(spotStore.getSpotById(id));
 
   function onChange() {
     setSpot(spotStore.getSpotById(id));
@@ -18,7 +18,6 @@ export default function Spot() {
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
-
     return () => spotStore.removeChangeListener(onChange);
   }, []);
 

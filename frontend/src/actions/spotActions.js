@@ -5,7 +5,6 @@ import actionTypes from "./actionTypes";
 
 export function loadSpots() {
   return axios.get("http://localhost:4200/api/spots").then((spotList) => {
-    console.log(spotList.data);
     dispatcher.dispatch({
       type: actionTypes.LOAD_SPOT,
       data: spotList.data,

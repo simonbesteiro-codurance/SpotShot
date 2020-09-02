@@ -24,10 +24,8 @@ class SpotStore extends EventEmitter {
   }
 
   getSpotById(id) {
-    //const selectedSpot = _spot.find((spot) => {spot._id === id});
-    const selectedSpot = _spot[0];
-    console.log(_spot[0]._id);
-    console.log(_spot.find((spot) => spot._id === id));
+    const selectedSpot = _spot.find((spot) => spot._id === id);
+
     return selectedSpot;
   }
 }
