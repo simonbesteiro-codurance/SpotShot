@@ -8,11 +8,12 @@ import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
 
-export default function Spot() {
-  const id = "5f4e4766174ddd4c09fabc9f";
-  const [spot, setSpot] = useState(spotStore.getSpotById(id));
-
+export default function Spot({ route }) {
+  let { id } = route.params;
+  console.log(id);
+  const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
   function onChange() {
+    console.log(id);
     setSpot(spotStore.getSpotById(id));
   }
 

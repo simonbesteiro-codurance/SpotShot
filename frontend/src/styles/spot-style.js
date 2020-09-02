@@ -22,6 +22,7 @@ const stylesSpot = StyleSheet.create({
   mainPhoto: {
     height: Dimensions.get("window").height * 0.4,
     width: Dimensions.get("window").width,
+    resizeMode: "contain",
   },
   rateLogo: {
     width: Dimensions.get("window").width * 0.1,

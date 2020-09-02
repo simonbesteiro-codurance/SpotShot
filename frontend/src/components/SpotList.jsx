@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, Item } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { loadSpots } from "../actions/spotActions";
 import spotStore from "../stores/spotStore";
 import SpotListItem from "./SpotListItem";
 
 loadSpots();
 
-export default function SpotList() {
-  const [spotList, setSpotList] = useState(spotStore.getSpots());
+export default function SpotList({ navigation }) {
+  const [spotList, setSpotList] = useState(null);
 
   function onChange() {
     setSpotList(spotStore.getSpots());
@@ -21,7 +28,17 @@ export default function SpotList() {
     <>
       {spotList ? (
         <ScrollView>
-          <SpotListItem spot={spotList[0]} />
+          <FlatList
+            data={spotList}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Spot", { id: item._id })}
+              >
+                <SpotListItem spot={item} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item.id}
+          />
         </ScrollView>
       ) : (
         <ActivityIndicator />

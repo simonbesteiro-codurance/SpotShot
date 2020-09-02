@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useLinkProps } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Spot from "./src/components/Spot";
 import SpotList from "./src/components/SpotList";
@@ -13,11 +13,12 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="spotList"
+        initialRouteName="SpotList"
       >
-        <Stack.Screen name="spotList" component={SpotList} />
-
-        <Stack.Screen name="spot" component={Spot} />
+        <Stack.Screen name="SpotList">
+          {(props) => <SpotList {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Spot" component={Spot} />
       </Stack.Navigator>
     </NavigationContainer>
   );
