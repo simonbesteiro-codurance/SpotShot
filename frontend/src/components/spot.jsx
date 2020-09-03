@@ -32,7 +32,7 @@ export default function Spot({ route }) {
   return (
     <>
       {spot ? (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
@@ -48,6 +48,11 @@ export default function Spot({ route }) {
                   style={stylesSpot.mainHeadLogo}
                   source={favouriteLogoURL}
                 />
+              </View>
+              <View style={stylesSpot.mainContainerTitle}>
+                <Text style={stylesSpot.mainContainerTitleText}>
+                  {spot.title}
+                </Text>
               </View>
               <View style={stylesSpot.description}>
                 <Text style={stylesSpot.descriptionText}>

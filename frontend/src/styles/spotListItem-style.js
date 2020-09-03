@@ -4,26 +4,56 @@ const stylesSpotListItem = StyleSheet.create({
   containerSpotItem: {
     height: Dimensions.get("window").height * 0.3,
     width: Dimensions.get("window").width * 0.8,
-    flexDirection: "row-reverse",
-    margin: "auto",
-    marginTop: Dimensions.get("window").height * 0.05,
-    backgroundColor: "#7FFFD4",
-    position: "relative",
+    flexDirection: "column",
+    backgroundColor: "white",
+
+    shadowOpacity: 0.5,
+    borderRadius: 10,
+    marginBottom: Dimensions.get("window").width * 0.1,
   },
 
   containerSpotItemImage: {
-    height: Dimensions.get("window").height * 0.2,
-    width: Dimensions.get("window").width * 0.3,
-    resizeMode: "contain",
-    margin: Dimensions.get("window").width * 0.02,
-    marginRight: Dimensions.get("window").width * 0.2,
+    height: "70%",
+    width: "100%",
   },
-  containerSpotItemText: {
+  containerSpotItemTab: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: "30%",
+    padding: "5%",
+  },
+  containerSpotItemTabContainer: {
+    height: "100%",
+    width: "70%",
+  },
+  containerSpotItemTabContainerType: {},
+  containerSpotItemTabContainerTitle: {
     textAlign: "justify",
-    margin: Dimensions.get("window").width * 0.02,
-    marginRight: Dimensions.get("window").width * 0.2,
-    height: Dimensions.get("window").height * 0.2,
-    width: Dimensions.get("window").width * 0.5,
+    fontSize: 25,
+    height: "80%",
+    width: "100%",
+    color: "#2FAF84",
+  },
+  containerSpotItemTabRating: {
+    backgroundColor: "white",
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: "#293133",
+    justifyContent: "center",
+  },
+  containerSpotItemTabRatingText: {
+    fontSize: 20,
+    textAlign: "center",
+    color: "#2FAF84",
+  },
+
+  rateLogo: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
   },
 });
 

@@ -10,6 +10,7 @@ import {
 import { loadSpots } from "../actions/spotActions";
 import spotStore from "../stores/spotStore";
 import SpotListItem from "./SpotListItem";
+import stylesSpotList from "../styles/spotList-style";
 
 loadSpots();
 
@@ -27,19 +28,19 @@ export default function SpotList({ navigation }) {
   return (
     <>
       {spotList ? (
-        <ScrollView>
-          <FlatList
-            data={spotList}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Spot", { id: item._id })}
-              >
-                <SpotListItem spot={item} />
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        </ScrollView>
+        <FlatList
+          style={stylesSpotList.containerSpotList}
+          data={spotList}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Spot", { id: item._id })}
+            >
+              <SpotListItem spot={item} />
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item._id}
+        />
       ) : (
         <ActivityIndicator />
       )}
