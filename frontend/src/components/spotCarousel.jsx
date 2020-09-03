@@ -1,15 +1,33 @@
-import React from "react";
-import { View } from "react-native";
-
+import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "react-native";
+import spotStore from "../stores/spotStore";
 import stylesSpotCarousel from "../styles/spotCarousel-style";
 
-export default function SpotCarousel() {
+export default function SpotCarousel({ type }) {
+  if (type === undefined) type = "random";
+  const id = "5f4e4766174ddd4c09fabca0";
+  const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
+  function onChange() {
+    setSpot(spotStore.getSpotById(id));
+  }
+
+  useEffect(() => {
+    spotStore.addChangeListener(onChange);
+    return () => spotStore.removeChangeListener(onChange);
+  }, []);
   return (
     <>
-      <View style={stylesSpotCarousel.suggestionCarousel}>
-        <View style={stylesSpotCarousel.childPlaceHolder} />
-        <View style={stylesSpotCarousel.childPlaceHolder} />
-        <View style={stylesSpotCarousel.childPlaceHolder} />
+      <View style={stylesSpotCarousel.suggestionChild}>
+        <Image
+          style={stylesSpotCarousel.suggestionChildImage}
+          source={spot.image[0]}
+        />
+        <View>
+          <View>
+            <Text>{spot.title}</Text>
+            <Text>{spot.type}</Text>
+          </View>
+        </View>
       </View>
     </>
   );
