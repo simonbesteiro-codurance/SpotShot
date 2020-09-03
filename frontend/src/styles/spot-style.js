@@ -16,6 +16,12 @@ const stylesSpot = StyleSheet.create({
   mainContainer: {
     margin: 30,
   },
+  mainContainerTitle: {
+    marginTop: "5%",
+  },
+  mainContainerTitleText: {
+    textAlign: "center",
+  },
   mainHeadRate: {
     flexDirection: "row",
   },
@@ -27,11 +33,13 @@ const stylesSpot = StyleSheet.create({
     width: Dimensions.get("window").width * 0.1,
     height: Dimensions.get("window").height * 0.04,
     marginLeft: Dimensions.get("window").width * 0.02,
+    resizeMode: "contain",
   },
   mainHeadLogo: {
     width: Dimensions.get("window").width * 0.1,
     height: Dimensions.get("window").height * 0.04,
     marginLeft: Dimensions.get("window").width * 0.2,
+    resizeMode: "contain",
   },
   description: {
     margin: Dimensions.get("window").height * 0.02,

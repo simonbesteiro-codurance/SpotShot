@@ -3,16 +3,17 @@ import { Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
-import SpotCarousel from "./spotCarousel";
+import SpotCarousel from "./SpotCarousel";
 import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
 
-export default function Spot() {
-  const id = "5f4e4766174ddd4c09fabc9f";
-  const [spot, setSpot] = useState(spotStore.getSpotById(id));
-
+export default function Spot({ route }) {
+  let { id } = route.params;
+  console.log(id);
+  const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
   function onChange() {
+    console.log(id);
     setSpot(spotStore.getSpotById(id));
   }
 
@@ -31,7 +32,7 @@ export default function Spot() {
   return (
     <>
       {spot ? (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
@@ -47,6 +48,11 @@ export default function Spot() {
                   style={stylesSpot.mainHeadLogo}
                   source={favouriteLogoURL}
                 />
+              </View>
+              <View style={stylesSpot.mainContainerTitle}>
+                <Text style={stylesSpot.mainContainerTitleText}>
+                  {spot.title}
+                </Text>
               </View>
               <View style={stylesSpot.description}>
                 <Text style={stylesSpot.descriptionText}>
