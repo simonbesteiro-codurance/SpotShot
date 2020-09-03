@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
@@ -8,10 +15,11 @@ import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
 
-export default function Spot({ route }) {
+export default function Spot({ route, navigation }) {
   let { id } = route.params;
-  console.log(id);
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
+  const carouselId = "5f4e4766174ddd4c09fabca0";
+
   function onChange() {
     console.log(id);
     setSpot(spotStore.getSpotById(id));
@@ -32,7 +40,10 @@ export default function Spot({ route }) {
   return (
     <>
       {spot ? (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}
+        >
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
@@ -61,7 +72,13 @@ export default function Spot({ route }) {
               </View>
               <Image style={stylesSpot.mainMap} source={mapPlaceholder} />
             </View>
-            <SpotCarousel />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Spot", { id: carouselId })}
+            >
+              <SpotCarousel />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       ) : (
