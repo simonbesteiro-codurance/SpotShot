@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
@@ -14,6 +15,41 @@ import SpotCarousel from "./SpotCarousel";
 import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
+
+const DATA = [
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+];
 
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
@@ -73,13 +109,27 @@ export default function Spot({ route, navigation }) {
               <Image style={stylesSpot.mainMap} source={mapPlaceholder} />
             </View>
           </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Spot", { id: carouselId })}
-            >
-              <SpotCarousel />
-            </TouchableOpacity>
-          </View>
+
+          <FlatList
+            data={DATA}
+            horizontal
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    width: 100,
+                    height: 100,
+                  }}
+                  onPress={() => {
+                    navigation.push("Spot", { id: item.id });
+                  }}
+                >
+                  {item.render()}
+                </TouchableOpacity>
+              );
+            }}
+          />
         </ScrollView>
       ) : (
         <ActivityIndicator />
