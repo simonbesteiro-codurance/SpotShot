@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, Image, ActivityIndicator } from "react-native";
+import { Text, Image, ActivityIndicator } from "react-native";
 import spotStore from "../stores/spotStore";
 import stylesSpotCarousel from "../styles/spotCarousel-style";
 
-export default function SpotCarousel() {
-  //if (type === undefined) type = "random";
+export default function SpotCarousel({ type }) {
+  if (type === undefined) type = "random";
   const id = "5f4e4766174ddd4c09fabca0";
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
   function onChange() {
