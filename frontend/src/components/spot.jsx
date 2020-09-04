@@ -18,7 +18,7 @@ loadSpots();
 
 const DATA = [
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabc9f",
     render: () => <SpotCarousel />,
   },
   {
@@ -26,27 +26,27 @@ const DATA = [
     render: () => <SpotCarousel />,
   },
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabca1",
     render: () => <SpotCarousel />,
   },
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabca2",
     render: () => <SpotCarousel />,
   },
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabca4",
     render: () => <SpotCarousel />,
   },
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabca7",
     render: () => <SpotCarousel />,
   },
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabca8",
     render: () => <SpotCarousel />,
   },
   {
-    id: "5f4e4766174ddd4c09fabca0",
+    id: "5f4e4766174ddd4c09fabca9",
     render: () => <SpotCarousel />,
   },
 ];
@@ -54,11 +54,13 @@ const DATA = [
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
+  const [spotList, setSpotList] = useState(null);
+
   const carouselId = "5f4e4766174ddd4c09fabca0";
 
   function onChange() {
-    console.log(id);
     setSpot(spotStore.getSpotById(id));
+    setSpotList(spotStore.getSpots());
   }
 
   useEffect(() => {
@@ -76,10 +78,7 @@ export default function Spot({ route, navigation }) {
   return (
     <>
       {spot ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          nestedScrollEnabled={true}
-        >
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>

@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { ActivityIndicator, TouchableOpacity, FlatList } from "react-native";
 import { loadSpots } from "../actions/spotActions";
 import spotStore from "../stores/spotStore";
 import SpotListItem from "./SpotListItem";
