@@ -16,51 +16,17 @@ import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
 
-const DATA = [
-  {
-    id: "5f4e4766174ddd4c09fabc9f",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca0",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca1",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca2",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca4",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca7",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca8",
-    render: () => <SpotCarousel />,
-  },
-  {
-    id: "5f4e4766174ddd4c09fabca9",
-    render: () => <SpotCarousel />,
-  },
-];
-
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
-  const [spotList, setSpotList] = useState(null);
+  const [spotList, setSpotList] = useState(spotStore.getCoordinates());
 
   const carouselId = "5f4e4766174ddd4c09fabca0";
 
   function onChange() {
     setSpot(spotStore.getSpotById(id));
-    setSpotList(spotStore.getSpots());
+    console.log(spotStore.getCoordinates());
+    setSpotList(spotStore.getCoordinates());
   }
 
   useEffect(() => {
@@ -109,26 +75,28 @@ export default function Spot({ route, navigation }) {
             </View>
           </View>
 
-          <FlatList
-            data={DATA}
-            horizontal
-            keyExtractor={(item) => item.id}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  style={{
-                    width: 100,
-                    height: 100,
-                  }}
-                  onPress={() => {
-                    navigation.push("Spot", { id: item.id });
-                  }}
-                >
-                  {item.render()}
-                </TouchableOpacity>
-              );
-            }}
-          />
+          {spotList ? (
+            <FlatList
+              data={spotList}
+              horizontal
+              keyExtractor={(item) => item._id}
+              renderItem={({ item, index }) => {
+                console.log(item);
+                return (
+                  <TouchableOpacity
+                    style={stylesSpot.suggestionContainer}
+                    onPress={() => {
+                      navigation.push("Spot", { id: item._id });
+                    }}
+                  >
+                    {item.render()}
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          ) : (
+            <ActivityIndicator />
+          )}
         </ScrollView>
       ) : (
         <ActivityIndicator />
