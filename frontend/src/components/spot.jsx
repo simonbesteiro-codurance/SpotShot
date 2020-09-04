@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
@@ -15,14 +16,51 @@ import { loadSpots } from "../actions/spotActions";
 
 loadSpots();
 
+const DATA = [
+  {
+    id: "5f4e4766174ddd4c09fabc9f",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca0",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca1",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca2",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca4",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca7",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca8",
+    render: () => <SpotCarousel />,
+  },
+  {
+    id: "5f4e4766174ddd4c09fabca9",
+    render: () => <SpotCarousel />,
+  },
+];
+
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
+  const [spotList, setSpotList] = useState(null);
+
   const carouselId = "5f4e4766174ddd4c09fabca0";
 
   function onChange() {
-    console.log(id);
     setSpot(spotStore.getSpotById(id));
+    setSpotList(spotStore.getSpots());
   }
 
   useEffect(() => {
@@ -40,10 +78,7 @@ export default function Spot({ route, navigation }) {
   return (
     <>
       {spot ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          nestedScrollEnabled={true}
-        >
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
@@ -73,13 +108,27 @@ export default function Spot({ route, navigation }) {
               <Image style={stylesSpot.mainMap} source={mapPlaceholder} />
             </View>
           </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Spot", { id: carouselId })}
-            >
-              <SpotCarousel />
-            </TouchableOpacity>
-          </View>
+
+          <FlatList
+            data={DATA}
+            horizontal
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    width: 100,
+                    height: 100,
+                  }}
+                  onPress={() => {
+                    navigation.push("Spot", { id: item.id });
+                  }}
+                >
+                  {item.render()}
+                </TouchableOpacity>
+              );
+            }}
+          />
         </ScrollView>
       ) : (
         <ActivityIndicator />
