@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 const stylesSpotCarousel = StyleSheet.create({
   suggestionChild: {
-    backgroundColor: "green",
     height: 200,
     width: 200,
     margin: "5%",

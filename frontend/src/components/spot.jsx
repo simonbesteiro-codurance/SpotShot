@@ -19,14 +19,11 @@ loadSpots();
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
-  const [spotList, setSpotList] = useState(spotStore.getCoordinates());
-
-  const carouselId = "5f4e4766174ddd4c09fabca0";
+  const [spotList, setSpotList] = useState(spotStore.getSuggestions());
 
   function onChange() {
     setSpot(spotStore.getSpotById(id));
-    console.log(spotStore.getCoordinates());
-    setSpotList(spotStore.getCoordinates());
+    setSpotList(spotStore.getSuggestions());
   }
 
   useEffect(() => {
@@ -81,7 +78,6 @@ export default function Spot({ route, navigation }) {
               horizontal
               keyExtractor={(item) => item._id}
               renderItem={({ item, index }) => {
-                console.log(item);
                 return (
                   <TouchableOpacity
                     style={stylesSpot.suggestionContainer}

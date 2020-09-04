@@ -1,14 +1,32 @@
-import React from "react";
-import { Dimensions, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  Image,
+  View,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import spotStore from "../stores/spotStore";
+import stylesMap from "../styles/map-style";
 
-export default function MAp() {
+export default function Map({ navigation }) {
+  const [spotList, setSpotList] = useState(spotStore.getSuggestions());
+
+  function onChange() {
+    setSpotList(spotStore.getSuggestions());
+  }
+
+  useEffect(() => {
+    spotStore.addChangeListener(onChange);
+    return () => spotStore.removeChangeListener(onChange);
+  }, []);
   return (
     <>
       <MapView
         style={{
-          flex: 1,
-          height: Dimensions.get("window").height,
+          height: Dimensions.get("window").height * 0.85,
           width: Dimensions.get("window").width,
         }}
       >
@@ -41,6 +59,30 @@ export default function MAp() {
           />
         </Marker>
       </MapView>
+      {spotList ? (
+        <>
+          <FlatList
+            data={spotList}
+            horizontal
+            style={stylesMap.suggestionContainer}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  style={stylesMap.suggestionChild}
+                  onPress={() => {
+                    navigation.push("Spot", { id: item._id });
+                  }}
+                >
+                  {item.render()}
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </>
+      ) : (
+        <ActivityIndicator />
+      )}
     </>
   );
 }
