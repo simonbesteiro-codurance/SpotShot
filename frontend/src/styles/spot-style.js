@@ -51,6 +51,11 @@ const stylesSpot = StyleSheet.create({
     width: Dimensions.get("window").width * 0.9,
     height: Dimensions.get("window").height * 0.4,
   },
+  suggestionContainer: {
+    margin: Dimensions.get("window").width * 0.01,
+    width: Dimensions.get("window").width * 0.4,
+    height: Dimensions.get("window").height * 0.1,
+  },
 });
 
 export default stylesSpot;

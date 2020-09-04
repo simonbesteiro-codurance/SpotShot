@@ -1,6 +1,8 @@
 import { EventEmitter } from "events";
 import dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
+import React from "react";
+import SpotCarousel from "../components/SpotCarousel";
 
 const CHANGE_EVENT = "change";
 
@@ -27,6 +29,21 @@ class SpotStore extends EventEmitter {
     const selectedSpot = _spot.find((spot) => spot._id === id);
 
     return selectedSpot;
+  }
+
+  getCoordinates() {
+    const reduceSpots = _spot.reduce((accumulator, currrentObject) => {
+      const newObject = {
+        _id: currrentObject._id,
+        title: currrentObject.title,
+        render: () => <SpotCarousel id={currrentObject._id} />,
+      };
+      console.log(newObject);
+      accumulator.push(newObject);
+      return accumulator;
+    }, []);
+
+    return reduceSpots;
   }
 }
 
