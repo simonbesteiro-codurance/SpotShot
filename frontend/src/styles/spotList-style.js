@@ -7,7 +7,7 @@ const stylesSpotList = StyleSheet.create({
     flexDirection: "column",
     margin: Dimensions.get("window").width * 0.1,
     paddingTop: Dimensions.get("window").width * 0.05,
-    backgroundColor: darkTheme ? "#706D80" : "#6A6778",
+    backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
   },
 });
 

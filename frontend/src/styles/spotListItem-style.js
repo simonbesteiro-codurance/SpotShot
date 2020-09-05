@@ -9,7 +9,7 @@ const stylesSpotListItem = StyleSheet.create({
     flexDirection: "column",
     shadowOpacity: 0.5,
     marginBottom: Dimensions.get("window").width * 0.1,
-    backgroundColor: darkTheme ? "#706D80" : "#6A6778",
+    backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
   },
 
   containerSpotItemImage: {
