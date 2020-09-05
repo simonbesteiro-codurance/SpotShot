@@ -80,7 +80,7 @@ export default function Spot({ route, navigation }) {
               >
                 <Marker
                   coordinate={{ latitude: spot.lat, longitude: spot.lgn }}
-                  title={spot.lat}
+                  title={spot.title}
                   description={"Showld draw spotShot"}
                 >
                   <Image

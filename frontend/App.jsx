@@ -18,7 +18,7 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="SpotList"
+        initialRouteName="Map"
       >
         <Stack.Screen name="Map">{(props) => <Map {...props} />}</Stack.Screen>
         <Stack.Screen name="SpotList">
