@@ -3,7 +3,6 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  Text,
   Image,
   View,
 } from "react-native";
@@ -24,19 +23,14 @@ export default function Map({ navigation }) {
   }, []);
   return (
     <>
-      <MapView
-        style={{
-          height: Dimensions.get("window").height * 0.85,
-          width: Dimensions.get("window").width,
-        }}
-      >
+      <MapView style={stylesMap.mapContainer}>
         <Marker
           coordinate={{ latitude: 42.23552, longitude: 2.12002 }}
           title={"Test"}
           description={"Showld draw spotShot"}
         >
           <Image
-            source={require("../Images/SpotShotLogo.png")}
+            source={require("../Images/SpotShotlogo2.png")}
             style={{
               height: Dimensions.get("window").height * 0.1,
               width: Dimensions.get("window").width * 0.1,
@@ -50,7 +44,7 @@ export default function Map({ navigation }) {
           description={"Showld draw spotShot"}
         >
           <Image
-            source={require("../Images/SpotShotLogo.png")}
+            source={require("../Images/SpotShotlogo2.png")}
             style={{
               height: Dimensions.get("window").height * 0.1,
               width: Dimensions.get("window").width * 0.1,
@@ -71,7 +65,7 @@ export default function Map({ navigation }) {
                 <TouchableOpacity
                   style={stylesMap.suggestionChild}
                   onPress={() => {
-                    navigation.push("Spot", { id: item._id });
+                    navigation.navigate("Spot", { id: item._id });
                   }}
                 >
                   {item.render()}

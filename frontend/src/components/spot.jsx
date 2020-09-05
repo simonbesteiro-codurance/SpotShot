@@ -74,6 +74,7 @@ export default function Spot({ route, navigation }) {
 
           {spotList ? (
             <FlatList
+              style={stylesSpot.suggestionList}
               data={spotList}
               horizontal
               keyExtractor={(item) => item._id}
