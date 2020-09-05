@@ -1,9 +1,11 @@
 import { StyleSheet, Dimensions } from "react-native";
 
+const darkTheme = true;
+
 const stylesSpot = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: darkTheme ? "#283047" : "#E0E0E0",
     flexDirection: "column",
     alignItems: "center",
   },
@@ -21,6 +23,7 @@ const stylesSpot = StyleSheet.create({
   },
   mainContainerTitleText: {
     textAlign: "center",
+    color: darkTheme ? "#68E3AA" : "#497870",
   },
   mainHeadRate: {
     flexDirection: "row",
@@ -46,10 +49,14 @@ const stylesSpot = StyleSheet.create({
   },
   descriptionText: {
     textAlign: "justify",
+    color: darkTheme ? "#E0E0E0" : "#283047",
   },
   mainMap: {
     width: Dimensions.get("window").width * 0.9,
     height: Dimensions.get("window").height * 0.4,
+  },
+  suggestionList: {
+    backgroundColor: darkTheme ? "#283047" : "#E0E0E0",
   },
   suggestionContainer: {
     margin: Dimensions.get("window").width * 0.01,

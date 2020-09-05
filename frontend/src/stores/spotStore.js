@@ -3,6 +3,7 @@ import dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
 import React from "react";
 import SpotCarousel from "../components/SpotCarousel";
+import { Marker } from "react-native-maps";
 
 const CHANGE_EVENT = "change";
 
@@ -31,14 +32,32 @@ class SpotStore extends EventEmitter {
     return selectedSpot;
   }
 
-  getCoordinates() {
+  getCoordenates() {
+    const reduceSpots = _spot.reduce((accumulator, currrentObject) => {
+      const newObject = {
+        _id: currrentObject._id,
+        title: currrentObject.title,
+        render: ({ navigation }) => (
+          <Marker
+            id={currrentObject._id}
+            onPress={() => navigation.navigate("Spot", { id: item._id })}
+          />
+        ),
+      };
+      accumulator.push(newObject);
+      return accumulator;
+    }, []);
+
+    return reduceSpots;
+  }
+
+  getSuggestions() {
     const reduceSpots = _spot.reduce((accumulator, currrentObject) => {
       const newObject = {
         _id: currrentObject._id,
         title: currrentObject.title,
         render: () => <SpotCarousel id={currrentObject._id} />,
       };
-      console.log(newObject);
       accumulator.push(newObject);
       return accumulator;
     }, []);

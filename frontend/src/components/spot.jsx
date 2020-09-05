@@ -12,21 +12,19 @@ import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
 import SpotCarousel from "./SpotCarousel";
-import { loadSpots } from "../actions/spotActions";
+import { loadSpots, Dimensions } from "../actions/spotActions";
+import MapView, { Marker } from "react-native-maps";
 
 loadSpots();
 
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
-  const [spotList, setSpotList] = useState(spotStore.getCoordinates());
-
-  const carouselId = "5f4e4766174ddd4c09fabca0";
+  const [spotList, setSpotList] = useState(spotStore.getSuggestions());
 
   function onChange() {
     setSpot(spotStore.getSpotById(id));
-    console.log(spotStore.getCoordinates());
-    setSpotList(spotStore.getCoordinates());
+    setSpotList(spotStore.getSuggestions());
   }
 
   useEffect(() => {
@@ -71,17 +69,40 @@ export default function Spot({ route, navigation }) {
                   {spot.description}
                 </Text>
               </View>
-              <Image style={stylesSpot.mainMap} source={mapPlaceholder} />
+              <MapView
+                style={stylesSpot.mainMap}
+                region={{
+                  latitude: spot.lat,
+                  longitude: spot.lgn,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+              >
+                <Marker
+                  coordinate={{ latitude: spot.lat, longitude: spot.lgn }}
+                  title={spot.lat}
+                  description={"Showld draw spotShot"}
+                >
+                  <Image
+                    source={require("../Images/SpotShotlogo2.png")}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      resizeMode: "contain",
+                    }}
+                  />
+                </Marker>
+              </MapView>
             </View>
           </View>
 
           {spotList ? (
             <FlatList
+              style={stylesSpot.suggestionList}
               data={spotList}
               horizontal
               keyExtractor={(item) => item._id}
               renderItem={({ item, index }) => {
-                console.log(item);
                 return (
                   <TouchableOpacity
                     style={stylesSpot.suggestionContainer}

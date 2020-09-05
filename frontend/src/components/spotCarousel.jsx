@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, Image, ActivityIndicator } from "react-native";
+import { Text, Image, ActivityIndicator, View } from "react-native";
 import spotStore from "../stores/spotStore";
 import stylesSpotCarousel from "../styles/spotCarousel-style";
 
@@ -17,14 +17,19 @@ export default function SpotCarousel({ id }) {
   return (
     <>
       {spot ? (
-        <>
+        <View style={stylesSpotCarousel.suggestionContainer}>
           <Image
             style={stylesSpotCarousel.suggestionChildImage}
             source={{ uri: spot.image[0].uri }}
           />
-          <Text>{spot.title}</Text>
-          <Text>{spot.type}</Text>
-        </>
+
+          <Text style={stylesSpotCarousel.suggestionChildMainText}>
+            {spot.title}
+          </Text>
+          <Text style={stylesSpotCarousel.suggestionChildText}>
+            {spot.type}
+          </Text>
+        </View>
       ) : (
         <ActivityIndicator />
       )}
