@@ -37,12 +37,10 @@ class SpotStore extends EventEmitter {
       const newObject = {
         _id: currrentObject._id,
         title: currrentObject.title,
-        render: ({ navigation }) => (
-          <Marker
-            id={currrentObject._id}
-            onPress={() => navigation.navigate("Spot", { id: item._id })}
-          />
-        ),
+        lat: currrentObject.lat,
+        lgn: currrentObject.lgn,
+        image: currrentObject.image,
+        render: () => <SpotCarousel id={currrentObject._id} />,
       };
       accumulator.push(newObject);
       return accumulator;
@@ -52,17 +50,20 @@ class SpotStore extends EventEmitter {
   }
 
   getSuggestions() {
-    const reduceSpots = _spot.reduce((accumulator, currrentObject) => {
-      const newObject = {
-        _id: currrentObject._id,
-        title: currrentObject.title,
-        render: () => <SpotCarousel id={currrentObject._id} />,
-      };
-      accumulator.push(newObject);
-      return accumulator;
-    }, []);
+    const reduceSpotsSuggestions = _spot.reduce(
+      (accumulator, currrentObject) => {
+        const newObject = {
+          _id: currrentObject._id,
+          title: currrentObject.title,
+          render: () => <SpotCarousel id={currrentObject._id} />,
+        };
+        accumulator.push(newObject);
+        return accumulator;
+      },
+      []
+    );
 
-    return reduceSpots;
+    return reduceSpotsSuggestions;
   }
 }
 
