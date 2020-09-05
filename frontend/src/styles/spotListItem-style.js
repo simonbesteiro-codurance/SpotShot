@@ -34,7 +34,7 @@ const stylesSpotListItem = StyleSheet.create({
   },
   containerSpotItemTabContainerTitle: {
     textAlign: "justify",
-    fontSize: 25,
+    fontSize: Dimensions.get("window").width * 0.06,
     height: "80%",
     width: "100%",
     color: darkTheme ? "#68E3AA" : "#497870",
