@@ -4,9 +4,10 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  View,
+  Text,
+  ActivityIndicator,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import spotStore from "../stores/spotStore";
 import stylesMap from "../styles/map-style";
 
@@ -27,28 +28,53 @@ export default function Map({ navigation }) {
   }, []);
   return (
     <>
-      <MapView style={stylesMap.mapContainer}>
-        {spotList.map((element) => {
-          console.log(element);
-          return (
-            <Marker
-              coordinate={{ latitude: element.lat, longitude: element.lgn }}
-              title={element.title}
-              description={"Showld draw spotShot"}
-            >
-              <Image
-                source={require("../Images/SpotShotlogo2.png")}
-                style={{
-                  height: Dimensions.get("window").height * 0.1,
-                  width: Dimensions.get("window").width * 0.1,
-                  resizeMode: "contain",
-                }}
-              />
-            </Marker>
-          );
-        })}
-      </MapView>
       {spotList ? (
+        <MapView
+          style={stylesMap.mapContainer}
+          showsUserLocation
+          showsPointsOfInterest
+        >
+          {spotList.map((element) => {
+            console.log(element);
+            return (
+              <Marker
+                coordinate={{ latitude: element.lat, longitude: element.lgn }}
+                title={element.title}
+              >
+                <Image
+                  source={require("../Images/SpotShotlogo2.png")}
+                  style={{
+                    height: Dimensions.get("window").height * 0.1,
+                    width: Dimensions.get("window").width * 0.1,
+                    resizeMode: "contain",
+                  }}
+                />
+                <Callout
+                  onPress={() => {
+                    navigation.navigate("Spot", { id: element._id });
+                  }}
+                  style={{
+                    height: Dimensions.get("window").height * 0.1,
+                    width: Dimensions.get("window").width * 0.4,
+                  }}
+                >
+                  <Image
+                    style={{
+                      height: "90%",
+                      width: "100%",
+                    }}
+                    source={element.image}
+                  />
+                  <Text>{element.title}</Text>
+                </Callout>
+              </Marker>
+            );
+          })}
+        </MapView>
+      ) : (
+        <ActivityIndicator />
+      )}
+      {spotSuggestion ? (
         <>
           <FlatList
             data={spotSuggestion}

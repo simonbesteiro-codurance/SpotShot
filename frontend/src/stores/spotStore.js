@@ -39,7 +39,7 @@ class SpotStore extends EventEmitter {
         title: currrentObject.title,
         lat: currrentObject.lat,
         lgn: currrentObject.lgn,
-
+        image: currrentObject.image,
         render: () => <SpotCarousel id={currrentObject._id} />,
       };
       accumulator.push(newObject);
