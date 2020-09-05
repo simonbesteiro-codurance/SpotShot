@@ -12,7 +12,8 @@ import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
 import SpotCarousel from "./SpotCarousel";
-import { loadSpots } from "../actions/spotActions";
+import { loadSpots, Dimensions } from "../actions/spotActions";
+import MapView, { Marker } from "react-native-maps";
 
 loadSpots();
 
@@ -68,7 +69,30 @@ export default function Spot({ route, navigation }) {
                   {spot.description}
                 </Text>
               </View>
-              <Image style={stylesSpot.mainMap} source={mapPlaceholder} />
+              <MapView
+                style={stylesSpot.mainMap}
+                region={{
+                  latitude: spot.lat,
+                  longitude: spot.lgn,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+              >
+                <Marker
+                  coordinate={{ latitude: spot.lat, longitude: spot.lgn }}
+                  title={spot.lat}
+                  description={"Showld draw spotShot"}
+                >
+                  <Image
+                    source={require("../Images/SpotShotlogo2.png")}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      resizeMode: "contain",
+                    }}
+                  />
+                </Marker>
+              </MapView>
             </View>
           </View>
 
