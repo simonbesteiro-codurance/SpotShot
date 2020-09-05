@@ -65,7 +65,13 @@ export default function Map({ navigation }) {
                     }}
                     source={element.image}
                   />
-                  <Text>{element.title}</Text>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {element.title}
+                  </Text>
                 </Callout>
               </Marker>
             );
