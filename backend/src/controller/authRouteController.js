@@ -7,11 +7,14 @@ const {
 
 async function login(req, res) {
   const user = await Users.findOne({ username: req.body.username });
+
   if (user && hashValidator(req.body.password, user.hash)) {
-    const token = tokenGenerator(user.id, "1d");
+    const token = tokenGenerator(user.id);
+
     res.send({ ...user.toJSON(), token });
+  } else {
+    res.json({ status: 404, message: "Could not authenticate" });
   }
-  res.send("auth works");
 }
 async function register(req, res) {
   if (await Users.findOne({ username: req.body.username })) {
