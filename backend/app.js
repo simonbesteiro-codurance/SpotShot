@@ -12,7 +12,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost/spotshot");
+mongoose.connect("mongodb://localhost/spotshot", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
 app.get("/", (req, res) => {
   res.send("SpotShot Backend");
