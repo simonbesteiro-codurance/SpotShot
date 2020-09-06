@@ -16,12 +16,12 @@ describe("Spot Route Controller test", () => {
     };
     controller = spotRouteController;
   });
-  it("should return all spots", () => {
+  xit("should return all spots", () => {
     const jsonSpy = sinon.spy(res, "json");
     controller.get(req, res);
     expect(jsonSpy.called).to.be.true;
   });
-  it("should return a spot by id", () => {
+  xit("should return a spot by id", () => {
     req = {
       params: { spotId: "5f4e4766174ddd4c09fabc9f" },
     };
