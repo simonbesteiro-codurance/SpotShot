@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, View, Button, Text } from "react-native";
+import { TextInput, View, Button, Text, Image } from "react-native";
 import stylesLogin from "../styles/login-style";
 
-const darkTheme = false;
+const darkTheme = true;
 
 export default function Login() {
   const [user, setUser] = useState("");
@@ -11,21 +11,25 @@ export default function Login() {
   return (
     <View style={stylesLogin.inputContainer}>
       <Text style={stylesLogin.headerText}>LOGIN</Text>
+      <Image
+        source={require("../Images/SpotShotlogo2.png")}
+        style={stylesLogin.headerImage}
+      />
+      <Text style={stylesLogin.inputTextHeader}>username</Text>
       <TextInput
         multiline={false}
         autoFocus
-        placeholder="username"
         inlineImageLeft={require("../Images/SpotShotLogo.png")}
         style={stylesLogin.inputText}
         onChangeText={(text) => setUser(text)}
         value={user}
       />
+      <Text style={stylesLogin.inputTextHeader}>password</Text>
 
       {/*util: passwordRules */}
       <TextInput
         multiline={false}
         secureTextEntry
-        placeholder="password"
         style={stylesLogin.inputText}
         onChangeText={(text) => setPassword(text)}
         value={password}
