@@ -17,6 +17,14 @@ export default function Map({ navigation }) {
     spotStore.getSuggestions()
   );
 
+  //hardcoded
+  const currentLocation = {
+    lat: 41.398502,
+    lng: 2.200021,
+    latDelta: 0.07,
+    lngDelta: 0.07,
+  };
+
   function onChange() {
     setSpotList(spotStore.getCoordenates());
     setSpotSuggestion(spotStore.getSuggestions());
@@ -32,14 +40,21 @@ export default function Map({ navigation }) {
         <MapView
           style={stylesMap.mapContainer}
           showsUserLocation
-          showsPointsOfInterest
+          showsMyLocationButton
+          followsUserLocation
+          region={{
+            latitude: currentLocation.lat,
+            longitude: currentLocation.lng,
+            latitudeDelta: currentLocation.latDelta,
+            longitudeDelta: currentLocation.lngDelta,
+          }}
         >
           {spotList.map((element) => {
-            console.log(element);
             return (
               <Marker
                 coordinate={{ latitude: element.lat, longitude: element.lgn }}
                 title={element.title}
+                key={element._id}
               >
                 <Image
                   source={require("../Images/SpotShotlogo2.png")}
@@ -53,19 +68,30 @@ export default function Map({ navigation }) {
                   onPress={() => {
                     navigation.navigate("Spot", { id: element._id });
                   }}
+                  //refactor
                   style={{
                     height: Dimensions.get("window").height * 0.1,
                     width: Dimensions.get("window").width * 0.4,
                   }}
                 >
                   <Image
+                    //refactor
+
                     style={{
                       height: "90%",
                       width: "100%",
                     }}
                     source={element.image}
                   />
-                  <Text>{element.title}</Text>
+                  <Text
+                    //refactor
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {element.title}
+                  </Text>
+                  <Text>{element.rating}</Text>
                 </Callout>
               </Marker>
             );
