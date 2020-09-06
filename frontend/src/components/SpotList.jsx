@@ -9,7 +9,6 @@ loadSpots();
 
 export default function SpotList({ navigation }) {
   const [spotList, setSpotList] = useState(null);
-
   function onChange() {
     setSpotList(spotStore.getSpots());
   }
