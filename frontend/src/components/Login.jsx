@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import stylesLogin from "../styles/login-style";
+import { logInUser } from "../actions/authActions";
 
 const darkTheme = true;
 
 export default function Login() {
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -27,8 +28,8 @@ export default function Login() {
         multiline={false}
         autoFocus
         style={stylesLogin.inputText}
-        onChangeText={(text) => setUser(text)}
-        value={user}
+        onChangeText={(text) => setUsername(text)}
+        value={username}
       />
       <Text style={stylesLogin.inputTextHeader}>password</Text>
 
@@ -40,7 +41,10 @@ export default function Login() {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <TouchableOpacity style={stylesLogin.submitButtonContainer}>
+      <TouchableOpacity
+        style={stylesLogin.submitButtonContainer}
+        onPress={() => logInUser(username, password)}
+      >
         <Text style={stylesLogin.submitButton}>Confirm</Text>
       </TouchableOpacity>
     </View>
