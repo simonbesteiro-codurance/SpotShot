@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { TextInput, View, Button, Text } from "react-native";
 import stylesLogin from "../styles/login-style";
 
+const darkTheme = false;
+
 export default function Login() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +20,8 @@ export default function Login() {
         onChangeText={(text) => setUser(text)}
         value={user}
       />
+
+      {/*util: passwordRules */}
       <TextInput
         multiline={false}
         secureTextEntry
@@ -26,7 +30,7 @@ export default function Login() {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <Button title="Confirm" />
+      <Button title="Confirm" color={darkTheme ? "#68E3AA" : "#497870"} />
     </View>
   );
 }
