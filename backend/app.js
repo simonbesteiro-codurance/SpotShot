@@ -2,6 +2,7 @@ const express = require("express");
 const debug = require("debug");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const app = express();
 const { PORT } = process.env || 2626;
@@ -11,6 +12,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+mongoose.connect("mongodb://localhost/spotshot");
+
 app.get("/", (req, res) => {
   res.send("SpotShot Backend");
 });
@@ -18,5 +21,9 @@ app.get("/", (req, res) => {
 const spotsRoutes = require("./src/routes/spotsRoutes");
 
 app.use("/api/spots", spotsRoutes);
+
+const authRoutes = require("./src/routes/authRoutes");
+
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => debug(`server running at port ${PORT}`));
