@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, View, Button, Text, Image } from "react-native";
+import {
+  TextInput,
+  View,
+  Button,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import stylesLogin from "../styles/login-style";
 
 const darkTheme = true;
@@ -12,14 +19,13 @@ export default function Login() {
     <View style={stylesLogin.inputContainer}>
       <Text style={stylesLogin.headerText}>LOGIN</Text>
       <Image
-        source={require("../Images/SpotShotlogo2.png")}
+        source={require("../Images/SpotShotLogo.png")}
         style={stylesLogin.headerImage}
       />
       <Text style={stylesLogin.inputTextHeader}>username</Text>
       <TextInput
         multiline={false}
         autoFocus
-        inlineImageLeft={require("../Images/SpotShotLogo.png")}
         style={stylesLogin.inputText}
         onChangeText={(text) => setUser(text)}
         value={user}
@@ -34,7 +40,9 @@ export default function Login() {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <Button title="Confirm" color={darkTheme ? "#68E3AA" : "#497870"} />
+      <TouchableOpacity style={stylesLogin.submitButtonContainer}>
+        <Text style={stylesLogin.submitButton}>Confirm</Text>
+      </TouchableOpacity>
     </View>
   );
 }
