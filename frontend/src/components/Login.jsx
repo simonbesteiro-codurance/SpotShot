@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  TextInput,
-  View,
-  Button,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { TextInput, View, Text, Image, TouchableOpacity } from "react-native";
 import stylesLogin from "../styles/login-style";
 import { logInUser } from "../actions/authActions";
-
-const darkTheme = true;
 
 export default function Login() {
   const [username, setUsername] = useState("");

@@ -12,11 +12,18 @@ export function logInUser(username, password) {
       });
     });
 }
-export function signUpUser() {
-  return axios.post("http://localhost:4200/auth/register").then((user) => {
-    dispatcher.dispatch({
-      type: actionTypes.SIGNUP_USER,
-      data: user.data,
+export function signUpUser(username, password, firstName, lastName) {
+  return axios
+    .post("http://localhost:4200/auth/register", {
+      username,
+      password,
+      firstName,
+      lastName,
+    })
+    .then((user) => {
+      dispatcher.dispatch({
+        type: actionTypes.SIGNUP_USER,
+        data: user.data,
+      });
     });
-  });
 }
