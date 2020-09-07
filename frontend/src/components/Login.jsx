@@ -15,6 +15,7 @@ export default function Login({ navigation }) {
         source={require("../Images/SpotShotLogo.png")}
         style={stylesLogin.headerImage}
       />
+
       <Text style={stylesLogin.inputTextHeader}>username</Text>
       <TextInput
         multiline={false}

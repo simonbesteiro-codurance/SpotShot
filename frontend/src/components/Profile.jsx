@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, Text, View, ImageBackground } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  ImageBackground,
+  Switch,
+} from "react-native";
 import stylesProfile from "../styles/profile-style";
 import authStore from "../stores/authStore";
 
 export default function Profile() {
   const [user, setUser] = useState(authStore.getUser());
+  const [darkTheme, setDarkTheme] = useState(false);
+  const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
 
   function onChange() {
     setUser(authStore.getUser());
@@ -24,6 +32,16 @@ export default function Profile() {
         }
         style={stylesProfile.backgroundImage}
       >
+        <View>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={darkTheme ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={darkTheme}
+          />
+          <Text>Dark Theme</Text>
+        </View>
         <TouchableOpacity style={stylesProfile.logOutButtonContainer}>
           <Text style={stylesProfile.logOutButton}>logOut</Text>
         </TouchableOpacity>
