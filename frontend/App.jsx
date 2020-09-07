@@ -1,14 +1,23 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./src/navigation/MainNavigator";
 import AuthNavigation from "./src/navigation/AuthNavigation";
-import { NavigationContainer } from "@react-navigation/native";
+import authStore from "./src/stores/authStore";
 
 export default function App() {
-  const isLogged = true;
+  const [user, setUser] = useState(null);
+  function onChange() {
+    setUser(authStore.getUser());
+  }
+
+  useEffect(() => {
+    authStore.addChangeListener(onChange);
+    return () => authStore.removeChangeListener(onChange);
+  }, []);
   return (
     <>
-      {isLogged ? (
+      {user ? (
         <MainNavigator />
       ) : (
         <NavigationContainer>

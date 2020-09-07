@@ -2,10 +2,22 @@ import React, { useEffect, useState } from "react";
 import { TextInput, View, Text, Image, TouchableOpacity } from "react-native";
 import stylesLogin from "../styles/login-style";
 import { logInUser } from "../actions/authActions";
+import authStore from "../stores/authStore";
 
 export default function Login() {
+  const [user, setUser] = useState(null);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  function onChange() {
+    setUser(authStore.getUser());
+  }
+
+  useEffect(() => {
+    authStore.addChangeListener(onChange);
+    return () => authStore.removeChangeListener(onChange);
+  }, []);
 
   return (
     <View style={stylesLogin.inputContainer}>
@@ -37,6 +49,12 @@ export default function Login() {
         onPress={() => logInUser(username, password)}
       >
         <Text style={stylesLogin.submitButton}>Confirm</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={stylesLogin.submitButtonContainer}
+        onPress={() => navigation.navigate("Register")}
+      >
+        <Text style={stylesLogin.submitButton}>Register</Text>
       </TouchableOpacity>
     </View>
   );
