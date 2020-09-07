@@ -4,7 +4,7 @@ import actionTypes from "../actions/actionTypes";
 
 const CHANGE_EVENT = "change";
 
-let _user = null;
+let _user = [];
 let _token = "";
 
 class AuthStore extends EventEmitter {
@@ -21,6 +21,7 @@ class AuthStore extends EventEmitter {
   }
 
   getUser() {
+    console.log(_user);
     return _user;
   }
   getToken() {
@@ -33,7 +34,6 @@ dispatcher.register((action) => {
   switch (action.type) {
     case actionTypes.LOGIN_USER:
       _user = action.data;
-      console.log(_user);
       _token = action.data.token;
 
       authStore.emitChange(_user);

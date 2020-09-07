@@ -16,5 +16,5 @@ export default function Profile() {
     return () => authStore.removeChangeListener(onChange);
   }, []);
 
-  return <Text> Profile works</Text>;
+  return <Text>{user.username}</Text>;
 }

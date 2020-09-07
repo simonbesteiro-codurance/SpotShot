@@ -5,20 +5,8 @@ import { logInUser } from "../actions/authActions";
 import authStore from "../stores/authStore";
 
 export default function Login() {
-  const [user, setUser] = useState(authStore.getUser());
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  function onChange() {
-    setUser(authStore.getUser());
-    console.log(user);
-  }
-
-  useEffect(() => {
-    authStore.addChangeListener(onChange);
-    return () => authStore.removeChangeListener(onChange);
-  }, []);
 
   return (
     <View style={stylesLogin.inputContainer}>
