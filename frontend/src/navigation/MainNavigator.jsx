@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SpotNavigation from "./SpotNavigation";
 import MapNavigation from "./MapNavigation";
 import Login from "../components/Login";
+import Profile from "../components/Profile";
+
 import authStore from "../stores/authStore";
 import stylesTab from "../styles/tab-style";
 
@@ -28,16 +30,12 @@ export default function MainNavigator() {
           labelStyle: {
             fontSize: 12,
           },
-          tabStyle: { color: "pink" },
           style: stylesTab.tabContainer,
         }}
       >
         <Tab.Screen name="SpotList" component={SpotNavigation} />
         <Tab.Screen name="Map" component={MapNavigation} />
-        <Tab.Screen
-          name={user ? "profile" : "login"}
-          component={user ? Login : Login}
-        />
+        <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );
