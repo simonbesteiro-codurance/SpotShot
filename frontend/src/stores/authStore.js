@@ -6,6 +6,7 @@ const CHANGE_EVENT = "change";
 
 let _user = [];
 let _token = "";
+let _message = "";
 
 class AuthStore extends EventEmitter {
   addChangeListener(callback) {
@@ -27,6 +28,9 @@ class AuthStore extends EventEmitter {
   getToken() {
     return _token;
   }
+  getMessage() {
+    return _message;
+  }
 }
 
 const authStore = new AuthStore();
@@ -34,8 +38,11 @@ dispatcher.register((action) => {
   switch (action.type) {
     case actionTypes.LOGIN_USER:
       _user = action.data;
-      _token = action.data.token;
+      _token = action.data.token && action.data.token;
+      console.log(_token);
 
+      _message = action.data.message && action.data.message;
+      console.log(_message);
       authStore.emitChange(_user);
       break;
 

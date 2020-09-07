@@ -13,7 +13,7 @@ async function login(req, res) {
 
     res.send({ ...user.toJSON(), token });
   } else {
-    res.json({ status: 404, message: "Could not authenticate" });
+    res.json({ status: 404, message: "username and password does not match" });
   }
 }
 async function register(req, res) {
