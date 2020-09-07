@@ -42,7 +42,7 @@ export default function Map({ navigation }) {
           showsUserLocation
           showsMyLocationButton
           followsUserLocation
-          region={{
+          initialRegion={{
             latitude: currentLocation.lat,
             longitude: currentLocation.lng,
             latitudeDelta: currentLocation.latDelta,
