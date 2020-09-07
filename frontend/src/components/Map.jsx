@@ -17,7 +17,7 @@ export default function Map({ navigation }) {
     spotStore.getSuggestions()
   );
 
-  //hardcoded
+  //refactor
   const currentLocation = {
     lat: 41.398502,
     lng: 2.200021,

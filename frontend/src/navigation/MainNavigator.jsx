@@ -28,23 +28,15 @@ export default function MainNavigator() {
           labelStyle: {
             fontSize: 12,
           },
+          tabStyle: { color: "pink" },
           style: stylesTab.tabContainer,
         }}
       >
-        <Tab.Screen
-          name="SpotList"
-          component={SpotNavigation}
-          style={stylesTab.tabButton}
-        />
-        <Tab.Screen
-          name="Map"
-          component={MapNavigation}
-          style={stylesTab.tabButton}
-        />
+        <Tab.Screen name="SpotList" component={SpotNavigation} />
+        <Tab.Screen name="Map" component={MapNavigation} />
         <Tab.Screen
           name={user ? "profile" : "login"}
           component={user ? Login : Login}
-          style={stylesTab.tabButton}
         />
       </Tab.Navigator>
     </NavigationContainer>
