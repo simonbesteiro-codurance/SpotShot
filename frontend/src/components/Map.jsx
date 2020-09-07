@@ -122,7 +122,7 @@ export default function Map({ navigation }) {
           />
         </>
       ) : (
-        <ActivityIndicator />
+        <ActivityIndicator style={stylesMap.activityIndicator} />
       )}
     </>
   );

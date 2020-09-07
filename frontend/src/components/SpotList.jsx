@@ -34,7 +34,7 @@ export default function SpotList({ navigation }) {
           keyExtractor={(item) => item._id}
         />
       ) : (
-        <ActivityIndicator />
+        <ActivityIndicator style={stylesSpotList.activityIndicator} />
       )}
     </>
   );

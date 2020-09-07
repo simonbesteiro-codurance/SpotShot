@@ -16,6 +16,11 @@ const stylesSpotList = StyleSheet.create({
     paddingTop: Dimensions.get("window").width * 0.05,
     backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
   },
+  activityIndicator: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
 });
 
 export default stylesSpotList;

@@ -6,6 +6,7 @@ import SpotNavigation from "./SpotNavigation";
 import MapNavigation from "./MapNavigation";
 import Login from "../components/Login";
 import authStore from "../stores/authStore";
+import stylesTab from "../styles/tab-style";
 
 export default function MainNavigator() {
   const Tab = createBottomTabNavigator();
@@ -21,12 +22,29 @@ export default function MainNavigator() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="spotLists">
-        <Tab.Screen name="spotList" component={SpotNavigation} />
-        <Tab.Screen name="Map" component={MapNavigation} />
+      <Tab.Navigator
+        initialRouteName="spotLists"
+        tabBarOptions={{
+          labelStyle: {
+            fontSize: 12,
+          },
+          style: stylesTab.tabContainer,
+        }}
+      >
+        <Tab.Screen
+          name="SpotList"
+          component={SpotNavigation}
+          style={stylesTab.tabButton}
+        />
+        <Tab.Screen
+          name="Map"
+          component={MapNavigation}
+          style={stylesTab.tabButton}
+        />
         <Tab.Screen
           name={user ? "profile" : "login"}
           component={user ? Login : Login}
+          style={stylesTab.tabButton}
         />
       </Tab.Navigator>
     </NavigationContainer>
