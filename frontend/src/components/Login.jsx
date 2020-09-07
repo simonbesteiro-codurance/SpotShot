@@ -4,7 +4,7 @@ import stylesLogin from "../styles/login-style";
 import { logInUser } from "../actions/authActions";
 import authStore from "../stores/authStore";
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
