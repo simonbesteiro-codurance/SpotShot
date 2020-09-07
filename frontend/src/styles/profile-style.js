@@ -28,7 +28,7 @@ const stylesProfile = StyleSheet.create({
 
   userName: {
     fontSize: Dimensions.get("window").width * 0.17,
-    color: "#E0E0E0",
+    color: "#FFFFFF",
     fontWeight: "bold",
   },
 });
