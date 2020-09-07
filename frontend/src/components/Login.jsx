@@ -56,6 +56,9 @@ export default function Login() {
       >
         <Text style={stylesLogin.submitButton}>Register</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={stylesLogin.submitButtonContainer}>
+        <Text style={stylesLogin.submitButton}>skip this step</Text>
+      </TouchableOpacity>
     </View>
   );
 }
