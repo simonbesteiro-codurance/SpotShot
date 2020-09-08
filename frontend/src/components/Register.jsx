@@ -20,7 +20,7 @@ export default function Register() {
     }
   }
   function onChange() {
-    setMessage(authStore.getMessage());
+    setMessage(authStore.getErr());
   }
   useEffect(() => {
     authStore.addChangeListener(onChange);
