@@ -65,7 +65,11 @@ dispatcher.register((action) => {
       authStore.emitChange(_token);
       authStore.emitChange(_message);
       authStore.emitChange(_err);
-
+      break;
+    case actionTypes.SIGN_INVITATE:
+      _user = action.data;
+      console.log(_user);
+      authStore.emitChange(_user);
       break;
     default:
       break;

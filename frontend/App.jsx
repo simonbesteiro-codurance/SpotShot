@@ -14,6 +14,7 @@ export default function App() {
     setErr(authStore.getErr());
     setMessage(authStore.getMessage());
     setUser(authStore.getUser());
+    console.log(user);
   }
 
   useEffect(() => {
