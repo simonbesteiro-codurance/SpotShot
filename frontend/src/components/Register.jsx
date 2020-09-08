@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TextInput, View, Text, Image, TouchableOpacity } from "react-native";
 import stylesRegister from "../styles/register-style";
 import { signUpUser } from "../actions/authActions";
+import authStore from "../stores/authStore";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -18,6 +19,13 @@ export default function Register() {
       signUpUser(username, password, firstName, lastName);
     }
   }
+  function onChange() {
+    setMessage(authStore.getMessage());
+  }
+  useEffect(() => {
+    authStore.addChangeListener(onChange);
+    return () => authStore.removeChangeListener(onChange);
+  }, []);
 
   return (
     <View style={stylesRegister.inputContainer}>
