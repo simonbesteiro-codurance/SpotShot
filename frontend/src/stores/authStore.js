@@ -45,6 +45,8 @@ dispatcher.register((action) => {
 
     case actionTypes.SIGNUP_USER:
       _user = action.data;
+      console.log(_user);
+      _message = action.data.err && action.data.err;
       authStore.emitChange(_user);
       break;
     default:
