@@ -27,3 +27,8 @@ export function signUpUser(username, password, firstName, lastName) {
       });
     });
 }
+export function signOut() {
+  dispatcher.dispatch({
+    type: actionTypes.SIGNOUT_USER,
+  });
+}
