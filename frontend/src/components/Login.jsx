@@ -8,7 +8,6 @@ export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
   function checkMessage() {
     logInUser(username, password);
   }

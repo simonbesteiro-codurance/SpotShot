@@ -18,7 +18,6 @@ async function login(req, res) {
 }
 async function register(req, res) {
   if (await Users.findOne({ username: req.body.username })) {
-    console.log("allready exists");
     res.json({ err: `User ${req.body.username} allready exists` });
   } else {
     const user = new Users(req.body);

@@ -8,15 +8,19 @@ import {
 } from "react-native";
 import stylesProfile from "../styles/profile-style";
 import authStore from "../stores/authStore";
+import { signOut } from "../actions/authActions";
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   const [user, setUser] = useState(authStore.getUser());
   const [darkTheme, setDarkTheme] = useState(false);
   const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
 
+  function logOutUser() {
+    signOut();
+  }
+
   function onChange() {
     setUser(authStore.getUser());
-    console.log(user);
   }
 
   useEffect(() => {
@@ -42,7 +46,10 @@ export default function Profile() {
           />
           <Text>Dark Theme</Text>
         </View>
-        <TouchableOpacity style={stylesProfile.logOutButtonContainer}>
+        <TouchableOpacity
+          style={stylesProfile.logOutButtonContainer}
+          onPress={() => logOutUser()}
+        >
           <Text style={stylesProfile.logOutButton}>logOut</Text>
         </TouchableOpacity>
         <View>

@@ -5,8 +5,9 @@ import actionTypes from "../actions/actionTypes";
 const CHANGE_EVENT = "change";
 
 let _user = [];
-let _token = "";
-let _message = "";
+let _token = null;
+let _message = null;
+let _err = null;
 
 class AuthStore extends EventEmitter {
   addChangeListener(callback) {
@@ -28,8 +29,10 @@ class AuthStore extends EventEmitter {
     return _token;
   }
   getMessage() {
-    console.log("store===>>" + _message);
     return _message;
+  }
+  getErr() {
+    return _err;
   }
 }
 
@@ -41,13 +44,28 @@ dispatcher.register((action) => {
       _token = action.data.token && action.data.token;
       _message = action.data.message && action.data.message;
       authStore.emitChange(_user);
+      authStore.emitChange(_token);
+      authStore.emitChange(_message);
+
       break;
 
     case actionTypes.SIGNUP_USER:
       _user = action.data;
-      console.log(_user);
-      _message = action.data.err && action.data.err;
+      _err = action.data.err && action.data.err;
       authStore.emitChange(_user);
+      authStore.emitChange(_err);
+
+      break;
+    case actionTypes.SIGNOUT_USER:
+      _user = null;
+      _token = null;
+      _message = null;
+      _err = null;
+      authStore.emitChange(_user);
+      authStore.emitChange(_token);
+      authStore.emitChange(_message);
+      authStore.emitChange(_err);
+
       break;
     default:
       break;
