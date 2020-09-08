@@ -1,9 +1,8 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import Login from "../components/Login";
-import Register from "../components/Register";
+import Spot from "../components/Spot";
+import Map from "../components/Map";
 
 export default function SpotNavigation() {
   const Stack = createStackNavigator();
@@ -12,14 +11,11 @@ export default function SpotNavigation() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Login"
+      initialRouteName="Map"
     >
-      <Stack.Screen name="Login">
-        {(props) => <Login {...props} />}
-      </Stack.Screen>
-      <Stack.Screen name="Register">
-        {(props) => <Register {...props} />}
-      </Stack.Screen>
+      <Stack.Screen name="Map">{(props) => <Map {...props} />}</Stack.Screen>
+
+      <Stack.Screen name="Spot" component={Spot} />
     </Stack.Navigator>
   );
 }

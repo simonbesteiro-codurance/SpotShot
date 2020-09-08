@@ -39,8 +39,8 @@ const stylesLogin = StyleSheet.create({
     marginLeft: Dimensions.get("window").width * 0.15,
   },
   submitButton: {
-    backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
-    color: darkTheme ? "#68E3AA" : "#497870",
+    backgroundColor: darkTheme ? "#706D80" : "#497870",
+    color: darkTheme ? "#68E3AA" : "#FFFFFF",
     fontWeight: "bold",
     textAlign: "center",
     paddingTop: Dimensions.get("window").width * 0.03,

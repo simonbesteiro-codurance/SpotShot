@@ -116,11 +116,11 @@ export default function Spot({ route, navigation }) {
               }}
             />
           ) : (
-            <ActivityIndicator />
+            <ActivityIndicator style={stylesSpot.activityIndicator} />
           )}
         </ScrollView>
       ) : (
-        <ActivityIndicator />
+        <ActivityIndicator style={stylesSpot.activityIndicator} />
       )}
     </>
   );

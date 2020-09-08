@@ -13,11 +13,12 @@ async function login(req, res) {
 
     res.send({ ...user.toJSON(), token });
   } else {
-    res.json({ status: 404, message: "Could not authenticate" });
+    res.json({ status: 404, message: "username and password does not match" });
   }
 }
 async function register(req, res) {
   if (await Users.findOne({ username: req.body.username })) {
+    console.log("allready exists");
     res.json({ err: `User ${req.body.username} allready exists` });
   } else {
     const user = new Users(req.body);

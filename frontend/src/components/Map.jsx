@@ -17,7 +17,7 @@ export default function Map({ navigation }) {
     spotStore.getSuggestions()
   );
 
-  //hardcoded
+  //refactor
   const currentLocation = {
     lat: 41.398502,
     lng: 2.200021,
@@ -42,7 +42,7 @@ export default function Map({ navigation }) {
           showsUserLocation
           showsMyLocationButton
           followsUserLocation
-          region={{
+          initialRegion={{
             latitude: currentLocation.lat,
             longitude: currentLocation.lng,
             latitudeDelta: currentLocation.latDelta,
@@ -122,7 +122,7 @@ export default function Map({ navigation }) {
           />
         </>
       ) : (
-        <ActivityIndicator />
+        <ActivityIndicator style={stylesMap.activityIndicator} />
       )}
     </>
   );

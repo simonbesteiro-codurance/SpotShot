@@ -63,6 +63,11 @@ const stylesSpot = StyleSheet.create({
     width: Dimensions.get("window").width * 0.4,
     height: Dimensions.get("window").height * 0.1,
   },
+  activityIndicator: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
 });
 
 export default stylesSpot;

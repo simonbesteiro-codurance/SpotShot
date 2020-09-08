@@ -1,26 +1,41 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SpotNavigation from "./SpotNavigation";
-import AuthNavigation from "./AuthNavigation";
-import Map from "../components/Map";
+import MapNavigation from "./MapNavigation";
 import Login from "../components/Login";
-import Register from "../components/Register";
+import Profile from "../components/Profile";
+
+import authStore from "../stores/authStore";
+import stylesTab from "../styles/tab-style";
 
 export default function MainNavigator() {
   const Tab = createBottomTabNavigator();
-  const isLogged = true;
+  const [user, setUser] = useState(null);
+  function onChange() {
+    setUser(authStore.getUser());
+  }
+
+  useEffect(() => {
+    authStore.addChangeListener(onChange);
+    return () => authStore.removeChangeListener(onChange);
+  }, []);
 
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="spotLists">
-        <Tab.Screen name="spotList" component={SpotNavigation} />
-        <Tab.Screen
-          name={isLogged ? "register" : "login"}
-          component={isLogged ? Register : Login}
-        />
-        <Tab.Screen name="Map" component={Map} />
+      <Tab.Navigator
+        initialRouteName="spotLists"
+        tabBarOptions={{
+          labelStyle: {
+            fontSize: 12,
+          },
+          style: stylesTab.tabContainer,
+        }}
+      >
+        <Tab.Screen name="SpotList" component={SpotNavigation} />
+        <Tab.Screen name="Map" component={MapNavigation} />
+        <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

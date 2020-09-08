@@ -5,9 +5,8 @@ import spotStore from "../stores/spotStore";
 import SpotListItem from "./SpotListItem";
 import stylesSpotList from "../styles/spotList-style";
 
-loadSpots();
-
 export default function SpotList({ navigation }) {
+  loadSpots();
   const [spotList, setSpotList] = useState(null);
   function onChange() {
     setSpotList(spotStore.getSpots());
@@ -34,7 +33,7 @@ export default function SpotList({ navigation }) {
           keyExtractor={(item) => item._id}
         />
       ) : (
-        <ActivityIndicator />
+        <ActivityIndicator style={stylesSpotList.activityIndicator} />
       )}
     </>
   );
