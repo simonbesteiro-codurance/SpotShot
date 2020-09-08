@@ -1,0 +1,6 @@
+projectKey=Spotshot:simon-besteiro
+serverUrl=http://localhost:9000
+serverVersion=8.4.0.35506
+dashboardUrl=http://localhost:9000/dashboard?id=Spotshot%3Asimon-besteiro
+ceTaskId=AXRt5CUixm8Xe7x1wCKy
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXRt5CUixm8Xe7x1wCKy
