@@ -22,13 +22,13 @@ class AuthStore extends EventEmitter {
   }
 
   getUser() {
-    console.log(_user);
     return _user;
   }
   getToken() {
     return _token;
   }
   getMessage() {
+    console.log("store===>>" + _message);
     return _message;
   }
 }
@@ -39,10 +39,7 @@ dispatcher.register((action) => {
     case actionTypes.LOGIN_USER:
       _user = action.data;
       _token = action.data.token && action.data.token;
-      console.log(_token);
-
       _message = action.data.message && action.data.message;
-      console.log(_message);
       authStore.emitChange(_user);
       break;
 

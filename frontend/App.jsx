@@ -7,7 +7,10 @@ import authStore from "./src/stores/authStore";
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [message, setMessage] = useState(null);
+
   function onChange() {
+    setMessage(authStore.getMessage());
     setUser(authStore.getUser());
   }
 
@@ -17,7 +20,7 @@ export default function App() {
   }, []);
   return (
     <>
-      {user ? (
+      {user && !message ? (
         <MainNavigator />
       ) : (
         <NavigationContainer>

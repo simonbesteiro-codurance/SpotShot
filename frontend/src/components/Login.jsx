@@ -7,6 +7,18 @@ import authStore from "../stores/authStore";
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  function checkMessage() {
+    logInUser(username, password);
+  }
+  function onChange() {
+    setMessage(authStore.getMessage());
+  }
+  useEffect(() => {
+    authStore.addChangeListener(onChange);
+    return () => authStore.removeChangeListener(onChange);
+  }, []);
 
   return (
     <View style={stylesLogin.inputContainer}>
@@ -15,7 +27,7 @@ export default function Login({ navigation }) {
         source={require("../Images/SpotShotLogo.png")}
         style={stylesLogin.headerImage}
       />
-
+      <Text>{message && message}</Text>
       <Text style={stylesLogin.inputTextHeader}>username</Text>
       <TextInput
         multiline={false}
@@ -36,7 +48,7 @@ export default function Login({ navigation }) {
       />
       <TouchableOpacity
         style={stylesLogin.submitButtonContainer}
-        onPress={() => logInUser(username, password)}
+        onPress={() => checkMessage()}
       >
         <Text style={stylesLogin.submitButton}>Confirm</Text>
       </TouchableOpacity>
