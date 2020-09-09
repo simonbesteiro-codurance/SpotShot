@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TextInput, View, Text, Image, TouchableOpacity } from "react-native";
 import stylesLogin from "../styles/login-style";
-import { logInUser } from "../actions/authActions";
+import { logInUser, signAsInvitate } from "../actions/authActions";
 import authStore from "../stores/authStore";
 
 export default function Login({ navigation }) {
@@ -10,6 +10,9 @@ export default function Login({ navigation }) {
   const [message, setMessage] = useState("");
   function checkMessage() {
     logInUser(username, password);
+  }
+  function enterAsInvitate() {
+    signAsInvitate();
   }
   function onChange() {
     setMessage(authStore.getMessage());
@@ -57,7 +60,10 @@ export default function Login({ navigation }) {
       >
         <Text style={stylesLogin.submitButton}>Register</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={stylesLogin.submitButtonContainer}>
+      <TouchableOpacity
+        style={stylesLogin.submitButtonContainer}
+        onPress={() => enterAsInvitate()}
+      >
         <Text style={stylesLogin.submitButton}>skip this step</Text>
       </TouchableOpacity>
     </View>

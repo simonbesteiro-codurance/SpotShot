@@ -15,8 +15,6 @@ import SpotCarousel from "./SpotCarousel";
 import { loadSpots, Dimensions } from "../actions/spotActions";
 import MapView, { Marker } from "react-native-maps";
 
-loadSpots();
-
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
