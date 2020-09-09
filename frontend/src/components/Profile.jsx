@@ -6,6 +6,7 @@ import {
   ImageBackground,
   Switch,
 } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import stylesProfile from "../styles/profile-style";
 import authStore from "../stores/authStore";
 import { signOut } from "../actions/authActions";
@@ -15,7 +16,8 @@ export default function Profile({ navigation }) {
   const [darkTheme, setDarkTheme] = useState(false);
   const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
 
-  function logOutUser() {
+  async function logOutUser() {
+    await AsyncStorage.clear();
     signOut();
   }
 

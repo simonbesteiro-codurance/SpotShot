@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TextInput, View, Text, Image, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import stylesLogin from "../styles/login-style";
 import { logInUser, signAsInvitate } from "../actions/authActions";
 import authStore from "../stores/authStore";
@@ -8,7 +9,32 @@ export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  async function storageUser(usernameSpot, passwordSpot) {
+    try {
+      await AsyncStorage.setItem(
+        "user",
+        JSON.stringify({ usernameSpot, passwordSpot })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getUser() {
+    try {
+      let user = await AsyncStorage.getItem("user");
+      user = JSON.parse(user);
+      if (user !== null) {
+        logInUser(user.usernameSpot, user.passwordSpot);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function checkMessage() {
+    storageUser(username, password);
     logInUser(username, password);
   }
   function enterAsInvitate() {
@@ -19,6 +45,7 @@ export default function Login({ navigation }) {
   }
   useEffect(() => {
     authStore.addChangeListener(onChange);
+    getUser();
     return () => authStore.removeChangeListener(onChange);
   }, []);
 
