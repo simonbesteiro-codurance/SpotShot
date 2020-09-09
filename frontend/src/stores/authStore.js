@@ -41,7 +41,6 @@ dispatcher.register((action) => {
   switch (action.type) {
     case actionTypes.LOGIN_USER:
       _user = action.data;
-      console.log(_user);
       _token = action.data.token && action.data.token;
       _message = action.data.message && action.data.message;
       authStore.emitChange(_user);
