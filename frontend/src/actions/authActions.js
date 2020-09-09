@@ -35,6 +35,14 @@ export function signOut() {
 export function signAsInvitate() {
   dispatcher.dispatch({
     type: actionTypes.SIGN_INVITATE,
-    data: [],
+    data: [
+      {
+        firstName: "Guest",
+        id: "0",
+        lastName: "User",
+        token: null,
+        username: null,
+      },
+    ],
   });
 }

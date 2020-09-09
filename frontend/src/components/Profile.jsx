@@ -53,7 +53,9 @@ export default function Profile({ navigation }) {
           <Text style={stylesProfile.logOutButton}>logOut</Text>
         </TouchableOpacity>
         <View>
-          <Text style={stylesProfile.userName}>{user.firstName}</Text>
+          <Text style={stylesProfile.userName}>
+            {user.firstName ? user.firstName : "Guest user"}
+          </Text>
           <Text style={stylesProfile.userName}>{user.lastName}</Text>
         </View>
         <View>
