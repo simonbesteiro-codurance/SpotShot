@@ -6,14 +6,14 @@ import SpotListItem from "./SpotListItem";
 import stylesSpotList from "../styles/spotList-style";
 
 export default function SpotList({ navigation }) {
-  loadSpots();
-  const [spotList, setSpotList] = useState(null);
+  const [spotList, setSpotList] = useState([]);
   function onChange() {
     setSpotList(spotStore.getSpots());
   }
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
+    if (spotList.length === 0) loadSpots();
     return () => spotStore.removeChangeListener(onChange);
   }, []);
   return (
