@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const darkTheme = false;
+const darkTheme = true;
 
 const stylesProfile = StyleSheet.create({
   profileContainer: {
