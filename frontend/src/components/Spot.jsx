@@ -32,10 +32,6 @@ export default function Spot({ route, navigation }) {
 
   const favouriteLogoURL = logos[0];
   const rateLogoURL = logos[1];
-  const mapPlaceholder = {
-    uri:
-      "https://storage.googleapis.com/support-forums-api/attachment/thread-9014924-11470506657998028469.JPG",
-  };
 
   return (
     <>

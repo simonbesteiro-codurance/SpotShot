@@ -11,7 +11,7 @@ import stylesProfile from "../styles/profile-style";
 import authStore from "../stores/authStore";
 import { signOut } from "../actions/authActions";
 
-export default function Profile({ navigation }) {
+export default function Profile() {
   const [user, setUser] = useState(authStore.getUser());
   const [darkTheme, setDarkTheme] = useState(false);
   const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
