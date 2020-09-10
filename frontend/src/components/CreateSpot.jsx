@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, Image } from "react-native";
-// import * as Permissions from "expo-permissions";
 import { Picker } from "@react-native-community/picker";
 import * as ImagePicker from "expo-image-picker";
 import stylesCreateSpot from "../styles/createSpot-style";
+import getCurrentPosition from "./getCurrentLocation";
 
 export default function CreateSpot() {
   const [spotStyle, setSpotStyle] = useState("");
   let picker = null;
   let permisos = null;
   const [selectedImage, setSelectedImage] = useState(null);
+  const [location, setLocation] = useState({
+    latitude: undefined,
+    longitude: undefined,
+  });
 
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -38,6 +42,15 @@ export default function CreateSpot() {
     }
   };
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      setLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
+  });
+
   return (
     <>
       <TextInput
@@ -45,6 +58,8 @@ export default function CreateSpot() {
         style={stylesCreateSpot.titleInput}
         placeholder="Title"
       />
+      <Text>{getCurrentPosition()}</Text>
+
       <Picker
         selectedValue={spotStyle}
         style={stylesCreateSpot.stylePicker}
