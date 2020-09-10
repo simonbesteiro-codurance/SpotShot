@@ -16,12 +16,16 @@ const stylesCreateSpot = StyleSheet.create({
   stylePicker: {
     height: Dimensions.get("window").height * 0.1,
     width: Dimensions.get("window").width * 0.4,
-    margin: Dimensions.get("window").height * 0.1,
+    margin: Dimensions.get("window").height * 0.2,
   },
   cameraButtonContainer: {
     height: Dimensions.get("window").height * 0.1,
     width: Dimensions.get("window").width * 0.4,
     backgroundColor: "aquamarine",
+  },
+  mapContainer: {
+    height: Dimensions.get("window").height * 0.2,
+    width: Dimensions.get("window").width * 0.2,
   },
 });
 
