@@ -24,8 +24,8 @@ const stylesCreateSpot = StyleSheet.create({
     backgroundColor: "aquamarine",
   },
   mapContainer: {
-    height: Dimensions.get("window").height * 0.2,
-    width: Dimensions.get("window").width * 0.2,
+    height: Dimensions.get("window").height * 0.6,
+    width: Dimensions.get("window").width,
   },
 });
 

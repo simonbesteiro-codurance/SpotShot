@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { Picker } from "@react-native-community/picker";
 import * as ImagePicker from "expo-image-picker";
 import stylesCreateSpot from "../styles/createSpot-style";
-import getCurrentPosition from "./getCurrentLocation";
 
 export default function CreateSpot() {
   const [spotStyle, setSpotStyle] = useState("");
@@ -52,13 +60,42 @@ export default function CreateSpot() {
   });
 
   return (
-    <>
+    <ScrollView>
       <TextInput
         editable
         style={stylesCreateSpot.titleInput}
         placeholder="Title"
       />
-      <Text>{getCurrentPosition()}</Text>
+      {location.latitude ? (
+        <MapView
+          style={stylesCreateSpot.mapContainer}
+          initialRegion={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.07,
+            longitudeDelta: 0.07,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            title="test"
+          >
+            <Image
+              source={require("../Images/SpotShotlogo2.png")}
+              style={{
+                height: Dimensions.get("window").height * 0.1,
+                width: Dimensions.get("window").width * 0.1,
+                resizeMode: "contain",
+              }}
+            />
+          </Marker>
+        </MapView>
+      ) : (
+        <ActivityIndicator />
+      )}
 
       <Picker
         selectedValue={spotStyle}
@@ -100,6 +137,6 @@ export default function CreateSpot() {
         style={stylesCreateSpot.titleInput}
         placeholder="Description"
       />
-    </>
+    </ScrollView>
   );
 }
