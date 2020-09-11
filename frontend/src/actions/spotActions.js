@@ -11,13 +11,36 @@ export function loadSpots() {
     });
   });
 }
-export function createSpots() {
-  return new Promise((resolve) => {
-    resolve(spots);
-  }).then((spot) => {
-    dispatcher.dispatch({
-      type: actionTypes.CREATE_SPOT,
-      data: spot,
+export function createSpot(
+  username,
+  title,
+  spotStyle,
+  latitude,
+  longitude,
+  description,
+  locationInfo
+) {
+  console.log(title);
+  console.log(spotStyle);
+  console.log(latitude);
+  console.log(longitude);
+  console.log(description);
+  console.log(locationInfo);
+
+  return axios
+    .post("http://localhost:4200/api/spots", {
+      username,
+      title,
+      spotStyle,
+      latitude,
+      longitude,
+      description,
+      locationInfo,
+    })
+    .then((response) => {
+      dispatcher.dispatch({
+        type: actionTypes.CREATE_SPOT,
+        data: response,
+      });
     });
-  });
 }
