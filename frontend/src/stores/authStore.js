@@ -1,6 +1,7 @@
 import { EventEmitter } from "events";
 import dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
+import { logInUser } from "../actions/authActions";
 
 const CHANGE_EVENT = "change";
 
@@ -51,6 +52,7 @@ dispatcher.register((action) => {
 
     case actionTypes.SIGNUP_USER:
       _user = action.data;
+      logInUser(_user.username, _user.password);
       _err = action.data.err && action.data.err;
       authStore.emitChange(_user);
       authStore.emitChange(_err);

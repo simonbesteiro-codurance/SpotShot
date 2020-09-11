@@ -23,7 +23,7 @@ export function signUpUser(username, password, firstName, lastName) {
     .then((user) => {
       dispatcher.dispatch({
         type: actionTypes.SIGNUP_USER,
-        data: user.data,
+        data: { username, password },
       });
     });
 }
