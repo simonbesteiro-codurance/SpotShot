@@ -11,12 +11,20 @@ const stylesProfile = StyleSheet.create({
     flex: 1,
     resizeMode: "contain",
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    padding: Dimensions.get("window").width * 0.05,
+    paddingTop: Dimensions.get("window").width * 0.2,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: Dimensions.get("window").width * 0.05,
+  },
+  darkSwitchBackground: {
+    backgroundColor: "black",
   },
   logOutButtonContainer: {
     width: Dimensions.get("window").width * 0.3,
     height: Dimensions.get("window").height * 0.05,
-    marginLeft: Dimensions.get("window").width * 0.6,
     borderRadius: 10,
     backgroundColor: darkTheme ? "#283047" : "#E0E0E0",
   },
