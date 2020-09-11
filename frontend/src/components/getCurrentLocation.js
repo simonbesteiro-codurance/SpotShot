@@ -13,6 +13,8 @@ function getCurrentLocation() {
       });
     });
   });
-  return location;
+  return new Promise((resolve) => {
+    resolve(location);
+  });
 }
 module.exports = getCurrentLocation;

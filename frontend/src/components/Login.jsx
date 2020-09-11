@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  TextInput,
+  KeyboardAvoidingView,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesLogin from "../styles/login-style";
 import { logInUser, signAsInvitate } from "../actions/authActions";
@@ -50,7 +56,7 @@ export default function Login({ navigation }) {
   }, []);
 
   return (
-    <View style={stylesLogin.inputContainer}>
+    <KeyboardAvoidingView behavior="padding" style={stylesLogin.inputContainer}>
       <Text style={stylesLogin.headerText}>LOGIN</Text>
       <Image
         source={require("../Images/SpotShotLogo.png")}
@@ -93,6 +99,6 @@ export default function Login({ navigation }) {
       >
         <Text style={stylesLogin.submitButton}>skip this step</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

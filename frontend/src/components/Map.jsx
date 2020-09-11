@@ -16,11 +16,12 @@ export default function Map({ navigation }) {
   const [spotSuggestion, setSpotSuggestion] = useState(
     spotStore.getSuggestions()
   );
-
+  const [userLocation, setUserLocation] = useState({
+    latitude: undefined,
+    longitude: undefined,
+  });
   //refactor
-  const currentLocation = {
-    lat: 41.398502,
-    lng: 2.200021,
+  const deltaCoords = {
     latDelta: 0.07,
     lngDelta: 0.07,
   };
@@ -32,21 +33,27 @@ export default function Map({ navigation }) {
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      setUserLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
     return () => spotStore.removeChangeListener(onChange);
   }, []);
   return (
     <>
-      {spotList ? (
+      {spotList && userLocation.latitude ? (
         <MapView
           style={stylesMap.mapContainer}
           showsUserLocation
           showsMyLocationButton
           followsUserLocation
           initialRegion={{
-            latitude: currentLocation.lat,
-            longitude: currentLocation.lng,
-            latitudeDelta: currentLocation.latDelta,
-            longitudeDelta: currentLocation.lngDelta,
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+            latitudeDelta: deltaCoords.latDelta,
+            longitudeDelta: deltaCoords.lngDelta,
           }}
         >
           {spotList.map((element) => {
