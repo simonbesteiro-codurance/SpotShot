@@ -6,17 +6,21 @@ import {
   ImageBackground,
   Switch,
   ScrollView,
+  FlatList,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesProfile from "../styles/profile-style";
 import authStore from "../stores/authStore";
-import { signOut } from "../actions/authActions";
-import spotListItem from "./SpotListItem";
+import spotStore from "../stores/spotStore";
 
-export default function Profile() {
+import { signOut } from "../actions/authActions";
+import SpotListItem from "./SpotListItem";
+
+export default function Profile({ navigation }) {
   const [user, setUser] = useState(authStore.getUser());
   const [darkTheme, setDarkTheme] = useState(false);
   const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
+  const [createdSpots, setCreatedSpots] = useState("");
 
   async function logOutUser() {
     await AsyncStorage.clear();
@@ -28,6 +32,7 @@ export default function Profile() {
   }
 
   useEffect(() => {
+    setCreatedSpots(spotStore.getCreatedSpots(user.username));
     authStore.addChangeListener(onChange);
     return () => authStore.removeChangeListener(onChange);
   }, []);
@@ -61,14 +66,29 @@ export default function Profile() {
             <Text style={stylesProfile.logOutButton}>logOut</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={stylesProfile.userName}>
-            {user.firstName ? user.firstName : "Guest user"}
-          </Text>
-          <Text style={stylesProfile.userName}>{user.lastName}</Text>
-        </View>
         <ScrollView style={stylesProfile.favouriteContainer}>
-          {/* <spotListItem /> */}
+          <View>
+            <Text style={stylesProfile.userName}>
+              {user.firstName ? user.firstName : "Guest user"}
+            </Text>
+            <Text style={stylesProfile.userName}>{user.lastName}</Text>
+          </View>
+          <FlatList
+            style={stylesProfile.containerCreatedSpot}
+            data={createdSpots}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Spot", { id: item._id })}
+              >
+                <TouchableOpacity>
+                  <Text style={stylesProfile.deleteButton}>Delete</Text>
+                </TouchableOpacity>
+                <SpotListItem spot={item} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item._id}
+          />
         </ScrollView>
       </ImageBackground>
     </View>

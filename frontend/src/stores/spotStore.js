@@ -23,6 +23,7 @@ class SpotStore extends EventEmitter {
   }
 
   getSpots() {
+    console.log(_spot);
     return _spot;
   }
 
@@ -64,6 +65,11 @@ class SpotStore extends EventEmitter {
     );
 
     return reduceSpotsSuggestions;
+  }
+
+  getCreatedSpots(username) {
+    const createdSpots = _spot.filter((spot) => spot.username === username);
+    return createdSpots;
   }
 }
 
