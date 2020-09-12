@@ -4,7 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Dimensions,
+  View,
   ActivityIndicator,
   ScrollView,
 } from "react-native";
@@ -81,23 +81,72 @@ export default function CreateSpot() {
   }, []);
 
   return (
-    <ScrollView>
-      <TextInput
-        editable
-        style={stylesCreateSpot.titleInput}
-        placeholder={title}
-        onChangeText={(value) => {
-          setTitle(value);
-        }}
+    <ScrollView style={stylesCreateSpot.container}>
+      <Image
+        style={stylesCreateSpot.selectedPhoto}
+        source={
+          selectedImage
+            ? { uri: selectedImage.localUri }
+            : require("../Images/SpotShotlogo2.png")
+        }
       />
+      <View style={stylesCreateSpot.headerContainer}>
+        <TouchableOpacity
+          style={stylesCreateSpot.cameraButtonContainer}
+          onPress={() => runCamera()}
+        >
+          <Image
+            style={stylesCreateSpot.generalIcon}
+            source={{
+              uri:
+                "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
+            }}
+          />
+          <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={stylesCreateSpot.cameraButtonContainer}
+          onPress={() => selectFile()}
+        >
+          <Image
+            style={stylesCreateSpot.generalIcon}
+            source={{
+              uri:
+                "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
+            }}
+          />
+          <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={stylesCreateSpot.headerContainer}>
+        <Picker
+          selectedValue={spotStyle}
+          style={stylesCreateSpot.stylePicker}
+          onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
+        >
+          <Picker.Item label="Other" value="other" />
+          <Picker.Item label="Urban" value="urban" />
+          <Picker.Item label="Nature" value="nature" />
+          <Picker.Item label="Arquitecture" value="arquitecture" />
+        </Picker>
+        <TextInput
+          editable
+          style={stylesCreateSpot.titleInput}
+          placeholder="Title"
+          onChangeText={(value) => {
+            setTitle(value);
+          }}
+        />
+      </View>
       {location.latitude ? (
         <MapView
           style={stylesCreateSpot.mapContainer}
           initialRegion={{
             latitude: location.latitude,
             longitude: location.longitude,
-            latitudeDelta: 0.07,
-            longitudeDelta: 0.07,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
           }}
         >
           <Marker
@@ -109,11 +158,7 @@ export default function CreateSpot() {
           >
             <Image
               source={require("../Images/SpotShotlogo2.png")}
-              style={{
-                height: Dimensions.get("window").height * 0.1,
-                width: Dimensions.get("window").width * 0.1,
-                resizeMode: "contain",
-              }}
+              style={stylesCreateSpot.mapContainerIcon}
             />
           </Marker>
         </MapView>
@@ -121,41 +166,9 @@ export default function CreateSpot() {
         <ActivityIndicator />
       )}
 
-      <Picker
-        selectedValue={spotStyle}
-        style={stylesCreateSpot.stylePicker}
-        onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
-      >
-        <Picker.Item label="Other" value="other" />
-
-        <Picker.Item label="Urban" value="urban" />
-        <Picker.Item label="Nature" value="nature" />
-        <Picker.Item label="Arquitecture" value="arquitecture" />
-      </Picker>
-      <Image
-        style={stylesCreateSpot.selectedPhoto}
-        source={
-          selectedImage
-            ? { uri: selectedImage.localUri }
-            : require("../Images/SpotShotlogo2.png")
-        }
-      />
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => runCamera()}
-      >
-        <Text style={stylesCreateSpot.submitButton}>Camera</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => selectFile()}
-      >
-        <Text style={stylesCreateSpot.submitButton}>Gallery</Text>
-      </TouchableOpacity>
       <TextInput
         editable
-        style={stylesCreateSpot.titleInput}
+        style={stylesCreateSpot.locationInfoInput}
         placeholder="Location extra information"
         onChangeText={(value) => {
           setLocationInfo(value);
@@ -163,14 +176,14 @@ export default function CreateSpot() {
       />
       <TextInput
         editable
-        style={stylesCreateSpot.titleInput}
+        style={stylesCreateSpot.descriptionInput}
         placeholder="Description"
         onChangeText={(value) => {
           setDescription(value);
         }}
       />
       <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
+        style={stylesCreateSpot.submitButtonContainer}
         onPress={() =>
           createSpot(
             username._55,
