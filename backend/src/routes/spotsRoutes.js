@@ -7,8 +7,11 @@ function routes() {
   spotRouter
     .route("/")
     .get(spotRouteController.get)
-    .post(spotRouteController.post);
+    .post(spotRouteController.post)
+    .delete(spotRouteController.deleter);
+  spotRouter.route("/remove").post(spotRouteController.deleter);
   spotRouter.route("/:spotId").get(spotRouteController.get);
+
   return spotRouter;
 }
 module.exports = routes();

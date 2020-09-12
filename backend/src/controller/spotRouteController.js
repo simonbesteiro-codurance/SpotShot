@@ -2,6 +2,7 @@ const Spots = require("../models/spotModel");
 const {
   getAllProducts,
   getProductById,
+  removeSpotById,
 } = require("../database-utils/databaseCalls");
 
 const get = (req, res) => {
@@ -23,4 +24,10 @@ const post = (req, res) => {
   });
 };
 
-module.exports = { get, post };
+const deleter = (req, res) => {
+  removeSpotById(req.body.spotId).then((response) => {
+    res.send(response);
+  });
+};
+
+module.exports = { get, post, deleter };

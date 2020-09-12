@@ -19,14 +19,6 @@ export function createSpot(
   description,
   locationInfo
 ) {
-  console.log(username);
-  console.log(title);
-  console.log(spotStyle);
-  console.log(lat);
-  console.log(lng);
-  console.log(description);
-  console.log(locationInfo);
-
   return axios
     .post("http://localhost:4200/api/spots", {
       username,
@@ -38,9 +30,18 @@ export function createSpot(
       locationInfo,
     })
     .then((response) => {
-      console.log(response);
       dispatcher.dispatch({
         type: actionTypes.CREATE_SPOT,
+        data: response,
+      });
+    });
+}
+export function deleteSpot(spotId) {
+  return axios
+    .post("http://localhost:4200/api/spots/remove", spotId)
+    .then((response) => {
+      dispatcher.dispatch({
+        type: actionTypes.DELETE_SPOT,
         data: response,
       });
     });

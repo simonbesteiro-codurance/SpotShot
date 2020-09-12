@@ -23,7 +23,6 @@ class SpotStore extends EventEmitter {
   }
 
   getSpots() {
-    console.log(_spot);
     return _spot;
   }
 
@@ -82,6 +81,10 @@ dispatcher.register((action) => {
       break;
     case actionTypes.CREATE_SPOT:
       loadSpots();
+      break;
+    case actionTypes.DELETE_SPOT:
+      loadSpots();
+      spotStore.emitChange(_spot);
       break;
     default:
       break;
