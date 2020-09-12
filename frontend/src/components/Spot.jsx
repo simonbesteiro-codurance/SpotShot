@@ -30,8 +30,9 @@ export default function Spot({ route, navigation }) {
     return () => spotStore.removeChangeListener(onChange);
   }, []);
 
-  const favouriteLogoURL = logos[0];
-  const rateLogoURL = logos[1];
+  console.log(spot);
+  // const favouriteLogoURL = logos[0];
+  // const rateLogoURL = logos[1];
 
   return (
     <>
@@ -40,7 +41,7 @@ export default function Spot({ route, navigation }) {
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
-              <View style={stylesSpot.mainHead}>
+              {/* <View style={stylesSpot.mainHead}>
                 <View style={stylesSpot.mainHeadRate}>
                   <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
                   <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
@@ -52,7 +53,7 @@ export default function Spot({ route, navigation }) {
                   style={stylesSpot.mainHeadLogo}
                   source={favouriteLogoURL}
                 />
-              </View>
+              </View> */}
               <View style={stylesSpot.mainContainerTitle}>
                 <Text style={stylesSpot.mainContainerTitleText}>
                   {spot.title}
