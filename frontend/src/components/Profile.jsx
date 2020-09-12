@@ -50,14 +50,14 @@ export default function Profile({ navigation }) {
 
   function onChange() {
     setUser(authStore.getUser());
+    setCreatedSpots(spotStore.getCreatedSpots(user.username));
   }
 
   useEffect(() => {
-    authStore.addChangeListener(onChange);
+    spotStore.addChangeListener(onChange);
 
-    setCreatedSpots(spotStore.getCreatedSpots(user.username));
     return () => {
-      authStore.removeChangeListener(onChange);
+      spotStore.removeChangeListener(onChange);
     };
   }, []);
 
