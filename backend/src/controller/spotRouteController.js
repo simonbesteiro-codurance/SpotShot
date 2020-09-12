@@ -15,8 +15,6 @@ const get = (req, res) => {
       });
 };
 const post = (req, res) => {
-  console.log(req.body);
-
   const spot = new Spots(req.body);
   spot.save((err, spotInput) => {
     if (err) res.json(err);
