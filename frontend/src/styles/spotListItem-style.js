@@ -8,6 +8,7 @@ const stylesSpotListItem = StyleSheet.create({
     width: Dimensions.get("window").width * 0.8,
     flexDirection: "column",
     shadowOpacity: 0.5,
+    borderRadius: 50 / 2,
     marginBottom: Dimensions.get("window").width * 0.1,
     backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
   },

@@ -73,6 +73,7 @@ export default function Profile({ navigation }) {
             </Text>
             <Text style={stylesProfile.userName}>{user.lastName}</Text>
           </View>
+          <Text style={stylesProfile.titleCreatedSpot}>Created Spots</Text>
           <FlatList
             style={stylesProfile.containerCreatedSpot}
             data={createdSpots}
@@ -81,8 +82,8 @@ export default function Profile({ navigation }) {
               <TouchableOpacity
                 onPress={() => navigation.navigate("Spot", { id: item._id })}
               >
-                <TouchableOpacity>
-                  <Text style={stylesProfile.deleteButton}>Delete</Text>
+                <TouchableOpacity style={stylesProfile.deleteButton}>
+                  <Text style={stylesProfile.deleteButtonText}>Delete</Text>
                 </TouchableOpacity>
                 <SpotListItem spot={item} />
               </TouchableOpacity>
