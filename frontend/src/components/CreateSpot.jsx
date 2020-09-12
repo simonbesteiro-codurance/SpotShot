@@ -126,6 +126,8 @@ export default function CreateSpot() {
         style={stylesCreateSpot.stylePicker}
         onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
       >
+        <Picker.Item label="Other" value="other" />
+
         <Picker.Item label="Urban" value="urban" />
         <Picker.Item label="Nature" value="nature" />
         <Picker.Item label="Arquitecture" value="arquitecture" />

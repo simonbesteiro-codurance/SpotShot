@@ -15,13 +15,11 @@ const get = (req, res) => {
 };
 const post = (req, res) => {
   console.log(req.body);
-  Spots.create(req.body, function (err, result) {
-    if (err) {
-      res.send(err);
-    } else {
-      console.log(result);
-      res.send(result);
-    }
+
+  const spot = new Spots(req.body);
+  spot.save((err, spotInput) => {
+    if (err) res.json(err);
+    else res.json(spotInput);
   });
 };
 
