@@ -3,7 +3,7 @@ import dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
 import React from "react";
 import SpotCarousel from "../components/SpotCarousel";
-import { Marker } from "react-native-maps";
+import { loadSpots } from "../actions/spotActions";
 
 const CHANGE_EVENT = "change";
 
@@ -65,6 +65,11 @@ class SpotStore extends EventEmitter {
 
     return reduceSpotsSuggestions;
   }
+
+  getCreatedSpots(username) {
+    const createdSpots = _spot.filter((spot) => spot.username === username);
+    return createdSpots;
+  }
 }
 
 const spotStore = new SpotStore();
@@ -74,7 +79,13 @@ dispatcher.register((action) => {
       _spot = action.data;
       spotStore.emitChange(_spot);
       break;
-
+    case actionTypes.CREATE_SPOT:
+      loadSpots();
+      break;
+    case actionTypes.DELETE_SPOT:
+      loadSpots();
+      spotStore.emitChange(_spot);
+      break;
     default:
       break;
   }

@@ -4,17 +4,37 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Dimensions,
+  View,
   ActivityIndicator,
   ScrollView,
 } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+
 import MapView, { Marker } from "react-native-maps";
 import { Picker } from "@react-native-community/picker";
 import * as ImagePicker from "expo-image-picker";
 import stylesCreateSpot from "../styles/createSpot-style";
+import { createSpot } from "../actions/spotActions";
+
+async function getUser() {
+  try {
+    let user = await AsyncStorage.getItem("user");
+    user = JSON.parse(user);
+    if (user !== null) {
+      return user.usernameSpot;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export default function CreateSpot() {
   const [spotStyle, setSpotStyle] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [locationInfo, setLocationInfo] = useState("");
+  const [username, setUsername] = useState("");
+
   let picker = null;
   let permisos = null;
   const [selectedImage, setSelectedImage] = useState(null);
@@ -51,61 +71,17 @@ export default function CreateSpot() {
   };
 
   useEffect(() => {
+    setUsername(getUser().then((author) => author));
     navigator.geolocation.getCurrentPosition(function (pos) {
       setLocation({
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
       });
     });
-  });
+  }, []);
 
   return (
-    <ScrollView>
-      <TextInput
-        editable
-        style={stylesCreateSpot.titleInput}
-        placeholder="Title"
-      />
-      {location.latitude ? (
-        <MapView
-          style={stylesCreateSpot.mapContainer}
-          initialRegion={{
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.07,
-            longitudeDelta: 0.07,
-          }}
-        >
-          <Marker
-            coordinate={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            }}
-            title="test"
-          >
-            <Image
-              source={require("../Images/SpotShotlogo2.png")}
-              style={{
-                height: Dimensions.get("window").height * 0.1,
-                width: Dimensions.get("window").width * 0.1,
-                resizeMode: "contain",
-              }}
-            />
-          </Marker>
-        </MapView>
-      ) : (
-        <ActivityIndicator />
-      )}
-
-      <Picker
-        selectedValue={spotStyle}
-        style={stylesCreateSpot.stylePicker}
-        onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
-      >
-        <Picker.Item label="Urban" value="urban" />
-        <Picker.Item label="Nature" value="nature" />
-        <Picker.Item label="Arquitecture" value="arquitecture" />
-      </Picker>
+    <ScrollView style={stylesCreateSpot.container}>
       <Image
         style={stylesCreateSpot.selectedPhoto}
         source={
@@ -114,29 +90,114 @@ export default function CreateSpot() {
             : require("../Images/SpotShotlogo2.png")
         }
       />
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => runCamera()}
-      >
-        <Text style={stylesCreateSpot.submitButton}>Camera</Text>
-      </TouchableOpacity>
+      <View style={stylesCreateSpot.headerContainer}>
+        <TouchableOpacity
+          style={stylesCreateSpot.cameraButtonContainer}
+          onPress={() => runCamera()}
+        >
+          <Image
+            style={stylesCreateSpot.generalIcon}
+            source={{
+              uri:
+                "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
+            }}
+          />
+          <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => selectFile()}
-      >
-        <Text style={stylesCreateSpot.submitButton}>Gallery</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={stylesCreateSpot.cameraButtonContainer}
+          onPress={() => selectFile()}
+        >
+          <Image
+            style={stylesCreateSpot.generalIcon}
+            source={{
+              uri:
+                "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
+            }}
+          />
+          <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={stylesCreateSpot.headerContainer}>
+        <Picker
+          selectedValue={spotStyle}
+          style={stylesCreateSpot.stylePicker}
+          onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
+        >
+          <Picker.Item label="Other" value="other" />
+          <Picker.Item label="Urban" value="urban" />
+          <Picker.Item label="Nature" value="nature" />
+          <Picker.Item label="Arquitecture" value="arquitecture" />
+        </Picker>
+        <TextInput
+          editable
+          style={stylesCreateSpot.titleInput}
+          placeholder="Title"
+          onChangeText={(value) => {
+            setTitle(value);
+          }}
+        />
+      </View>
+      {location.latitude ? (
+        <MapView
+          style={stylesCreateSpot.mapContainer}
+          initialRegion={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            title={title || "New Spot"}
+          >
+            <Image
+              source={require("../Images/SpotShotlogo2.png")}
+              style={stylesCreateSpot.mapContainerIcon}
+            />
+          </Marker>
+        </MapView>
+      ) : (
+        <ActivityIndicator />
+      )}
+
       <TextInput
         editable
-        style={stylesCreateSpot.titleInput}
+        style={stylesCreateSpot.locationInfoInput}
         placeholder="Location extra information"
+        onChangeText={(value) => {
+          setLocationInfo(value);
+        }}
       />
       <TextInput
         editable
-        style={stylesCreateSpot.titleInput}
+        style={stylesCreateSpot.descriptionInput}
         placeholder="Description"
+        onChangeText={(value) => {
+          setDescription(value);
+        }}
       />
+      <TouchableOpacity
+        style={stylesCreateSpot.submitButtonContainer}
+        onPress={() =>
+          createSpot(
+            username._55,
+            title,
+            spotStyle,
+            location.latitude,
+            location.longitude,
+            description,
+            locationInfo
+          )
+        }
+      >
+        <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }

@@ -1,6 +1,8 @@
+const Spots = require("../models/spotModel");
 const {
   getAllProducts,
   getProductById,
+  removeSpotById,
 } = require("../database-utils/databaseCalls");
 
 const get = (req, res) => {
@@ -12,5 +14,18 @@ const get = (req, res) => {
         res.json(response);
       });
 };
+const post = (req, res) => {
+  const spot = new Spots(req.body);
+  spot.save((err, spotInput) => {
+    if (err) res.json(err);
+    else res.json(spotInput);
+  });
+};
 
-module.exports = { get };
+const deleter = (req, res) => {
+  removeSpotById(req.body.spotId).then((response) => {
+    res.send(response);
+  });
+};
+
+module.exports = { get, post, deleter };

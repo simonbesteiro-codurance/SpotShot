@@ -28,4 +28,16 @@ const getProductById = async (spotId) => {
   }
   return spot;
 };
-module.exports = { getAllProducts, getProductById };
+
+const removeSpotById = async (spotId) => {
+  try {
+    const client = await MongoClient.connect(DBCONF.url);
+    const db = client.db(DBCONF.dbName);
+    const collection = db.collection(DBCONF.spotsColl);
+    await collection.remove({ _id: new ObjectID(spotId) });
+  } catch (error) {
+    throw error.stack;
+  }
+  return `Spot ${spotId} removed`;
+};
+module.exports = { getAllProducts, getProductById, removeSpotById };

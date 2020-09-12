@@ -6,17 +6,42 @@ import {
   ImageBackground,
   Switch,
   ScrollView,
+  FlatList,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesProfile from "../styles/profile-style";
 import authStore from "../stores/authStore";
+import spotStore from "../stores/spotStore";
+import { deleteSpot } from "../actions/spotActions";
 import { signOut } from "../actions/authActions";
-import spotListItem from "./SpotListItem";
+import SpotListItem from "./SpotListItem";
 
-export default function Profile() {
+const removeConfirm = (spotId) => {
+  Alert.alert(
+    "Are you sure you want to delete this spot?",
+    "This will remove this spot permanently",
+    [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Remove",
+        onPress: () => deleteSpot({ spotId }),
+        style: "destructive",
+      },
+    ]
+  );
+};
+
+export default function Profile({ navigation }) {
   const [user, setUser] = useState(authStore.getUser());
   const [darkTheme, setDarkTheme] = useState(false);
   const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
+  const [createdSpots, setCreatedSpots] = useState(
+    spotStore.getCreatedSpots(user.username)
+  );
 
   async function logOutUser() {
     await AsyncStorage.clear();
@@ -25,11 +50,15 @@ export default function Profile() {
 
   function onChange() {
     setUser(authStore.getUser());
+    setCreatedSpots(spotStore.getCreatedSpots(user.username));
   }
 
   useEffect(() => {
-    authStore.addChangeListener(onChange);
-    return () => authStore.removeChangeListener(onChange);
+    spotStore.addChangeListener(onChange);
+
+    return () => {
+      spotStore.removeChangeListener(onChange);
+    };
   }, []);
 
   return (
@@ -61,14 +90,40 @@ export default function Profile() {
             <Text style={stylesProfile.logOutButton}>logOut</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={stylesProfile.userName}>
-            {user.firstName ? user.firstName : "Guest user"}
-          </Text>
-          <Text style={stylesProfile.userName}>{user.lastName}</Text>
-        </View>
         <ScrollView style={stylesProfile.favouriteContainer}>
-          {/* <spotListItem /> */}
+          <View>
+            <Text style={stylesProfile.userName}>
+              {user.firstName ? user.firstName : "Guest user"}
+            </Text>
+            <Text style={stylesProfile.userName}>{user.lastName}</Text>
+          </View>
+          {createdSpots.length !== 0 ? (
+            <Text style={stylesProfile.titleCreatedSpot}>Created Spots</Text>
+          ) : (
+            <Text style={stylesProfile.titleCreatedSpot}>
+              You did not create any spot yet :(
+            </Text>
+          )}
+
+          <FlatList
+            style={stylesProfile.containerCreatedSpot}
+            data={createdSpots}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Spot", { id: item._id })}
+              >
+                <TouchableOpacity
+                  style={stylesProfile.deleteButton}
+                  onPress={() => removeConfirm(item._id)}
+                >
+                  <Text style={stylesProfile.deleteButtonText}>Delete</Text>
+                </TouchableOpacity>
+                <SpotListItem spot={item} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item._id}
+          />
         </ScrollView>
       </ImageBackground>
     </View>
