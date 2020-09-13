@@ -90,7 +90,10 @@ export default function Profile({ navigation }) {
             <Text style={stylesProfile.logOutButton}>logOut</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={stylesProfile.favouriteContainer}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={stylesProfile.favouriteContainer}
+        >
           <View>
             <Text style={stylesProfile.userName}>
               {user.firstName ? user.firstName : "Guest user"}
