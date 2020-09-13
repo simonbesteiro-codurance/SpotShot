@@ -28,7 +28,7 @@ async function getUser() {
   }
 }
 
-export default function CreateSpot() {
+export default function CreateSpot({ navigation }) {
   const [spotStyle, setSpotStyle] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -141,6 +141,7 @@ export default function CreateSpot() {
       </View>
       {location.latitude ? (
         <MapView
+          scrollEnabled={false}
           style={stylesCreateSpot.mapContainer}
           initialRegion={{
             latitude: location.latitude,
@@ -184,7 +185,7 @@ export default function CreateSpot() {
       />
       <TouchableOpacity
         style={stylesCreateSpot.submitButtonContainer}
-        onPress={() =>
+        onPress={() => {
           createSpot(
             username._55,
             title,
@@ -193,8 +194,9 @@ export default function CreateSpot() {
             location.longitude,
             description,
             locationInfo
-          )
-        }
+          );
+          navigation.navigate("Profile");
+        }}
       >
         <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
       </TouchableOpacity>
