@@ -4,7 +4,7 @@ import actionTypes from "./actionTypes";
 
 export function logInUser(username, password) {
   return axios
-    .post("http://localhost:4200/auth/login", { username, password })
+    .post("http://192.168.0.40:4200/auth/login", { username, password })
     .then((user) => {
       dispatcher.dispatch({
         type: actionTypes.LOGIN_USER,
@@ -14,7 +14,7 @@ export function logInUser(username, password) {
 }
 export function signUpUser(username, password, firstName, lastName) {
   return axios
-    .post("http://localhost:4200/auth/register", {
+    .post("http://192.168.0.40:4200/auth/register", {
       username,
       password,
       firstName,
