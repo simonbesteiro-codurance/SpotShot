@@ -2,18 +2,20 @@ import "react-native-gesture-handler";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Spot from "../components/Spot";
-import Map from "../components/Map";
+import Profile from "../components/Profile";
 
-export default function MapNavigation() {
+export default function ProfileNavigation() {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Map"
+      initialRouteName="Profile"
     >
-      <Stack.Screen name="Map">{(props) => <Map {...props} />}</Stack.Screen>
+      <Stack.Screen name="Profile">
+        {(props) => <Profile {...props} />}
+      </Stack.Screen>
 
       <Stack.Screen name="Spot" component={Spot} />
     </Stack.Navigator>

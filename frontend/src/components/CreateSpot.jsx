@@ -7,6 +7,7 @@ import {
   View,
   ActivityIndicator,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -28,7 +29,7 @@ async function getUser() {
   }
 }
 
-export default function CreateSpot() {
+export default function CreateSpot({ navigation }) {
   const [spotStyle, setSpotStyle] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -81,123 +82,129 @@ export default function CreateSpot() {
   }, []);
 
   return (
-    <ScrollView style={stylesCreateSpot.container}>
-      <Image
-        style={stylesCreateSpot.selectedPhoto}
-        source={
-          selectedImage
-            ? { uri: selectedImage.localUri }
-            : require("../Images/SpotShotlogo2.png")
-        }
-      />
-      <View style={stylesCreateSpot.headerContainer}>
-        <TouchableOpacity
-          style={stylesCreateSpot.cameraButtonContainer}
-          onPress={() => runCamera()}
-        >
-          <Image
-            style={stylesCreateSpot.generalIcon}
-            source={{
-              uri:
-                "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
-            }}
-          />
-          <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={stylesCreateSpot.cameraButtonContainer}
-          onPress={() => selectFile()}
-        >
-          <Image
-            style={stylesCreateSpot.generalIcon}
-            source={{
-              uri:
-                "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
-            }}
-          />
-          <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={stylesCreateSpot.headerContainer}>
-        <Picker
-          selectedValue={spotStyle}
-          style={stylesCreateSpot.stylePicker}
-          onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
-        >
-          <Picker.Item label="Other" value="other" />
-          <Picker.Item label="Urban" value="urban" />
-          <Picker.Item label="Nature" value="nature" />
-          <Picker.Item label="Arquitecture" value="arquitecture" />
-        </Picker>
-        <TextInput
-          editable
-          style={stylesCreateSpot.titleInput}
-          placeholder="Title"
-          onChangeText={(value) => {
-            setTitle(value);
-          }}
+    <SafeAreaView>
+      <ScrollView style={stylesCreateSpot.container}>
+        <Image
+          style={stylesCreateSpot.selectedPhoto}
+          source={
+            selectedImage
+              ? { uri: selectedImage.localUri }
+              : require("../Images/SpotShotlogo2.png")
+          }
         />
-      </View>
-      {location.latitude ? (
-        <MapView
-          style={stylesCreateSpot.mapContainer}
-          initialRegion={{
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}
-        >
-          <Marker
-            coordinate={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            }}
-            title={title || "New Spot"}
+        <View style={stylesCreateSpot.headerContainer}>
+          <TouchableOpacity
+            style={stylesCreateSpot.cameraButtonContainer}
+            onPress={() => runCamera()}
           >
             <Image
-              source={require("../Images/SpotShotlogo2.png")}
-              style={stylesCreateSpot.mapContainerIcon}
+              style={stylesCreateSpot.generalIcon}
+              source={{
+                uri:
+                  "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
+              }}
             />
-          </Marker>
-        </MapView>
-      ) : (
-        <ActivityIndicator />
-      )}
+            <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
+          </TouchableOpacity>
 
-      <TextInput
-        editable
-        style={stylesCreateSpot.locationInfoInput}
-        placeholder="Location extra information"
-        onChangeText={(value) => {
-          setLocationInfo(value);
-        }}
-      />
-      <TextInput
-        editable
-        style={stylesCreateSpot.descriptionInput}
-        placeholder="Description"
-        onChangeText={(value) => {
-          setDescription(value);
-        }}
-      />
-      <TouchableOpacity
-        style={stylesCreateSpot.submitButtonContainer}
-        onPress={() =>
-          createSpot(
-            username._55,
-            title,
-            spotStyle,
-            location.latitude,
-            location.longitude,
-            description,
-            locationInfo
-          )
-        }
-      >
-        <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
-      </TouchableOpacity>
-    </ScrollView>
+          <TouchableOpacity
+            style={stylesCreateSpot.cameraButtonContainer}
+            onPress={() => selectFile()}
+          >
+            <Image
+              style={stylesCreateSpot.generalIcon}
+              source={{
+                uri:
+                  "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
+              }}
+            />
+            <Text style={stylesCreateSpot.submitButton}>
+              Import from gallery
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={stylesCreateSpot.headerContainer}>
+          <Picker
+            selectedValue={spotStyle}
+            style={stylesCreateSpot.stylePicker}
+            onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
+          >
+            <Picker.Item label="Other" value="other" />
+            <Picker.Item label="Urban" value="urban" />
+            <Picker.Item label="Nature" value="nature" />
+            <Picker.Item label="Arquitecture" value="arquitecture" />
+          </Picker>
+          <TextInput
+            editable
+            style={stylesCreateSpot.titleInput}
+            placeholder="Title"
+            onChangeText={(value) => {
+              setTitle(value);
+            }}
+          />
+        </View>
+        {location.latitude ? (
+          <MapView
+            scrollEnabled={false}
+            style={stylesCreateSpot.mapContainer}
+            initialRegion={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}
+              title={title || "New Spot"}
+            >
+              <Image
+                source={require("../Images/SpotShotlogo2.png")}
+                style={stylesCreateSpot.mapContainerIcon}
+              />
+            </Marker>
+          </MapView>
+        ) : (
+          <ActivityIndicator />
+        )}
+
+        <TextInput
+          editable
+          style={stylesCreateSpot.locationInfoInput}
+          placeholder="Location extra information"
+          onChangeText={(value) => {
+            setLocationInfo(value);
+          }}
+        />
+        <TextInput
+          editable
+          style={stylesCreateSpot.descriptionInput}
+          placeholder="Description"
+          onChangeText={(value) => {
+            setDescription(value);
+          }}
+        />
+        <TouchableOpacity
+          style={stylesCreateSpot.submitButtonContainer}
+          onPress={() => {
+            createSpot(
+              username._55,
+              title,
+              spotStyle,
+              location.latitude,
+              location.longitude,
+              description,
+              locationInfo
+            );
+            navigation.navigate("Profile");
+          }}
+        >
+          <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

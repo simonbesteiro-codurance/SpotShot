@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  SafeAreaView,
 } from "react-native";
 import stylesSpot from "../styles/spot-style";
 import logos from "../icon.mock";
@@ -35,7 +36,7 @@ export default function Spot({ route, navigation }) {
   // const rateLogoURL = logos[1];
 
   return (
-    <>
+    <SafeAreaView>
       {spot ? (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={stylesSpot.container}>
@@ -117,6 +118,6 @@ export default function Spot({ route, navigation }) {
       ) : (
         <ActivityIndicator style={stylesSpot.activityIndicator} />
       )}
-    </>
+    </SafeAreaView>
   );
 }
