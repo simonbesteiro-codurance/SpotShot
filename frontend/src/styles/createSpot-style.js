@@ -11,6 +11,7 @@ const stylesCreateSpot = StyleSheet.create({
     width: Dimensions.get("window").width * 0.4,
     backgroundColor: "#E0E0E0",
     color: "#283047",
+    borderRadius: 20,
   },
   locationInfoInput: {
     height: Dimensions.get("window").height * 0.1,
@@ -18,6 +19,7 @@ const stylesCreateSpot = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     color: "#283047",
     margin: "5%",
+    borderRadius: 20,
   },
   descriptionInput: {
     height: Dimensions.get("window").height * 0.3,
@@ -25,6 +27,7 @@ const stylesCreateSpot = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     margin: "5%",
     color: "#283047",
+    borderRadius: 20,
   },
   selectedPhoto: {
     height: Dimensions.get("window").height * 0.4,
