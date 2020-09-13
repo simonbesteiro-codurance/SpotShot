@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, TouchableOpacity, FlatList } from "react-native";
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  FlatList,
+  SafeAreaView,
+} from "react-native";
 import { loadSpots } from "../actions/spotActions";
 import spotStore from "../stores/spotStore";
 import SpotListItem from "./SpotListItem";
@@ -17,7 +22,7 @@ export default function SpotList({ navigation }) {
     return () => spotStore.removeChangeListener(onChange);
   }, []);
   return (
-    <>
+    <SafeAreaView>
       {spotList ? (
         <FlatList
           style={stylesSpotList.containerSpotList}
@@ -35,6 +40,6 @@ export default function SpotList({ navigation }) {
       ) : (
         <ActivityIndicator style={stylesSpotList.activityIndicator} />
       )}
-    </>
+    </SafeAreaView>
   );
 }
