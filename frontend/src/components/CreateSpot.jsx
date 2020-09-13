@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -43,6 +44,15 @@ export default function CreateSpot({ navigation }) {
     latitude: undefined,
     longitude: undefined,
   });
+
+  const spotAlreadyExist = () => {
+    Alert.alert("There is already an spot in your location", ":(", [
+      {
+        text: "Confirm",
+        style: "confirm",
+      },
+    ]);
+  };
 
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -189,8 +199,8 @@ export default function CreateSpot({ navigation }) {
         />
         <TouchableOpacity
           style={stylesCreateSpot.submitButtonContainer}
-          onPress={() => {
-            createSpot(
+          onPress={async () => {
+            const checkProximity = await createSpot(
               username._55,
               title,
               spotStyle,
@@ -199,7 +209,11 @@ export default function CreateSpot({ navigation }) {
               description,
               locationInfo
             );
-            navigation.navigate("Profile");
+            if (checkProximity === true) {
+              spotAlreadyExist();
+            } else {
+              navigation.navigate("Profile");
+            }
           }}
         >
           <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
