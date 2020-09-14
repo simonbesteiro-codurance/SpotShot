@@ -11,7 +11,7 @@ function validateDistance(point, interest, distance) {
     return Math.tan(n * (Math.PI / 180));
   };
   const dLat = deg2rad(interest.lat - point.lat);
-  const dLon = deg2rad(interest.lng - point.lng);
+  const dLon = deg2rad(interest.lgn - point.lgn);
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(deg2rad(point.lat)) *
