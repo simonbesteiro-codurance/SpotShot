@@ -32,7 +32,6 @@ export default function Login({ navigation }) {
     try {
       let user = await AsyncStorage.getItem("user");
       user = JSON.parse(user);
-      console.log(user);
       if (user.usernameSpot !== "") {
         logInUser(user.usernameSpot, user.passwordSpot);
       }

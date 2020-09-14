@@ -20,8 +20,6 @@ export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
   const [spotList, setSpotList] = useState(spotStore.getSuggestions());
-  console.log(spot.lat);
-  console.log(spot.lgn);
 
   function onChange() {
     setSpot(spotStore.getSpotById(id));

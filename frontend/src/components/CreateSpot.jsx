@@ -53,6 +53,14 @@ export default function CreateSpot({ navigation }) {
       },
     ]);
   };
+  const missingInput = () => {
+    Alert.alert("Please fill all the required fields", "", [
+      {
+        text: "Confirm",
+        style: "confirm",
+      },
+    ]);
+  };
 
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -211,6 +219,12 @@ export default function CreateSpot({ navigation }) {
             );
             if (checkProximity === true) {
               spotAlreadyExist();
+            } else if (
+              title === "" ||
+              description === "" ||
+              locationInfo === ""
+            ) {
+              missingInput();
             } else {
               navigation.navigate("Profile");
             }
