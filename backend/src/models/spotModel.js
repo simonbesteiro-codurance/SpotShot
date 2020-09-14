@@ -6,7 +6,7 @@ const schema = new Schema({
   title: { type: String, default: "No Title provided" },
   spotStyle: { type: String, default: "other" },
   lat: { type: Number, required: true },
-  lng: { type: Number, required: true },
+  lgn: { type: Number, required: true },
   createdDate: { type: Date, default: Date.now },
   image: {
     type: Array,

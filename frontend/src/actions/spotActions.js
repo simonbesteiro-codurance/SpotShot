@@ -15,7 +15,7 @@ export function createSpot(
   title,
   spotStyle,
   lat,
-  lng,
+  lgn,
   description,
   locationInfo
 ) {
@@ -25,7 +25,7 @@ export function createSpot(
       title,
       spotStyle,
       lat,
-      lng,
+      lgn,
       description,
       locationInfo,
     })
