@@ -11,15 +11,12 @@ import spotStore from "../stores/spotStore";
 import stylesMap from "../styles/map-style";
 
 export default function Map({ navigation }) {
-  const [spotList, setSpotList] = useState(spotStore.getCoordenates());
-  const [spotSuggestion, setSpotSuggestion] = useState(
-    spotStore.getSuggestions()
-  );
+  const [spotList, setSpotList] = useState(null);
+  const [spotSuggestion, setSpotSuggestion] = useState(null);
   const [userLocation, setUserLocation] = useState({
     latitude: undefined,
     longitude: undefined,
   });
-  //refactor
   const deltaCoords = {
     latDelta: 0.07,
     lngDelta: 0.07,
@@ -32,13 +29,14 @@ export default function Map({ navigation }) {
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
+    setSpotList(spotStore.getCoordenates());
+    setSpotSuggestion(spotStore.getSuggestions());
     navigator.geolocation.getCurrentPosition(function (pos) {
       setUserLocation({
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
       });
     });
-    console.log(userLocation.longitude);
     return () => spotStore.removeChangeListener(onChange);
   }, []);
   return (

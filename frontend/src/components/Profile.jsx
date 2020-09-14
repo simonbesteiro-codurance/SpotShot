@@ -105,25 +105,20 @@ export default function Profile({ navigation }) {
             </Text>
           )}
 
-          <FlatList
-            style={stylesProfile.containerCreatedSpot}
-            data={createdSpots}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
+          {createdSpots.map((item) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Spot", { id: item._id })}
+              key={item._id}
+            >
               <TouchableOpacity
-                onPress={() => navigation.navigate("Spot", { id: item._id })}
+                style={stylesProfile.deleteButton}
+                onPress={() => removeConfirm(item._id)}
               >
-                <TouchableOpacity
-                  style={stylesProfile.deleteButton}
-                  onPress={() => removeConfirm(item._id)}
-                >
-                  <Text style={stylesProfile.deleteButtonText}>Delete</Text>
-                </TouchableOpacity>
-                <SpotListItem spot={item} />
+                <Text style={stylesProfile.deleteButtonText}>Delete</Text>
               </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item._id}
-          />
+              <SpotListItem spot={item} />
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </ImageBackground>
     </View>
