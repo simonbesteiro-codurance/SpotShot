@@ -1,6 +1,6 @@
 const Busboy = require("busboy");
 const Spots = require("../models/spotModel");
-
+const { uploadImageService } = require("../logic/uploadImageService");
 const {
   getAllProducts,
   getProductById,
@@ -62,10 +62,13 @@ const deleter = (req, res) => {
 const uploadImage = (req, res) => {
   try {
     const busboy = new Busboy({ headers: req.headers });
-    busboy.on(
-      "file",
-      async (fieldname, file, filename, encoding, mimetype) => {}
-    );
+    busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+      uploadImageService(0, file, filename);
+    });
+    busboy.on("finish", () => {
+      res.send("uploaded");
+    });
+    req.pipe(busboy);
     console.log("fetch nos gusta");
   } catch (error) {
     console.log("puto axios");
