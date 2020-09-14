@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, Image, ActivityIndicator, View } from "react-native";
+// eslint-disable-next-line import/no-cycle
 import spotStore from "../stores/spotStore";
 import stylesSpotCarousel from "../styles/spotCarousel-style";
 

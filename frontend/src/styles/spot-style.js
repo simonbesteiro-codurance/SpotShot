@@ -55,6 +55,11 @@ const stylesSpot = StyleSheet.create({
     width: Dimensions.get("window").width * 0.9,
     height: Dimensions.get("window").height * 0.4,
   },
+  mapMarker: {
+    height: 30,
+    width: 30,
+    resizeMode: "contain",
+  },
   suggestionList: {
     backgroundColor: darkTheme ? "#283047" : "#E0E0E0",
   },

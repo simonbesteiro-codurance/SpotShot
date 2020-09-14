@@ -23,6 +23,22 @@ const stylesMap = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
   },
+  mapIcon: {
+    height: Dimensions.get("window").height * 0.1,
+    width: Dimensions.get("window").width * 0.1,
+    resizeMode: "contain",
+  },
+  mapCallout: {
+    height: Dimensions.get("window").height * 0.1,
+    width: Dimensions.get("window").width * 0.4,
+  },
+  mapCalloutImage: {
+    height: "90%",
+    width: "100%",
+  },
+  mapCalloutText: {
+    textAlign: "center",
+  },
 });
 
 export default stylesMap;

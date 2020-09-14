@@ -3,10 +3,8 @@ import {
   TextInput,
   View,
   Text,
-  Image,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ScrollView,
 } from "react-native";
 import stylesRegister from "../styles/register-style";
 import { signUpUser } from "../actions/authActions";
@@ -41,10 +39,6 @@ export default function Register() {
       style={stylesRegister.inputContainer}
     >
       <Text style={stylesRegister.headerText}>Register </Text>
-      {/* <Image
-        source={require("../Images/SpotShotLogo.png")}
-        style={stylesRegister.headerImage}
-      /> */}
       <View>
         {message && <Text style={stylesRegister.errorMessage}>{message}</Text>}
         <Text style={stylesRegister.inputTextHeader}>Username</Text>
@@ -75,7 +69,6 @@ export default function Register() {
         />
 
         <Text style={stylesRegister.inputTextHeader}>Password</Text>
-        {/*util: passwordRules */}
         <TextInput
           multiline={false}
           secureTextEntry

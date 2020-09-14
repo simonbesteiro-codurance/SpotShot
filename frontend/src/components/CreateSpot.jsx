@@ -18,7 +18,9 @@ import * as ImagePicker from "expo-image-picker";
 import stylesCreateSpot from "../styles/createSpot-style";
 import { createSpot } from "../actions/spotActions";
 
+// eslint-disable-next-line consistent-return
 async function getUser() {
+  // eslint-disable-next-line no-useless-catch
   try {
     let user = await AsyncStorage.getItem("user");
     user = JSON.parse(user);
@@ -26,10 +28,11 @@ async function getUser() {
       return user.usernameSpot;
     }
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
+// eslint-disable-next-line react/prop-types
 export default function CreateSpot({ navigation }) {
   const [spotStyle, setSpotStyle] = useState("");
   const [title, setTitle] = useState("");
@@ -90,7 +93,7 @@ export default function CreateSpot({ navigation }) {
   };
 
   useEffect(() => {
-    setUsername(getUser().then((author) => author));
+    getUser().then((author) => setUsername(author));
     navigator.geolocation.getCurrentPosition(function (pos) {
       setLocation({
         latitude: pos.coords.latitude,
@@ -107,7 +110,8 @@ export default function CreateSpot({ navigation }) {
           source={
             selectedImage
               ? { uri: selectedImage.localUri }
-              : require("../Images/SpotShotlogo2.png")
+              : // eslint-disable-next-line global-require
+                require("../Images/SpotShotlogo2.png")
           }
         />
         <View style={stylesCreateSpot.headerContainer}>
@@ -145,7 +149,7 @@ export default function CreateSpot({ navigation }) {
           <Picker
             selectedValue={spotStyle}
             style={stylesCreateSpot.stylePicker}
-            onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
+            onValueChange={(itemValue) => setSpotStyle(itemValue)}
           >
             <Picker.Item label="Other" value="other" />
             <Picker.Item label="Urban" value="urban" />
@@ -209,7 +213,7 @@ export default function CreateSpot({ navigation }) {
           style={stylesCreateSpot.submitButtonContainer}
           onPress={async () => {
             const checkProximity = await createSpot(
-              username._55,
+              username,
               title,
               spotStyle,
               location.latitude,

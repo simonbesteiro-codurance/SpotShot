@@ -72,9 +72,6 @@ export default function Profile({ navigation }) {
         <View style={stylesProfile.headerContainer}>
           <View>
             <Switch
-              // trackColor={{ false: "#767577", true: "#81b0ff" }}
-              // thumbColor={darkTheme ? "#f5dd4b" : "#f4f3f4"}
-              // ios_backgroundColor="#3e3e3e"
               trackColor={stylesProfile.darkSwitchEnable}
               thumbColor={stylesProfile.darkSwitchDisable}
               ios_backgroundColor={stylesProfile.darkSwitchBackground}

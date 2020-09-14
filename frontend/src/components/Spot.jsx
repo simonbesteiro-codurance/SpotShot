@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -9,30 +9,15 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
-import stylesSpot from "../styles/spot-style";
-import logos from "../icon.mock";
-import spotStore from "../stores/spotStore";
-import SpotCarousel from "./SpotCarousel";
-import { loadSpots, Dimensions } from "../actions/spotActions";
 import MapView, { Marker } from "react-native-maps";
+import stylesSpot from "../styles/spot-style";
+import spotStore from "../stores/spotStore";
 
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
   const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
   const [spotList, setSpotList] = useState(spotStore.getSuggestions());
-
-  function onChange() {
-    setSpot(spotStore.getSpotById(id));
-    setSpotList(spotStore.getSuggestions());
-  }
-
-  useEffect(() => {
-    spotStore.addChangeListener(onChange);
-    return () => spotStore.removeChangeListener(onChange);
-  }, []);
-
-  // const favouriteLogoURL = logos[0];
-  // const rateLogoURL = logos[1];
+  const deltaCoords = { latD: 0.0922, lngD: 0.0421 };
 
   return (
     <SafeAreaView>
@@ -41,19 +26,6 @@ export default function Spot({ route, navigation }) {
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
-              {/* <View style={stylesSpot.mainHead}>
-                <View style={stylesSpot.mainHeadRate}>
-                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-                  <Image style={stylesSpot.rateLogo} source={rateLogoURL} />
-                </View>
-                <Image
-                  style={stylesSpot.mainHeadLogo}
-                  source={favouriteLogoURL}
-                />
-              </View> */}
               <View style={stylesSpot.mainContainerTitle}>
                 <Text style={stylesSpot.mainContainerTitleText}>
                   {spot.title}
@@ -69,8 +41,8 @@ export default function Spot({ route, navigation }) {
                 region={{
                   latitude: spot.lat,
                   longitude: spot.lgn,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
+                  latitudeDelta: deltaCoords.latD,
+                  longitudeDelta: deltaCoords.lngD,
                 }}
               >
                 <Marker
@@ -80,11 +52,7 @@ export default function Spot({ route, navigation }) {
                 >
                   <Image
                     source={require("../Images/SpotShotlogo2.png")}
-                    style={{
-                      height: 30,
-                      width: 30,
-                      resizeMode: "contain",
-                    }}
+                    style={stylesSpot.mapMarker}
                   />
                 </Marker>
               </MapView>
