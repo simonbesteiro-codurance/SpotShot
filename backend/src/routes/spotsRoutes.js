@@ -10,6 +10,7 @@ function routes() {
     .post(spotRouteController.post)
     .delete(spotRouteController.deleter);
   spotRouter.route("/remove").post(spotRouteController.deleter);
+  spotRouter.route("/uploadImage").post(spotRouteController.uploadImage);
   spotRouter.route("/:spotId").get(spotRouteController.get);
 
   return spotRouter;

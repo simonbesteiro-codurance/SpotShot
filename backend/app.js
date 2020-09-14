@@ -8,7 +8,7 @@ const app = express();
 const { PORT } = process.env || 2626;
 
 app.use(cors());
-
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

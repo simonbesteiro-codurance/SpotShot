@@ -12,6 +12,7 @@ import {
 import MapView, { Marker } from "react-native-maps";
 import stylesSpot from "../styles/spot-style";
 import spotStore from "../stores/spotStore";
+import AddPhoto from "./AddPhoto";
 
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
@@ -26,6 +27,13 @@ export default function Spot({ route, navigation }) {
           <View style={stylesSpot.container}>
             <Image style={stylesSpot.mainPhoto} source={spot.image[0]} />
             <View style={stylesSpot.mainContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.push("AddPhoto");
+                }}
+              >
+                <Text>Add Photo</Text>
+              </TouchableOpacity>
               <View style={stylesSpot.mainContainerTitle}>
                 <Text style={stylesSpot.mainContainerTitleText}>
                   {spot.title}

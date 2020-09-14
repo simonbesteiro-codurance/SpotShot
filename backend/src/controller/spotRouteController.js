@@ -57,4 +57,8 @@ const deleter = (req, res) => {
   });
 };
 
-module.exports = { get, post, deleter };
+const uploadImage = (req, res) => {
+  res.send("works");
+};
+
+module.exports = { get, post, deleter, uploadImage };
