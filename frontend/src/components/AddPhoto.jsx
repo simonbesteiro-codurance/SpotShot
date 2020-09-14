@@ -19,6 +19,10 @@ export default function AddPhoto() {
   let permisos = null;
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const uploadImage = () => {
+    console.log(selectedImage);
+  };
+
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
 
@@ -32,34 +36,43 @@ export default function AddPhoto() {
       console.log("permissions not granted");
     }
   };
-  console.log(selectedImage);
   return (
-    <View style={stylesCreateSpot.headerContainer}>
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => runCamera()}
-      >
-        <Image
-          style={stylesCreateSpot.generalIcon}
-          source={{
-            uri: "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
-          }}
-        />
-        <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
-      </TouchableOpacity>
+    <>
+      <View style={stylesCreateSpot.headerContainer}>
+        <TouchableOpacity
+          style={stylesCreateSpot.cameraButtonContainer}
+          onPress={() => runCamera()}
+        >
+          <Image
+            style={stylesCreateSpot.generalIcon}
+            source={{
+              uri:
+                "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
+            }}
+          />
+          <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity
+          style={stylesCreateSpot.cameraButtonContainer}
+          onPress={() => selectFile()}
+        >
+          <Image
+            style={stylesCreateSpot.generalIcon}
+            source={{
+              uri:
+                "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
+            }}
+          />
+          <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
         style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => selectFile()}
+        onPress={() => uploadImage()}
       >
-        <Image
-          style={stylesCreateSpot.generalIcon}
-          source={{
-            uri: "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
-          }}
-        />
-        <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
+        <Text style={stylesCreateSpot.submitButton}>UploadImage</Text>
       </TouchableOpacity>
-    </View>
+    </>
   );
 }
