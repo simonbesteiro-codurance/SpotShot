@@ -89,6 +89,9 @@ dispatcher.register((action) => {
       loadSpots();
       spotStore.emitChange(_spot);
       break;
+    case actionTypes.UPLOAD_SPOT_PHOTO:
+      console.log("store working");
+      break;
     default:
       break;
   }

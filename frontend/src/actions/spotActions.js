@@ -1,6 +1,7 @@
 import axios from "axios";
 import dispatcher from "../appDispatcher";
 import actionTypes from "./actionTypes";
+import uploadPhotoBySpottId from "../logic/uploadPhotoBySpottId";
 
 export function loadSpots() {
   return axios.get("http://192.168.0.11:4200/api/spots").then((spotList) => {
@@ -48,4 +49,11 @@ export function deleteSpot(spotId) {
         data: response,
       });
     });
+}
+
+export function uploadSpotPhoto(spotId, image) {
+  uploadPhotoBySpottId(spotId, image);
+  dispatcher.dispatch({
+    type: actionTypes.UPLOAD_SPOT_PHOTO,
+  });
 }

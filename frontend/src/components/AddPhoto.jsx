@@ -10,10 +10,11 @@ import {
   SafeAreaView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-
+import { uploadSpotPhoto } from "../actions/spotActions";
 import stylesCreateSpot from "../styles/createSpot-style";
 
-export default function AddPhoto() {
+export default function AddPhoto({ route }) {
+  const { spotId } = route.params;
   let picker = null;
 
   let permisos = null;
@@ -21,6 +22,7 @@ export default function AddPhoto() {
 
   const uploadImage = () => {
     console.log(selectedImage);
+    selectedImage && uploadSpotPhoto(spotId, selectedImage);
   };
 
   const selectFile = async () => {

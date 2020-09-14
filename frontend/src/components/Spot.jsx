@@ -29,7 +29,7 @@ export default function Spot({ route, navigation }) {
             <View style={stylesSpot.mainContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.push("AddPhoto");
+                  navigation.push("AddPhoto", { spotId: id });
                 }}
               >
                 <Text>Add Photo</Text>
