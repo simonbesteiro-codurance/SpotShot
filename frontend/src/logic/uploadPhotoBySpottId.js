@@ -6,21 +6,33 @@ export default function uploadPhotoBySpottId(spotId, image) {
 
   const match = /\.(\w+)$/.exec(filename);
   const type = match ? `image/${match[1]}` : `image`;
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
 
-  formData.append("photo", {
+  formData.append("image", {
     //place a proper name to the photo
     uri: image.localUri,
     name: "newPhoto",
     type,
   });
-  console.log(type);
-  axios
-    .post("http://192.168.0.11:4200/api/spots/uploadImage/", {
-      spotId,
-      formData,
+  return (async () => {
+    const res = await fetch("http://192.168.0.11:4200/api/spots/uploadImage", {
+      method: "POST",
       headers: {
-        "content-type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
       },
-    })
-    .then((response) => console.log("works"));
+      body: formData,
+    });
+  })();
+  // axios
+  //   .post("http://192.168.0.11:4200/api/spots/uploadImage", {
+  //     formData,
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   })
+  //   .then((response) => console.log("works"));
 }

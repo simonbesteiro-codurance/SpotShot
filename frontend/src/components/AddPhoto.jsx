@@ -29,7 +29,11 @@ export default function AddPhoto({ route }) {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
 
     if (permisos.granted !== false) {
-      picker = await ImagePicker.launchImageLibraryAsync();
+      picker = await ImagePicker.launchImageLibraryAsync({
+        allowsMultipleSelection: false,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.5,
+      });
 
       if (picker.cancelled !== true) {
         setSelectedImage({ localUri: picker.uri });

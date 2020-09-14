@@ -1,4 +1,6 @@
+const Busboy = require("busboy");
 const Spots = require("../models/spotModel");
+
 const {
   getAllProducts,
   getProductById,
@@ -58,7 +60,17 @@ const deleter = (req, res) => {
 };
 
 const uploadImage = (req, res) => {
-  res.send("works");
+  try {
+    const busboy = new Busboy({ headers: req.headers });
+    busboy.on(
+      "file",
+      async (fieldname, file, filename, encoding, mimetype) => {}
+    );
+    console.log("fetch nos gusta");
+  } catch (error) {
+    console.log("puto axios");
+    res.status(400);
+  }
 };
 
 module.exports = { get, post, deleter, uploadImage };
