@@ -15,9 +15,10 @@ export default function uploadPhotoBySpottId(spotId, image) {
   formData.append("image", {
     //place a proper name to the photo
     uri: image.localUri,
-    name: "newPhoto",
+    name: `${spotId}|${filename}`,
     type,
   });
+  console.log(`${spotId}|${filename}`);
   return (async () => {
     const res = await fetch("http://192.168.0.11:4200/api/spots/uploadImage", {
       method: "POST",

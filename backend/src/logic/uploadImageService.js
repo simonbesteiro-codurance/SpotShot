@@ -1,10 +1,18 @@
 const fs = require("fs");
 const path = require("path");
 
-const uploadImageService = (spotId = 1, file, filename = "asdf") => {
-  console.log(spotId, file, filename);
+const uploadImageService = (file, filename) => {
   return (async () => {
-    const saveTo = path.join(__dirname, `../public/spots/${filename}.jpg`);
+    const [spotId, imageName] = filename.split("|");
+    const route = path.join(__dirname, `../public/spots/${spotId}`);
+    console.log(spotId, imageName);
+    if (!fs.existsSync(route)) {
+      fs.mkdirSync(route);
+    }
+    const saveTo = path.join(
+      __dirname,
+      `../public/spots/${spotId}/${imageName}`
+    );
     await file.pipe(fs.createWriteStream(saveTo));
   })();
 };

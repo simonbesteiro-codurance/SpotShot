@@ -63,15 +63,13 @@ const uploadImage = (req, res) => {
   try {
     const busboy = new Busboy({ headers: req.headers });
     busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-      uploadImageService(0, file, filename);
+      uploadImageService(file, filename);
     });
     busboy.on("finish", () => {
       res.send("uploaded");
     });
     req.pipe(busboy);
-    console.log("fetch nos gusta");
   } catch (error) {
-    console.log("puto axios");
     res.status(400);
   }
 };
