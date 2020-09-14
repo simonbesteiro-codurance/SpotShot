@@ -167,6 +167,8 @@ export default function CreateSpot({ navigation }) {
         </View>
         {location.latitude ? (
           <MapView
+            showsUserLocation
+            followsUserLocation
             scrollEnabled={false}
             style={stylesCreateSpot.mapContainer}
             initialRegion={{
@@ -176,7 +178,7 @@ export default function CreateSpot({ navigation }) {
               longitudeDelta: 0.005,
             }}
           >
-            <Marker
+            {/* <Marker
               coordinate={{
                 latitude: location.latitude,
                 longitude: location.longitude,
@@ -187,7 +189,7 @@ export default function CreateSpot({ navigation }) {
                 source={require("../Images/SpotShotlogo2.png")}
                 style={stylesCreateSpot.mapContainerIcon}
               />
-            </Marker>
+            </Marker> */}
           </MapView>
         ) : (
           <ActivityIndicator />
@@ -212,26 +214,35 @@ export default function CreateSpot({ navigation }) {
         <TouchableOpacity
           style={stylesCreateSpot.submitButtonContainer}
           onPress={async () => {
-            const checkProximity = await createSpot(
-              username,
-              title,
-              spotStyle,
-              location.latitude,
-              location.longitude,
-              description,
-              locationInfo
-            );
-            if (checkProximity === true) {
-              spotAlreadyExist();
-            } else if (
-              title === "" ||
-              description === "" ||
-              locationInfo === ""
+            await navigator.geolocation.getCurrentPosition(async function (
+              pos
             ) {
-              missingInput();
-            } else {
-              navigation.navigate("Profile");
-            }
+              setLocation({
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+              });
+              const checkProximity = await createSpot(
+                username,
+                title,
+                spotStyle,
+                location.latitude,
+                location.longitude,
+                description,
+                locationInfo
+              );
+              if (checkProximity === true) {
+                spotAlreadyExist();
+              } else if (
+                title === "" ||
+                description === "" ||
+                locationInfo === ""
+              ) {
+                missingInput();
+              } else {
+                navigation.navigate("Profile");
+              }
+            });
+            console.log(location);
           }}
         >
           <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
