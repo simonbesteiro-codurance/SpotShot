@@ -51,8 +51,8 @@ export function deleteSpot(spotId) {
     });
 }
 
-export function uploadSpotPhoto(spotId, image) {
-  uploadPhotoBySpottId(spotId, image);
+export async function uploadSpotPhoto(spotId, image) {
+  await uploadPhotoBySpottId(spotId, image);
   dispatcher.dispatch({
     type: actionTypes.UPLOAD_SPOT_PHOTO,
   });

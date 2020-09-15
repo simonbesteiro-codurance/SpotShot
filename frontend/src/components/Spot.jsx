@@ -16,8 +16,8 @@ import AddPhoto from "./AddPhoto";
 
 export default function Spot({ route, navigation }) {
   let { id } = route.params;
-  const [spot, setSpot] = useState(id ? spotStore.getSpotById(id) : null);
-  const [spotList, setSpotList] = useState(spotStore.getSuggestions());
+  const [spot, setSpot] = useState(null);
+  const [spotList, setSpotList] = useState(null);
   const deltaCoords = { latD: 0.0922, lngD: 0.0421 };
 
   function onChange() {
@@ -27,6 +27,8 @@ export default function Spot({ route, navigation }) {
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
+    setSpot(spotStore.getSpotById(id));
+    setSpotList(spotStore.getSuggestions());
     return () => spotStore.removeChangeListener(onChange);
   }, []);
   return (
