@@ -5,7 +5,7 @@ const saveImageLocationIntoSpot = async (spotId, route) => {
 
   await Spot.findByIdAndUpdate(
     { _id: spotId },
-    { $addToSet: { image: { uri: route } } },
+    { image: { uri: route } },
     { upsert: true }
   );
   const spot = await Spot.findOne({ _id: spotId });
