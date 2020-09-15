@@ -21,7 +21,6 @@ export default function Spot({ route, navigation }) {
   const deltaCoords = { latD: 0.0922, lngD: 0.0421 };
 
   function onChange() {
-    console.log("llegue");
     setSpot(spotStore.getSpotById(id));
   }
 
