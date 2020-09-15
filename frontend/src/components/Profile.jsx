@@ -70,19 +70,7 @@ export default function Profile({ navigation }) {
         style={stylesProfile.backgroundImage}
       >
         <View style={stylesProfile.headerContainer}>
-          <View>
-            <Switch
-              // trackColor={{ false: "#767577", true: "#81b0ff" }}
-              // thumbColor={darkTheme ? "#f5dd4b" : "#f4f3f4"}
-              // ios_backgroundColor="#3e3e3e"
-              trackColor={stylesProfile.darkSwitchEnable}
-              thumbColor={stylesProfile.darkSwitchDisable}
-              ios_backgroundColor={stylesProfile.darkSwitchBackground}
-              onValueChange={toggleSwitch}
-              value={darkTheme}
-            />
-            <Text>Dark Theme</Text>
-          </View>
+          <View></View>
           <TouchableOpacity
             style={stylesProfile.logOutButtonContainer}
             onPress={() => logOutUser()}
@@ -90,7 +78,10 @@ export default function Profile({ navigation }) {
             <Text style={stylesProfile.logOutButton}>logOut</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={stylesProfile.favouriteContainer}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={stylesProfile.favouriteContainer}
+        >
           <View>
             <Text style={stylesProfile.userName}>
               {user.firstName ? user.firstName : "Guest user"}
@@ -105,25 +96,20 @@ export default function Profile({ navigation }) {
             </Text>
           )}
 
-          <FlatList
-            style={stylesProfile.containerCreatedSpot}
-            data={createdSpots}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
+          {createdSpots.map((item) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Spot", { id: item._id })}
+              key={item._id}
+            >
               <TouchableOpacity
-                onPress={() => navigation.navigate("Spot", { id: item._id })}
+                style={stylesProfile.deleteButton}
+                onPress={() => removeConfirm(item._id)}
               >
-                <TouchableOpacity
-                  style={stylesProfile.deleteButton}
-                  onPress={() => removeConfirm(item._id)}
-                >
-                  <Text style={stylesProfile.deleteButtonText}>Delete</Text>
-                </TouchableOpacity>
-                <SpotListItem spot={item} />
+                <Text style={stylesProfile.deleteButtonText}>Delete</Text>
               </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item._id}
-          />
+              <SpotListItem spot={item} />
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </ImageBackground>
     </View>

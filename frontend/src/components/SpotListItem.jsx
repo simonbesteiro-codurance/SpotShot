@@ -30,13 +30,6 @@ export default function SpotListItem({ spot, navigation }) {
                 {spotItem.type}
               </Text>
             </View>
-            <TouchableOpacity>
-              <View style={stylesSpotListItem.containerSpotItemTabRating}>
-                <Text style={stylesSpotListItem.containerSpotItemTabRatingText}>
-                  {spotItem.rating}
-                </Text>
-              </View>
-            </TouchableOpacity>
           </View>
         </View>
       )}

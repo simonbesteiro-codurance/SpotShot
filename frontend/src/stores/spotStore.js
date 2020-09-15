@@ -22,16 +22,19 @@ class SpotStore extends EventEmitter {
     this.emit(CHANGE_EVENT);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getSpots() {
     return _spot;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getSpotById(id) {
     const selectedSpot = _spot.find((spot) => spot._id === id);
 
     return selectedSpot;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getCoordenates() {
     const reduceSpots = _spot.reduce((accumulator, currrentObject) => {
       const newObject = {
@@ -40,7 +43,7 @@ class SpotStore extends EventEmitter {
         lat: currrentObject.lat,
         lgn: currrentObject.lgn,
         image: currrentObject.image,
-        render: () => <SpotCarousel id={currrentObject._id} />,
+        render: () => <SpotCarousel spot={currrentObject} />,
       };
       accumulator.push(newObject);
       return accumulator;
@@ -55,7 +58,7 @@ class SpotStore extends EventEmitter {
         const newObject = {
           _id: currrentObject._id,
           title: currrentObject.title,
-          render: () => <SpotCarousel id={currrentObject._id} />,
+          render: () => <SpotCarousel spot={currrentObject} />,
         };
         accumulator.push(newObject);
         return accumulator;
@@ -83,6 +86,10 @@ dispatcher.register((action) => {
       loadSpots();
       break;
     case actionTypes.DELETE_SPOT:
+      loadSpots();
+      spotStore.emitChange(_spot);
+      break;
+    case actionTypes.UPLOAD_SPOT_PHOTO:
       loadSpots();
       spotStore.emitChange(_spot);
       break;

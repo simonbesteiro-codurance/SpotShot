@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -17,7 +18,9 @@ import * as ImagePicker from "expo-image-picker";
 import stylesCreateSpot from "../styles/createSpot-style";
 import { createSpot } from "../actions/spotActions";
 
+// eslint-disable-next-line consistent-return
 async function getUser() {
+  // eslint-disable-next-line no-useless-catch
   try {
     let user = await AsyncStorage.getItem("user");
     user = JSON.parse(user);
@@ -25,10 +28,11 @@ async function getUser() {
       return user.usernameSpot;
     }
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
+// eslint-disable-next-line react/prop-types
 export default function CreateSpot({ navigation }) {
   const [spotStyle, setSpotStyle] = useState("");
   const [title, setTitle] = useState("");
@@ -43,6 +47,23 @@ export default function CreateSpot({ navigation }) {
     latitude: undefined,
     longitude: undefined,
   });
+
+  const spotAlreadyExist = () => {
+    Alert.alert("There is already an spot in your location", ":(", [
+      {
+        text: "Confirm",
+        style: "confirm",
+      },
+    ]);
+  };
+  const missingInput = () => {
+    Alert.alert("Please fill all the required fields", "", [
+      {
+        text: "Confirm",
+        style: "confirm",
+      },
+    ]);
+  };
 
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -72,7 +93,7 @@ export default function CreateSpot({ navigation }) {
   };
 
   useEffect(() => {
-    setUsername(getUser().then((author) => author));
+    getUser().then((author) => setUsername(author));
     navigator.geolocation.getCurrentPosition(function (pos) {
       setLocation({
         latitude: pos.coords.latitude,
@@ -84,12 +105,13 @@ export default function CreateSpot({ navigation }) {
   return (
     <SafeAreaView>
       <ScrollView style={stylesCreateSpot.container}>
-        <Image
+        {/* <Image
           style={stylesCreateSpot.selectedPhoto}
           source={
             selectedImage
               ? { uri: selectedImage.localUri }
-              : require("../Images/SpotShotlogo2.png")
+              : // eslint-disable-next-line global-require
+                require("../Images/SpotShotlogo2.png")
           }
         />
         <View style={stylesCreateSpot.headerContainer}>
@@ -122,12 +144,12 @@ export default function CreateSpot({ navigation }) {
               Import from gallery
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={stylesCreateSpot.headerContainer}>
           <Picker
             selectedValue={spotStyle}
             style={stylesCreateSpot.stylePicker}
-            onValueChange={(itemValue, itemIndex) => setSpotStyle(itemValue)}
+            onValueChange={(itemValue) => setSpotStyle(itemValue)}
           >
             <Picker.Item label="Other" value="other" />
             <Picker.Item label="Urban" value="urban" />
@@ -145,6 +167,8 @@ export default function CreateSpot({ navigation }) {
         </View>
         {location.latitude ? (
           <MapView
+            showsUserLocation
+            followsUserLocation
             scrollEnabled={false}
             style={stylesCreateSpot.mapContainer}
             initialRegion={{
@@ -154,7 +178,7 @@ export default function CreateSpot({ navigation }) {
               longitudeDelta: 0.005,
             }}
           >
-            <Marker
+            {/* <Marker
               coordinate={{
                 latitude: location.latitude,
                 longitude: location.longitude,
@@ -165,7 +189,7 @@ export default function CreateSpot({ navigation }) {
                 source={require("../Images/SpotShotlogo2.png")}
                 style={stylesCreateSpot.mapContainerIcon}
               />
-            </Marker>
+            </Marker> */}
           </MapView>
         ) : (
           <ActivityIndicator />
@@ -189,17 +213,35 @@ export default function CreateSpot({ navigation }) {
         />
         <TouchableOpacity
           style={stylesCreateSpot.submitButtonContainer}
-          onPress={() => {
-            createSpot(
-              username._55,
-              title,
-              spotStyle,
-              location.latitude,
-              location.longitude,
-              description,
-              locationInfo
-            );
-            navigation.navigate("Profile");
+          onPress={async () => {
+            await navigator.geolocation.getCurrentPosition(async function (
+              pos
+            ) {
+              setLocation({
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+              });
+              const checkProximity = await createSpot(
+                username,
+                title,
+                spotStyle,
+                location.latitude,
+                location.longitude,
+                description,
+                locationInfo
+              );
+              if (checkProximity === true) {
+                spotAlreadyExist();
+              } else if (
+                title === "" ||
+                description === "" ||
+                locationInfo === ""
+              ) {
+                missingInput();
+              } else {
+                navigation.navigate("Profile");
+              }
+            });
           }}
         >
           <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>

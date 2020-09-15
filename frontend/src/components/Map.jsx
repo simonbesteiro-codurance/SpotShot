@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
   FlatList,
   TouchableOpacity,
   Image,
@@ -12,15 +11,12 @@ import spotStore from "../stores/spotStore";
 import stylesMap from "../styles/map-style";
 
 export default function Map({ navigation }) {
-  const [spotList, setSpotList] = useState(spotStore.getCoordenates());
-  const [spotSuggestion, setSpotSuggestion] = useState(
-    spotStore.getSuggestions()
-  );
+  const [spotList, setSpotList] = useState(null);
+  const [spotSuggestion, setSpotSuggestion] = useState(null);
   const [userLocation, setUserLocation] = useState({
     latitude: undefined,
     longitude: undefined,
   });
-  //refactor
   const deltaCoords = {
     latDelta: 0.07,
     lngDelta: 0.07,
@@ -33,6 +29,8 @@ export default function Map({ navigation }) {
 
   useEffect(() => {
     spotStore.addChangeListener(onChange);
+    setSpotList(spotStore.getCoordenates());
+    setSpotSuggestion(spotStore.getSuggestions());
     navigator.geolocation.getCurrentPosition(function (pos) {
       setUserLocation({
         latitude: pos.coords.latitude,
@@ -43,7 +41,7 @@ export default function Map({ navigation }) {
   }, []);
   return (
     <>
-      {spotList && userLocation.latitude ? (
+      {spotList && userLocation.latitude && userLocation.longitude ? (
         <MapView
           style={stylesMap.mapContainer}
           showsUserLocation
@@ -59,45 +57,28 @@ export default function Map({ navigation }) {
           {spotList.map((element) => {
             return (
               <Marker
-                coordinate={{ latitude: element.lat, longitude: element.lgn }}
+                coordinate={{
+                  latitude: element.lat,
+                  longitude: element.lgn,
+                }}
                 title={element.title}
                 key={element._id}
               >
                 <Image
                   source={require("../Images/SpotShotlogo2.png")}
-                  style={{
-                    height: Dimensions.get("window").height * 0.1,
-                    width: Dimensions.get("window").width * 0.1,
-                    resizeMode: "contain",
-                  }}
+                  style={stylesMap.mapIcon}
                 />
                 <Callout
                   onPress={() => {
                     navigation.navigate("Spot", { id: element._id });
                   }}
-                  //refactor
-                  style={{
-                    height: Dimensions.get("window").height * 0.1,
-                    width: Dimensions.get("window").width * 0.4,
-                  }}
+                  style={stylesMap.mapCallout}
                 >
                   <Image
-                    //refactor
-
-                    style={{
-                      height: "90%",
-                      width: "100%",
-                    }}
+                    style={stylesMap.mapCalloutImage}
                     source={element.image}
                   />
-                  <Text
-                    //refactor
-                    style={{
-                      textAlign: "center",
-                    }}
-                  >
-                    {element.title}
-                  </Text>
+                  <Text style={stylesMap.mapCalloutText}>{element.title}</Text>
                   <Text>{element.rating}</Text>
                 </Callout>
               </Marker>

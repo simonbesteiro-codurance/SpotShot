@@ -6,14 +6,14 @@ const schema = new Schema({
   title: { type: String, default: "No Title provided" },
   spotStyle: { type: String, default: "other" },
   lat: { type: Number, required: true },
-  lng: { type: Number, required: true },
+  lgn: { type: Number, required: true },
   createdDate: { type: Date, default: Date.now },
   image: {
     type: Array,
     default: [
       {
         uri:
-          "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjI0MX0 ",
+          "https://i0.wp.com/elfutbolito.mx/wp-content/uploads/2019/04/image-not-found.png?ssl=1",
       },
     ],
   },

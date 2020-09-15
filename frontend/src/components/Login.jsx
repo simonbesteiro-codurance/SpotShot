@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import {
   TextInput,
@@ -18,26 +19,27 @@ export default function Login({ navigation }) {
   const [message, setMessage] = useState("");
 
   async function storageUser(usernameSpot, passwordSpot) {
+    // eslint-disable-next-line no-useless-catch
     try {
       await AsyncStorage.setItem(
         "user",
         JSON.stringify({ usernameSpot, passwordSpot })
       );
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
   async function getUser() {
+    // eslint-disable-next-line no-useless-catch
     try {
       let user = await AsyncStorage.getItem("user");
       user = JSON.parse(user);
-      console.log(user);
       if (user.usernameSpot !== "") {
         logInUser(user.usernameSpot, user.passwordSpot);
       }
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -61,6 +63,7 @@ export default function Login({ navigation }) {
     <KeyboardAvoidingView behavior="padding" style={stylesLogin.inputContainer}>
       <Text style={stylesLogin.headerText}>LOGIN</Text>
       <Image
+        // eslint-disable-next-line global-require
         source={require("../Images/SpotShotLogo.png")}
         style={stylesLogin.headerImage}
       />
@@ -76,7 +79,6 @@ export default function Login({ navigation }) {
         />
         <Text style={stylesLogin.inputTextHeader}>password</Text>
 
-        {/*util: passwordRules */}
         <TextInput
           multiline={false}
           secureTextEntry
@@ -92,6 +94,7 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={stylesLogin.submitButtonContainer}
+          // eslint-disable-next-line react/prop-types
           onPress={() => navigation.navigate("Register")}
         >
           <Text style={stylesLogin.submitButton}>Register</Text>
