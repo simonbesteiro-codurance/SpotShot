@@ -242,7 +242,6 @@ export default function CreateSpot({ navigation }) {
                 navigation.navigate("Profile");
               }
             });
-            console.log(location);
           }}
         >
           <Text style={stylesCreateSpot.submitButton}>Create Spot</Text>
