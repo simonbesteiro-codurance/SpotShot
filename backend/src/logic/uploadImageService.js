@@ -1,11 +1,11 @@
 const fs = require("fs");
 const path = require("path");
+const { saveImageLocationIntoSpot } = require("./saveImageLocationIntoSpot");
 
 const uploadImageService = (file, filename) => {
   return (async () => {
     const [spotId, imageName] = filename.split("|");
     const route = path.join(__dirname, `../public/spots/${spotId}`);
-    console.log(spotId, imageName);
     if (!fs.existsSync(route)) {
       fs.mkdirSync(route);
     }
@@ -13,6 +13,7 @@ const uploadImageService = (file, filename) => {
       __dirname,
       `../public/spots/${spotId}/${imageName}`
     );
+    saveImageLocationIntoSpot(spotId, saveTo);
     await file.pipe(fs.createWriteStream(saveTo));
   })();
 };
