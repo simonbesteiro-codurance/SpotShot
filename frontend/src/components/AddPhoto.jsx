@@ -21,7 +21,6 @@ export default function AddPhoto({ route }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const uploadImage = () => {
-    console.log(selectedImage);
     selectedImage && uploadSpotPhoto(spotId, selectedImage);
   };
 

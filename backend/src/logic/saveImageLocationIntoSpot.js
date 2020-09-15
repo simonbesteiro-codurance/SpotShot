@@ -9,7 +9,6 @@ const saveImageLocationIntoSpot = async (spotId, route) => {
     { upsert: true }
   );
   const spot = await Spot.findOne({ _id: spotId });
-  console.log(spot);
   //return (async () => {})();
 };
 

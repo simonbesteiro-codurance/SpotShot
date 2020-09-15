@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -20,6 +20,15 @@ export default function Spot({ route, navigation }) {
   const [spotList, setSpotList] = useState(spotStore.getSuggestions());
   const deltaCoords = { latD: 0.0922, lngD: 0.0421 };
 
+  function onChange() {
+    console.log("llegue");
+    setSpot(spotStore.getSpotById(id));
+  }
+
+  useEffect(() => {
+    spotStore.addChangeListener(onChange);
+    return () => spotStore.removeChangeListener(onChange);
+  }, []);
   return (
     <SafeAreaView>
       {spot ? (
