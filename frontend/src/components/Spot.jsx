@@ -43,7 +43,7 @@ export default function Spot({ route, navigation }) {
                   navigation.push("AddPhoto", { spotId: id });
                 }}
               >
-                <Text>Add Photo</Text>
+                <Text>Replace Photo</Text>
               </TouchableOpacity>
               <View style={stylesSpot.mainContainerTitle}>
                 <Text style={stylesSpot.mainContainerTitleText}>

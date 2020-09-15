@@ -105,7 +105,7 @@ export default function CreateSpot({ navigation }) {
   return (
     <SafeAreaView>
       <ScrollView style={stylesCreateSpot.container}>
-        <Image
+        {/* <Image
           style={stylesCreateSpot.selectedPhoto}
           source={
             selectedImage
@@ -144,7 +144,7 @@ export default function CreateSpot({ navigation }) {
               Import from gallery
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={stylesCreateSpot.headerContainer}>
           <Picker
             selectedValue={spotStyle}

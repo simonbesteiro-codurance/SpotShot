@@ -3,6 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Spot from "../components/Spot";
 import Profile from "../components/Profile";
+import AddPhoto from "../components/AddPhoto";
 
 export default function ProfileNavigation() {
   const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ export default function ProfileNavigation() {
       </Stack.Screen>
 
       <Stack.Screen name="Spot" component={Spot} />
+      <Stack.Screen name="AddPhoto" component={AddPhoto} />
     </Stack.Navigator>
   );
 }

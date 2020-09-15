@@ -43,6 +43,15 @@ export default function AddPhoto({ route }) {
   };
   return (
     <>
+      <Image
+        style={stylesCreateSpot.selectedPhoto}
+        source={
+          selectedImage
+            ? { uri: selectedImage.localUri }
+            : // eslint-disable-next-line global-require
+              require("../Images/SpotShotlogo2.png")
+        }
+      />
       <View style={stylesCreateSpot.headerContainer}>
         <TouchableOpacity
           style={stylesCreateSpot.cameraButtonContainer}
