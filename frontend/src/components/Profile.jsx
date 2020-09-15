@@ -70,16 +70,7 @@ export default function Profile({ navigation }) {
         style={stylesProfile.backgroundImage}
       >
         <View style={stylesProfile.headerContainer}>
-          <View>
-            <Switch
-              trackColor={stylesProfile.darkSwitchEnable}
-              thumbColor={stylesProfile.darkSwitchDisable}
-              ios_backgroundColor={stylesProfile.darkSwitchBackground}
-              onValueChange={toggleSwitch}
-              value={darkTheme}
-            />
-            <Text>Dark Theme</Text>
-          </View>
+          <View></View>
           <TouchableOpacity
             style={stylesProfile.logOutButtonContainer}
             onPress={() => logOutUser()}
