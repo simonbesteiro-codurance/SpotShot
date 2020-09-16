@@ -111,17 +111,17 @@ export default function CreateSpot({ navigation }) {
             style={stylesCreateSpot.stylePicker}
             onValueChange={(itemValue) => setSpotStyle(itemValue)}
           >
-            <Picker.Item label="Other" value="other" />
-            <Picker.Item label="Urban" value="urban" />
-            <Picker.Item label="Nature" value="nature" />
-            <Picker.Item label="Arquitecture" value="arquitecture" />
+            <Picker.Item label="Other" value="Other" />
+            <Picker.Item label="Urban" value="Urban" />
+            <Picker.Item label="Nature" value="Nature" />
+            <Picker.Item label="Arquitecture" value="Arquitecture" />
           </Picker>
           <TextInput
             editable
             style={stylesCreateSpot.titleInput}
             placeholder="Title"
             onChangeText={(value) => {
-              setTitle(value);
+              setTitle(value.toUpperCase());
             }}
           />
         </View>
@@ -171,7 +171,11 @@ export default function CreateSpot({ navigation }) {
               );
               if (checkProximity === true) {
                 spotAlreadyExist();
-              } else if (title === "" || description === "") {
+              } else if (
+                title === "" ||
+                description === "" ||
+                spotStyle === ""
+              ) {
                 missingInput();
               } else {
                 navigation.navigate("Profile");
