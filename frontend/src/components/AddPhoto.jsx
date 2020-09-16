@@ -33,7 +33,19 @@ export default function AddPhoto({ route, navigation }) {
       ]);
     }
   };
+  const runCamera = async () => {
+    permisos = await ImagePicker.requestCameraPermissionsAsync();
 
+    if (permisos.granted !== false) {
+      picker = await ImagePicker.launchCameraAsync();
+
+      if (picker.cancelled !== true) {
+        setSelectedImage({ localUri: picker.uri });
+      }
+    } else {
+      console.log("permissions not granted");
+    }
+  };
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
 
