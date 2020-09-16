@@ -7,13 +7,13 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { uploadSpotPhoto } from "../actions/spotActions";
 import stylesCreateSpot from "../styles/createSpot-style";
 
-export default function AddPhoto({ route }) {
+export default function AddPhoto({ route, navigation }) {
   const { spotId } = route.params;
   let picker = null;
 
@@ -21,7 +21,17 @@ export default function AddPhoto({ route }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const uploadImage = () => {
-    selectedImage && uploadSpotPhoto(spotId, selectedImage);
+    if (selectedImage) {
+      uploadSpotPhoto(spotId, selectedImage);
+      navigation.goBack();
+    } else {
+      Alert.alert("No image selected", "", [
+        {
+          text: "Accept",
+          style: "default",
+        },
+      ]);
+    }
   };
 
   const selectFile = async () => {
