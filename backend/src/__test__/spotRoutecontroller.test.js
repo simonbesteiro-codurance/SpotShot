@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const databaseCalls = require("../database-utils/databaseCalls");
 const sinon = require("sinon");
 const spotRouteController = require("../controller/spotRouteController");
-const uploadImageServiceLogic = require("../controller/uploadImageServiceLogic");
+const uploadImageServiceLogic = require("../logic/uploadImageService");
 const { get } = require("mongoose");
 
 describe("Spot Route Controller Test", () => {
@@ -92,7 +92,7 @@ describe("Spot Route Controller Test", () => {
       })
     );
     const Busboy = (params) => {
-      this.on = (arg,callback) => ;
+      this.on = (arg, callback) => {};
     };
     const sendSpy = sinon.spy(res, "send");
     spotRouteController.uploadImage(req, res);
