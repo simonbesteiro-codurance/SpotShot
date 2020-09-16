@@ -1,15 +1,11 @@
 const Users = require("../models/authModel");
-const {
-  hashGenerator,
-  hashValidator,
-  tokenGenerator,
-} = require("../helper/secretService");
+const secretService = require("../helper/secretService");
 
 async function login(req, res) {
   const user = await Users.findOne({ username: req.body.username });
 
-  if (user && hashValidator(req.body.password, user.hash)) {
-    const token = tokenGenerator(user.id);
+  if (user && secretService.hashValidator(req.body.password, user.hash)) {
+    const token = secretService.tokenGenerator(user.id);
 
     res.send({ ...user.toJSON(), token });
   } else {
@@ -21,7 +17,7 @@ async function register(req, res) {
     res.json({ err: `User ${req.body.username} allready exists` });
   } else {
     const user = new Users(req.body);
-    user.hash = hashGenerator(req.body.password);
+    user.hash = secretService.hashGenerator(req.body.password);
     await user.save();
     res.sendStatus(200);
     res.send(`User ${req.body.username} created`);
