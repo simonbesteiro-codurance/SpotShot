@@ -7,13 +7,13 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { uploadSpotPhoto } from "../actions/spotActions";
 import stylesCreateSpot from "../styles/createSpot-style";
 
-export default function AddPhoto({ route }) {
+export default function AddPhoto({ route, navigation }) {
   const { spotId } = route.params;
   let picker = null;
 
@@ -21,9 +21,31 @@ export default function AddPhoto({ route }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const uploadImage = () => {
-    selectedImage && uploadSpotPhoto(spotId, selectedImage);
+    if (selectedImage) {
+      uploadSpotPhoto(spotId, selectedImage);
+      navigation.goBack();
+    } else {
+      Alert.alert("No image selected", "", [
+        {
+          text: "Accept",
+          style: "default",
+        },
+      ]);
+    }
   };
+  const runCamera = async () => {
+    permisos = await ImagePicker.requestCameraPermissionsAsync();
 
+    if (permisos.granted !== false) {
+      picker = await ImagePicker.launchCameraAsync();
+
+      if (picker.cancelled !== true) {
+        setSelectedImage({ localUri: picker.uri });
+      }
+    } else {
+      console.log("permissions not granted");
+    }
+  };
   const selectFile = async () => {
     permisos = await ImagePicker.requestCameraRollPermissionsAsync();
 
@@ -57,13 +79,6 @@ export default function AddPhoto({ route }) {
           style={stylesCreateSpot.cameraButtonContainer}
           onPress={() => runCamera()}
         >
-          <Image
-            style={stylesCreateSpot.generalIcon}
-            source={{
-              uri:
-                "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
-            }}
-          />
           <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
         </TouchableOpacity>
 
@@ -71,22 +86,17 @@ export default function AddPhoto({ route }) {
           style={stylesCreateSpot.cameraButtonContainer}
           onPress={() => selectFile()}
         >
-          <Image
-            style={stylesCreateSpot.generalIcon}
-            source={{
-              uri:
-                "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
-            }}
-          />
           <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => uploadImage()}
-      >
-        <Text style={stylesCreateSpot.submitButton}>UploadImage</Text>
-      </TouchableOpacity>
+      <View style={stylesCreateSpot.uploadImageContainer}>
+        <TouchableOpacity
+          style={stylesCreateSpot.uploadImageButtonContainer}
+          onPress={() => uploadImage()}
+        >
+          <Text style={stylesCreateSpot.submitButton}>UploadImage</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }

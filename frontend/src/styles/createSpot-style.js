@@ -5,6 +5,7 @@ const darkTheme = true;
 const stylesCreateSpot = StyleSheet.create({
   container: {
     backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
+    paddingTop: 30,
   },
   titleInput: {
     height: Dimensions.get("window").height * 0.1,
@@ -12,6 +13,7 @@ const stylesCreateSpot = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     color: "#283047",
     borderRadius: 20,
+    padding: 10,
   },
   locationInfoInput: {
     height: Dimensions.get("window").height * 0.1,
@@ -28,6 +30,7 @@ const stylesCreateSpot = StyleSheet.create({
     margin: "5%",
     color: "#283047",
     borderRadius: 20,
+    padding: 10,
   },
   selectedPhoto: {
     height: Dimensions.get("window").height * 0.4,
@@ -42,7 +45,12 @@ const stylesCreateSpot = StyleSheet.create({
   cameraButtonContainer: {
     height: Dimensions.get("window").height * 0.1,
     width: Dimensions.get("window").width * 0.4,
-    backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
+    backgroundColor: darkTheme ? "#FFFFFF" : "#706D80",
+    borderWidth: 2,
+    flexDirection: "column",
+    justifyContent: "center",
+    borderRadius: 15,
+    margin: 10,
   },
   generalIcon: {
     height: "50%",
@@ -82,6 +90,22 @@ const stylesCreateSpot = StyleSheet.create({
     borderWidth: 2,
     borderColor: darkTheme ? "#68E3AA" : "#497870",
     backgroundColor: darkTheme ? "#283047" : "#E0E0E0",
+  },
+  uploadImageContainer: {
+    backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
+    height: "50%",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  uploadImageButtonContainer: {
+    height: Dimensions.get("window").height * 0.1,
+    width: Dimensions.get("window").width * 0.4,
+    backgroundColor: darkTheme ? "#FFFFFF" : "#706D80",
+    borderWidth: 2,
+    flexDirection: "column",
+    justifyContent: "center",
+    borderRadius: 15,
+    margin: Dimensions.get("window").width * 0.3,
   },
 });
 

@@ -73,6 +73,9 @@ const stylesSpot = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
   },
+  replacePhoto: {
+    color: darkTheme ? "#68E3AA" : "#497870",
+  },
 });
 
 export default stylesSpot;

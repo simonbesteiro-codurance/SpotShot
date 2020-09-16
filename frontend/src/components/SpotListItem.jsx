@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Image, Button, TouchableOpacity } from "react-native";
 import stylesSpotListItem from "../styles/spotListItem-style";
 import logos from "../icon.mock";
+import spotStore from "../stores/spotStore";
 
-export default function SpotListItem({ spot, navigation }) {
+export default function SpotListItem({ spot }) {
   const [spotItem, setSpotItem] = useState(null);
 
+  function onChange() {
+    setSpotItem(spotStore.getSpotById(spot._id));
+  }
+
   useEffect(() => {
-    setSpotItem(spot);
+    spotStore.addChangeListener(onChange);
+    setSpotItem(spotStore.getSpotById(spot._id));
+
+    return () => spotStore.removeChangeListener(onChange);
   }, []);
   return (
     <>
@@ -27,7 +35,7 @@ export default function SpotListItem({ spot, navigation }) {
               <Text
                 style={stylesSpotListItem.containerSpotItemTabContainerType}
               >
-                {spotItem.type}
+                {spotItem.spotStyle}
               </Text>
             </View>
           </View>
