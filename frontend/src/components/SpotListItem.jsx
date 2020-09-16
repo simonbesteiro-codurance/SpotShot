@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Image, Button, TouchableOpacity } from "react-native";
 import stylesSpotListItem from "../styles/spotListItem-style";
 import logos from "../icon.mock";
+import spotStore from "../stores/spotStore";
 
-export default function SpotListItem({ spot, navigation }) {
-  const [spotItem, setSpotItem] = useState(null);
+export default function SpotListItem({ spot }) {
+  const [spotItem, setSpotItem] = useState(spot);
 
-  useEffect(() => {
-    setSpotItem(spot);
-  }, []);
   return (
     <>
       {spotItem && (
