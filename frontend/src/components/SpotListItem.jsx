@@ -35,7 +35,7 @@ export default function SpotListItem({ spot }) {
               <Text
                 style={stylesSpotListItem.containerSpotItemTabContainerType}
               >
-                {spotItem.type}
+                {spotItem.spotStyle}
               </Text>
             </View>
           </View>
