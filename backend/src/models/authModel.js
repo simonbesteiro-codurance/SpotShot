@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const transformLogic = require("../logic/transformLogic");
 
 const { Schema } = mongoose;
 const schema = new Schema({
@@ -12,6 +11,9 @@ const schema = new Schema({
 schema.set("toJSON", {
   virtuals: true,
   versionKey: false,
-  transform: transformLogic.transform,
+  transform: (doc, ret) => {
+    delete ret._id;
+    delete ret.hash;
+  },
 });
 module.exports = mongoose.model("Users", schema);
