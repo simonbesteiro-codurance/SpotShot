@@ -67,13 +67,6 @@ export default function AddPhoto({ route, navigation }) {
           style={stylesCreateSpot.cameraButtonContainer}
           onPress={() => runCamera()}
         >
-          <Image
-            style={stylesCreateSpot.generalIcon}
-            source={{
-              uri:
-                "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
-            }}
-          />
           <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
         </TouchableOpacity>
 
@@ -81,22 +74,17 @@ export default function AddPhoto({ route, navigation }) {
           style={stylesCreateSpot.cameraButtonContainer}
           onPress={() => selectFile()}
         >
-          <Image
-            style={stylesCreateSpot.generalIcon}
-            source={{
-              uri:
-                "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
-            }}
-          />
           <Text style={stylesCreateSpot.submitButton}>Import from gallery</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={stylesCreateSpot.cameraButtonContainer}
-        onPress={() => uploadImage()}
-      >
-        <Text style={stylesCreateSpot.submitButton}>UploadImage</Text>
-      </TouchableOpacity>
+      <View style={stylesCreateSpot.uploadImageContainer}>
+        <TouchableOpacity
+          style={stylesCreateSpot.uploadImageButtonContainer}
+          onPress={() => uploadImage()}
+        >
+          <Text style={stylesCreateSpot.submitButton}>UploadImage</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
