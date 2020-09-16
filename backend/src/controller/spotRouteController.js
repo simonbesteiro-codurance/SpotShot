@@ -30,6 +30,7 @@ const post = async (req, res) => {
       if (err) res.json(err);
       else res.json(spotInput);
     });
+    res.status(200);
   }
 };
 

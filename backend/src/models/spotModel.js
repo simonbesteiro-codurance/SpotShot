@@ -20,8 +20,5 @@ const schema = new Schema({
   description: { type: String, default: "No Description provided" },
   rating: { type: String, default: 0 },
 });
-// schema.set("toJSON", {
-//   virtuals: true,
-//   versionKey: false,
-// });
+
 module.exports = mongoose.model("Spots", schema);
