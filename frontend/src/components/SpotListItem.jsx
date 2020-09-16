@@ -5,8 +5,18 @@ import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
 
 export default function SpotListItem({ spot }) {
-  const [spotItem, setSpotItem] = useState(spot);
+  const [spotItem, setSpotItem] = useState(null);
 
+  function onChange() {
+    setSpotItem(spotStore.getSpotById(spot._id));
+  }
+
+  useEffect(() => {
+    spotStore.addChangeListener(onChange);
+    setSpotItem(spotStore.getSpotById(spot._id));
+
+    return () => spotStore.removeChangeListener(onChange);
+  }, []);
   return (
     <>
       {spotItem && (
