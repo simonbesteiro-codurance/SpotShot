@@ -105,46 +105,6 @@ export default function CreateSpot({ navigation }) {
   return (
     <SafeAreaView>
       <ScrollView style={stylesCreateSpot.container}>
-        {/* <Image
-          style={stylesCreateSpot.selectedPhoto}
-          source={
-            selectedImage
-              ? { uri: selectedImage.localUri }
-              : // eslint-disable-next-line global-require
-                require("../Images/SpotShotlogo2.png")
-          }
-        />
-        <View style={stylesCreateSpot.headerContainer}>
-          <TouchableOpacity
-            style={stylesCreateSpot.cameraButtonContainer}
-            onPress={() => runCamera()}
-          >
-            <Image
-              style={stylesCreateSpot.generalIcon}
-              source={{
-                uri:
-                  "https://www.flaticon.es/svg/static/icons/svg/565/565390.svg",
-              }}
-            />
-            <Text style={stylesCreateSpot.submitButton}>Use the camera</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={stylesCreateSpot.cameraButtonContainer}
-            onPress={() => selectFile()}
-          >
-            <Image
-              style={stylesCreateSpot.generalIcon}
-              source={{
-                uri:
-                  "https://www.flaticon.es/svg/static/icons/svg/635/635952.svg",
-              }}
-            />
-            <Text style={stylesCreateSpot.submitButton}>
-              Import from gallery
-            </Text>
-          </TouchableOpacity>
-        </View> */}
         <View style={stylesCreateSpot.headerContainer}>
           <Picker
             selectedValue={spotStyle}
@@ -177,32 +137,11 @@ export default function CreateSpot({ navigation }) {
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}
-          >
-            {/* <Marker
-              coordinate={{
-                latitude: location.latitude,
-                longitude: location.longitude,
-              }}
-              title={title || "New Spot"}
-            >
-              <Image
-                source={require("../Images/SpotShotlogo2.png")}
-                style={stylesCreateSpot.mapContainerIcon}
-              />
-            </Marker> */}
-          </MapView>
+          />
         ) : (
           <ActivityIndicator />
         )}
 
-        <TextInput
-          editable
-          style={stylesCreateSpot.locationInfoInput}
-          placeholder="Location extra information"
-          onChangeText={(value) => {
-            setLocationInfo(value);
-          }}
-        />
         <TextInput
           editable
           style={stylesCreateSpot.descriptionInput}
@@ -232,11 +171,7 @@ export default function CreateSpot({ navigation }) {
               );
               if (checkProximity === true) {
                 spotAlreadyExist();
-              } else if (
-                title === "" ||
-                description === "" ||
-                locationInfo === ""
-              ) {
+              } else if (title === "" || description === "") {
                 missingInput();
               } else {
                 navigation.navigate("Profile");

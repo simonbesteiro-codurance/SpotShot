@@ -5,6 +5,7 @@ const darkTheme = true;
 const stylesCreateSpot = StyleSheet.create({
   container: {
     backgroundColor: darkTheme ? "#706D80" : "#FFFFFF",
+    paddingTop: 30,
   },
   titleInput: {
     height: Dimensions.get("window").height * 0.1,
@@ -12,6 +13,7 @@ const stylesCreateSpot = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     color: "#283047",
     borderRadius: 20,
+    padding: 10,
   },
   locationInfoInput: {
     height: Dimensions.get("window").height * 0.1,
@@ -28,6 +30,7 @@ const stylesCreateSpot = StyleSheet.create({
     margin: "5%",
     color: "#283047",
     borderRadius: 20,
+    padding: 10,
   },
   selectedPhoto: {
     height: Dimensions.get("window").height * 0.4,
