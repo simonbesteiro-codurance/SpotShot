@@ -9,7 +9,10 @@ describe("Auth Route Controller test", () => {
   let res = null;
   beforeEach(() => {
     req = {
-      body: { username: "myUser", password: "myPassword" },
+      body: {
+        username: "myUser",
+        password: "myPassword",
+      },
     };
     res = {
       send: () => {},
@@ -21,15 +24,14 @@ describe("Auth Route Controller test", () => {
     sinon.restore();
   });
 
-  it("should login an user", (done) => {
+  it("should login an user", async () => {
     sinon
       .stub(Users, "findOne")
       .returns({ id: 1, hash: "myHash", toJSON: () => {} });
     sinon.stub(secretService, "hashValidator").returns(true);
 
     const sendSpy = sinon.spy(res, "send");
-    authRouteController.login(req, res);
-    done();
+    await authRouteController.login(req, res);
     expect(sendSpy.called).to.be.true;
   });
   it("should reject a not matching password", (done) => {
@@ -43,21 +45,23 @@ describe("Auth Route Controller test", () => {
     done();
     expect(sendSpy.called).to.be.true;
   });
-  it("should register an user if username dont exist", (done) => {
-    sinon.stub(Users, "findOne").returns(true);
-
+  it("should register an user if username dont exist", async () => {
+    sinon.stub(Users, "findOne").callsFake(() => {
+      return Promise.resolve(true);
+    });
     const jsonSpy = sinon.spy(res, "json");
-    authRouteController.register(req, res);
-    done();
+    await authRouteController.register(req, res);
     expect(jsonSpy.called).to.be.true;
   });
-  it("should not register an user if username exist", (done) => {
-    sinon.stub(Users, "findOne").returns(false);
+  it("should not register an user if username exist", async () => {
+    sinon.stub(Users, "findOne").callsFake(() => {
+      return Promise.resolve(false);
+    });
+    sinon.stub(Users.prototype, "save");
 
     const sendSpy = sinon.spy(res, "send");
     const sendStatusSpy = sinon.spy(res, "sendStatus");
-    authRouteController.register(req, res);
-    done();
+    await authRouteController.register(req, res);
     expect(sendSpy.called).to.be.true;
     expect(sendStatusSpy.called).to.be.true;
   });
