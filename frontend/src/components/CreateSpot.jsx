@@ -3,7 +3,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
   View,
   ActivityIndicator,
   ScrollView,
@@ -12,9 +11,8 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
-import MapView, { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import { Picker } from "@react-native-community/picker";
-import * as ImagePicker from "expo-image-picker";
 import stylesCreateSpot from "../styles/createSpot-style";
 import { createSpot } from "../actions/spotActions";
 
@@ -39,10 +37,6 @@ export default function CreateSpot({ navigation }) {
   const [description, setDescription] = useState("");
   const [locationInfo, setLocationInfo] = useState("");
   const [username, setUsername] = useState("");
-
-  let picker = null;
-  let permisos = null;
-  const [selectedImage, setSelectedImage] = useState(null);
   const [location, setLocation] = useState({
     latitude: undefined,
     longitude: undefined,
@@ -65,35 +59,9 @@ export default function CreateSpot({ navigation }) {
     ]);
   };
 
-  const selectFile = async () => {
-    permisos = await ImagePicker.requestCameraRollPermissionsAsync();
-
-    if (permisos.granted !== false) {
-      picker = await ImagePicker.launchImageLibraryAsync();
-
-      if (picker.cancelled !== true) {
-        setSelectedImage({ localUri: picker.uri });
-      }
-    } else {
-      console.log("permissions not granted");
-    }
-  };
-  const runCamera = async () => {
-    permisos = await ImagePicker.requestCameraPermissionsAsync();
-
-    if (permisos.granted !== false) {
-      picker = await ImagePicker.launchCameraAsync();
-
-      if (picker.cancelled !== true) {
-        setSelectedImage({ localUri: picker.uri });
-      }
-    } else {
-      console.log("permissions not granted");
-    }
-  };
-
   useEffect(() => {
     getUser().then((author) => setUsername(author));
+    setLocationInfo("No location info provided");
     navigator.geolocation.getCurrentPosition(function (pos) {
       setLocation({
         latitude: pos.coords.latitude,

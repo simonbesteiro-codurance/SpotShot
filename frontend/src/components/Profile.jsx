@@ -4,9 +4,7 @@ import {
   Text,
   View,
   ImageBackground,
-  Switch,
   ScrollView,
-  FlatList,
   Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -37,8 +35,6 @@ const removeConfirm = (spotId) => {
 
 export default function Profile({ navigation }) {
   const [user, setUser] = useState(authStore.getUser());
-  const [darkTheme, setDarkTheme] = useState(false);
-  const toggleSwitch = () => setDarkTheme((previousState) => !previousState);
   const [createdSpots, setCreatedSpots] = useState(
     spotStore.getCreatedSpots(user.username)
   );

@@ -1,5 +1,5 @@
 import axios from "axios";
-import dispatcher from "../appDispatcher";
+import dispatcher from "../dispatcher";
 import actionTypes from "./actionTypes";
 import uploadPhotoBySpottId from "../logic/uploadPhotoBySpottId";
 

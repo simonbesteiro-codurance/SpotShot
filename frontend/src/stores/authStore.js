@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import dispatcher from "../appDispatcher";
+import dispatcher from "../dispatcher";
 import actionTypes from "../actions/actionTypes";
 import { logInUser } from "../actions/authActions";
 

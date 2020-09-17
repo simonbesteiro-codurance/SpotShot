@@ -3,7 +3,7 @@ import axios from "axios";
 import { loadSpots } from "../actions/spotActions";
 
 jest.dontMock("../actions/spotActions.js");
-jest.mock("../appDispatcher.js");
+jest.mock("../dispatcher.js");
 jest.mock("axios");
 
 describe("Spot Action test", () => {

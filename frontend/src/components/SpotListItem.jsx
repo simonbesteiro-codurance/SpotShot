@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, Button, TouchableOpacity } from "react-native";
+import { Text, View, Image } from "react-native";
 import stylesSpotListItem from "../styles/spotListItem-style";
-import logos from "../icon.mock";
 import spotStore from "../stores/spotStore";
 
 export default function SpotListItem({ spot }) {
