@@ -1,14 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  ActivityIndicator,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-} from "react-native";
+import React, { useState } from "react";
+import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { uploadSpotPhoto } from "../actions/spotActions";
 import stylesCreateSpot from "../styles/createSpot-style";
