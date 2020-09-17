@@ -35,8 +35,8 @@ export default function Login({ navigation }) {
     try {
       let user = await AsyncStorage.getItem("user");
       user = JSON.parse(user);
-      if (user.usernameSpot !== "") {
-        logInUser(user.usernameSpot, user.passwordSpot);
+      if (user !== "") {
+        user && logInUser(user.usernameSpot, user.passwordSpot);
       }
     } catch (error) {
       throw error;
